@@ -342,14 +342,15 @@ onClick={() => {
     </p>
 
     <div className="mt-6 flex justify-center">
-      <a
-        href="https://www.google.com/maps/place/MOMCHIC+Boutique/@24.0410241,84.0624716,17z"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-full shadow-md transition-all duration-300"
-      >
-        Visit Our Store
-      </a>
+<a
+  href="https://www.google.com/maps/place/MOMCHIC+Boutique/@24.0410241,84.0624716,17z"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
+>
+  📍 Visit Our Store
+</a>
+
     </div>
   </div>
 </section>
