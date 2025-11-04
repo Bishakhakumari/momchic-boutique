@@ -398,7 +398,7 @@ onClick={() => {
         </a>
       </div>
       <p className="text-xs mt-2 text-gray-500">
-        For product inquiries, dress rentals, or personalized styling assistance — connect with us on Instagram or WhatsApp.
+        For our latest collections, product inquiries, dress rentals, or personalized styling assistance
       </p>
     </div>
   </div>
