@@ -281,20 +281,22 @@ onClick={() => {
     }}
   >
     <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white text-center px-4">
-      <h1 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-1">
-        Discover the World of Style at <span className="text-pink-300">MOMCHIC</span>
-      </h1>
-      <p className="text-sm md:text-base max-w-xl mt-2">
-        Shop our hand-picked collection of lehengas, suits, western wear, handbags and more — available in-store at MOMCHIC Boutique. Rent or buy your dream outfit with ease!</b>.
-      </p>
+<h1 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-1">
+  Discover the World of Style at <span className="text-pink-300">MOMCHIC</span>
+</h1>
+<p className="text-sm md:text-base max-w-xl mt-2">
+  Shop our hand-picked collection of lehengas, suits, western wear, handbags, and more — available in-store at <b>MOMCHIC Boutique</b>. Rent or buy your dream outfit with ease!
+</p>
+
 <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
   target="_blank"
   rel="noopener noreferrer"
-  className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 hover:shadow-md transition-all"
+  className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition"
 >
   🛍️ Visit Our Store
 </a>
+
 
     </div>
   </section>
