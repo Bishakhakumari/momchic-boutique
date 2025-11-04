@@ -285,7 +285,8 @@ onClick={() => {
         Discover the World of Style at <span className="text-pink-300">MOMCHIC</span>
       </h1>
       <p className="text-sm md:text-base max-w-xl mt-2">
-        Shop our hand-picked collection of lehengas, suits, western wear, handbags and more — available in-store at MOMCHIC Boutique. Rent or buy your dream outfit with ease!</b>.
+        Explore our exclusive range of ethnic wear, western styles, sandals, handbags and
+        more — available in-store at <b>MOMCHIC Boutique</b>.
       </p>
 <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
