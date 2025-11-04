@@ -88,7 +88,7 @@ const handleSubcategoryClick = (subcategory) => {
                 10
               );
 
-              return {
+return {
   id: item["Item Name"] + Math.random(),
   name: item["Item Name"],
   category: item["Category"],
