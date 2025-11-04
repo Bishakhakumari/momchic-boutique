@@ -1,121 +1,360 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Home from "./Home";
-import ProductPage from "./ProductPage";
-import { FaWhatsapp } from "react-icons/fa";
+import { useEffect, useState, useRef } from "react";
+import axios from "axios";
+import Papa from "papaparse";
+import { Search } from "lucide-react";
+import { Toaster } from "react-hot-toast";
+import { motion, AnimatePresence } from "framer-motion";
+import ProductCard from "./components/ProductCard";
+import { Link } from "react-router-dom";
 
-function App() {
+export default function App() {
+  const hoverTimeout = useRef(null);
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null);
+  const [showBanner, setShowBanner] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const menuItems = {
+    Women: [
+      { title: "Apparels", items: ["Suits", "Kurtis", "Western Wear", "Palazzos", "Lehengas"] },
+      { title: "Footwear", items: ["Ethnic Sandals", "Heels", "Casual Slippers"] },
+      { title: "Purses", items: ["Handbags", "Sling Bags", "Tote Bags", "Clutches", "Potli Bags"] },
+    ],
+    Beauty: [
+      { title: "Makeup", items: ["Lipsticks", "Kajal, Eyeliner & Mascara", "Foundations & BB Creams"] },
+      { title: "Skincare", items: ["Face Creams & Moisturizers", "Deodrants & Perfumes"] },
+    ],
+    "New Arrivals": [
+      { title: "", items: ["Trending Now", "Fresh In Stock"] },
+    ],
+    Offers: [
+      { title: "", items: ["Buy 1 Get 1", "Flat 50%", "Bundle Deals"] },
+    ],
+  };
+
+  const handleSubcategoryClick = (subcategory) => {
+    setFilteredProducts([]);
+    setTimeout(() => {
+      const filtered = products.filter((p) =>
+        p.category?.toLowerCase().includes(subcategory.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }, 0);
+
+    setSelectedSubcategory(subcategory);
+    setActiveCategory(null);
+    setShowBanner(false);
+  };
+
+  useEffect(() => {
+  const handleClickOutside = (e) => {
+    const isMobile = window.innerWidth < 768;
+    if (!e.target.closest(".mobile-category") && isMobile) {
+      setActiveCategory(null);
+    }
+  };
+
+  document.addEventListener("click", handleClickOutside);
+  return () => {
+    document.removeEventListener("click", handleClickOutside);
+  };
+}, []);
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const sheetURL =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vTRzxK2v6S7Nuv5ANm4czSpdHhpyWNzTvpzIear47a5fH0lZSGu5psAXig2xCwegSJZuVdrH9N9PGgK/pub?output=csv";
+      const response = await axios.get(sheetURL);
+      Papa.parse(response.data, {
+        header: true,
+        complete: (results) => {
+          const cleanedData = results.data
+            .filter((item) => item["Item Name"] && item.Price)
+            .map((item) => {
+              const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
+              const originalPrice = parseInt(
+                item["Original Price"]?.replace(/\D/g, ""),
+                10
+              );
+
+              return {
+                id: item["Item Name"] + Math.random(),
+                name: item["Item Name"],
+                category: item["Category"],
+                price: isNaN(price) ? 0 : price,
+                originalPrice: isNaN(originalPrice) ? null : originalPrice,
+                image: item["Image Link"],
+              };
+            });
+
+          setProducts(cleanedData);
+          setFilteredProducts(cleanedData);
+          localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
+        },
+      });
+    };
+    fetchData();
+  }, []);
+
+  const resetToHome = () => {
+    setFilteredProducts(products);
+    setSelectedSubcategory(null);
+    setActiveCategory(null);
+    setShowBanner(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
-    <Router>
-      {/* SEO Meta Tags */}
-      <head>
-        <meta name="title" content="MOMCHIC Boutique - Ethnic & Western Fashion for Women" />
-        <meta
-          name="description"
-          content="Shop exclusive Lehengas, Sarees, Kurtis, Footwear, and Beauty products at MOMCHIC Boutique. Visit our Daltonganj store or shop online."
-        />
-        <meta
-          name="keywords"
-          content="Momchic, Boutique, Ethnic wear, Saree, Lehenga, Western wear, Beauty, Daltonganj fashion store"
-        />
-      </head>
+    <>
+      <Toaster />
+      <div className="min-h-screen flex flex-col bg-white font-sans">
+       <header className="bg-white shadow-sm p-4 sticky top-0 z-30 border-b border-gray-200">
+<div className="max-w-7xl mx-auto flex flex-col items-center gap-3 md:flex-row md:justify-between md:items-center">
+  {/* Logo - stays left */}
+  <Link
+    to="/"
+    onClick={resetToHome}
+    className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
+  >
+    <img
+      src="src/public/logo.png"
+      alt="MOMCHIC Logo"
+      className="h-10 w-auto md:h-12 object-contain"
+    />
+    <span className="text-2xl font-extrabold text-pink-600">MOMCHIC</span>
+  </Link>
 
-      {/* Offer Strip */}
-      <div className="bg-pink-100 text-center text-pink-700 py-2 text-sm font-semibold shadow">
-        🎉 Festive Offer: Flat 10% Off on New Arrivals – Limited Time Only!
+  {/* Wrap Search & Nav in reverse row for desktop only */}
+  <div className="w-full md:flex md:flex-row-reverse md:items-center md:gap-6">
+    {/* Search Bar */}
+    <div className="w-full md:w-auto flex items-center justify-center">
+      <div className="flex items-center bg-gray-100 px-3 py-1 rounded-md w-64">
+        <Search size={16} className="text-gray-500 mr-2" />
+        <input
+          type="text"
+          placeholder="Search"
+          className="bg-transparent outline-none text-sm w-full"
+          value={searchQuery}
+          onChange={(e) => {
+            const query = e.target.value;
+            setSearchQuery(query);
+
+            const filtered = products.filter((product) =>
+              (product.name + product.category)
+                .toLowerCase()
+                .includes(query.toLowerCase())
+            );
+            setFilteredProducts(filtered);
+            setShowBanner(query === "");
+          }}
+        />
       </div>
+    </div>
 
-      {/* Navbar */}
-      <header className="flex justify-between items-center p-4 shadow-md bg-white sticky top-0 z-50">
-        <div className="flex items-center space-x-2">
-          <img src="/logo192.png" alt="MOMCHIC Logo" className="w-8 h-8" />
-          <h1 className="text-xl font-bold text-pink-700">MOMCHIC</h1>
-        </div>
-        <nav className="flex space-x-6 font-medium">
-          <Link to="/" className="hover:text-pink-600">WOMEN</Link>
-          <Link to="/" className="hover:text-pink-600">BEAUTY</Link>
-          <Link to="/" className="hover:text-pink-600">NEW ARRIVALS</Link>
-          <Link to="/" className="hover:text-pink-600">OFFERS</Link>
-        </nav>
-        <div className="hidden md:block">
-          <input
-            type="text"
-            placeholder="Search"
-            className="border rounded-full px-4 py-1 text-sm focus:outline-pink-400"
-          />
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section className="bg-gradient-to-r from-pink-50 to-pink-100 text-center py-20">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 mb-4">
-          Trendy Ethnic & Western Wear for Every Occasion
-        </h2>
-        <p className="text-lg text-gray-600 mb-6">
-          Explore our premium collection of Lehengas, Sarees, Kurtis, Footwear & Beauty Products.
-        </p>
-        <Link
-          to="/"
-          className="bg-pink-600 text-white px-6 py-2 rounded-full text-lg hover:bg-pink-700 transition"
+    {/* Desktop Navigation */}
+    <nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700 pointer-events-none">
+      {Object.keys(menuItems).map((category) => (
+        <div
+          key={category}
+          className="relative group pointer-events-auto"
+          onMouseEnter={() => {
+            clearTimeout(hoverTimeout.current);
+            setActiveCategory(category);
+          }}
+          onMouseLeave={() => {
+            hoverTimeout.current = setTimeout(() => {
+              setActiveCategory(null);
+            }, 200);
+          }}
         >
-          Shop Now
-        </Link>
-      </section>
+          <div
+            className={`cursor-pointer uppercase tracking-wide transition-colors duration-200 px-1 ${
+              activeCategory === category
+                ? "text-pink-700 font-semibold"
+                : "hover:text-pink-600"
+            }`}
+          >
+            {category}
+          </div>
 
-      {/* Shop by Category */}
-      <section className="p-6 text-center">
-        <h3 className="text-2xl font-bold mb-4 text-gray-800">Shop by Category</h3>
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-          {[
-            { name: "Ethnic Wear", img: "/images/ethnic.jpg" },
-            { name: "Western Wear", img: "/images/western.jpg" },
-            { name: "Beauty", img: "/images/beauty.jpg" },
-            { name: "Handbags", img: "/images/handbags.jpg" },
-            { name: "Footwear", img: "/images/footwear.jpg" },
-          ].map((cat) => (
-            <div key={cat.name} className="hover:scale-105 transition transform cursor-pointer">
-              <img
-                src={cat.img}
-                alt={cat.name}
-                className="w-full h-40 object-cover rounded-xl shadow"
-              />
-              <p className="mt-2 font-semibold text-gray-700">{cat.name}</p>
-            </div>
+          <AnimatePresence>
+            {activeCategory === category && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-full left-0 w-64 bg-white shadow-lg border mt-1 z-50 pt-2 pb-2 pointer-events-auto"
+              >
+                <ul className="p-4 flex flex-col gap-2 text-sm text-gray-700">
+                  {menuItems[category].map((group, i) => (
+                    <div key={i}>
+                      {group.title && (
+                        <li className="text-pink-500 font-bold uppercase text-xs tracking-wide mt-3 mb-1">
+                          {group.title}
+                        </li>
+                      )}
+                      {group.items.map((item, idx) => {
+                        const label = item
+                          .toLowerCase()
+                          .split(" ")
+                          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                          .join(" ");
+
+                        return (
+                          <li
+                            key={idx}
+                            className="text-gray-600 cursor-pointer pl-2 transition-all duration-200 hover:font-semibold hover:text-gray-800"
+                            onClick={() => handleSubcategoryClick(item)}
+                          >
+                            {label}
+                          </li>
+                        );
+                      })}
+                    </div>
+                  ))}
+                </ul>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      ))}
+    </nav>
+  </div>
+</div>
+
+</header>
+
+
+        {/* Mobile Category Bar */}
+<div className="md:hidden overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-200 bg-white sticky top-[64px] z-20 mobile-category text-center">
+  {Object.keys(menuItems).map((category, i) => (
+    <button
+      key={i}
+onClick={() => {
+  setActiveCategory((prev) => (prev === category ? null : category));
+  setShowBanner(false); // Hide the banner on category click
+}}
+
+      className="inline-block text-sm font-medium text-gray-700 hover:text-pink-600 mx-2"
+    >
+      {category}
+    </button>
+  ))}
+</div>
+
+{/* ✅ Mobile Subcategories if a category is active */}
+{activeCategory && (
+  <div className="md:hidden bg-pink-50 border-b border-pink-200 px-4 py-2">
+    {menuItems[activeCategory].map((group, idx) => (
+      <div key={idx}>
+        {group.title && (
+          <div className="text-xs font-semibold text-pink-700 uppercase mt-2">{group.title}</div>
+        )}
+        <div className="flex flex-wrap gap-2 mt-1">
+          {group.items.map((item, subIdx) => (
+            <button
+              key={subIdx}
+              onClick={() => handleSubcategoryClick(item)}
+              className="bg-white border text-xs px-2 py-1 rounded shadow-sm text-gray-700 hover:bg-pink-100"
+            >
+              {item}
+            </button>
           ))}
         </div>
-      </section>
+      </div>
+    ))}
+  </div>
+)}
 
-      {/* New Arrivals Section */}
-      <section className="p-6 bg-white">
-        <Home />
-      </section>
 
-      {/* Contact / Footer */}
-      <footer className="bg-gray-900 text-white py-8 text-center">
-        <h4 className="text-xl font-semibold mb-2">MOMCHIC Boutique</h4>
-        <p className="text-gray-300 mb-2">
-          Mohan Cinema Road, Daltonganj, Jharkhand
-        </p>
-        <p className="text-gray-300 mb-2">📞 +91-XXXXXXXXXX | ✉️ momchicboutique@gmail.com</p>
-        <p className="text-gray-400 text-sm mt-2">© {new Date().getFullYear()} MOMCHIC Boutique. All rights reserved.</p>
+        <div className="flex-grow">
+{showBanner && (
+<section
+  className="relative w-full h-[35vh] md:h-[50vh] bg-cover bg-center"
+  style={{
+    backgroundImage:
+      "url('https://images.unsplash.com/photo-1612423284934-0b2f67ed8c6e?auto=format&fit=crop&w=1500&q=80')",
+  }}
+>
 
-        {/* WhatsApp Floating Button */}
-        <a
-          href="https://wa.me/91XXXXXXXXXX"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="fixed bottom-5 right-5 bg-green-500 hover:bg-green-600 text-white p-3 rounded-full shadow-lg text-2xl"
-        >
-          <FaWhatsapp />
-        </a>
-      </footer>
+    <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white text-center px-4">
+<h1 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-1">
+  Welcome to MOMCHIC Boutique
+</h1>
+<h2 className="text-3xl md:text-5xl font-bold text-white tracking-wide mb-2 md:mb-4"
+style={{ fontFamily: 'Gabriola, cursive' }}>
+  <span className="text-pink-300">Girls Styling Station...</span>
+</h2>
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/product/:id" element={<ProductPage />} />
-      </Routes>
-    </Router>
+
+      <p className="text-sm md:text-base max-w-xl">
+        Explore our premium collection of Ethnic wear, Western styles, Sandals, Handbags and more -
+        available at our store.
+      </p>
+      <a
+        href="https://maps.app.goo.gl/Wex2fRRN76BqJPq29" // Replace with your actual Google Maps location
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition"
+      >
+        Get Directions
+      </a>
+    </div>
+  </section>
+)}
+
+
+          <section className="p-6 max-w-7xl mx-auto">
+            <h3 className="text-xl font-semibold text-gray-800 mb-4">
+              {selectedSubcategory ? `Showing: ${selectedSubcategory}` : "New Arrivals"}
+            </h3>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {filteredProducts.length === 0 ? (
+                <div className="col-span-full text-center py-12 text-gray-500">
+                  <img
+                    src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+                    alt="No results"
+                    className="w-40 mx-auto mb-4"
+                  />
+                  <p className="text-sm">No matching products found.</p>
+                </div>
+              ) : (
+                filteredProducts.map((product, i) => (
+                  <ProductCard key={i} product={product} />
+                ))
+              )}
+            </div>
+          </section>
+        </div>
+
+<footer className="bg-gray-50 border-t border-gray-200 text-center text-sm text-gray-600 py-4">
+  <p className="font-semibold text-pink-600 text-base">Visit Us In-Store</p>
+  <p className="mt-1 text-gray-500">
+    Address - Mohan Cinema, 1st Floor, Daltonganj
+  </p>
+  <p className="mt-1 text-xs text-gray-400">
+    © {new Date().getFullYear()} MOMCHIC Boutique. All rights reserved.
+  </p>
+</footer>
+
+{/* ✅ Floating WhatsApp Button */}
+<a
+  href="https://wa.me/919204613635"  // Replace with your actual number
+  target="_blank"
+  rel="noopener noreferrer"
+  className="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg z-50"
+>
+  <img
+    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+    alt="WhatsApp"
+    className="w-6 h-6"
+/>
+</a>
+      </div>
+    </>
   );
 }
-
-export default App;
