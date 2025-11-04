@@ -289,7 +289,7 @@ onClick={() => {
         more — available in-store at <b>MOMCHIC Boutique</b>.
       </p>
       <a
-        href="https://maps.app.goo.gl/1PhVVoiMmA2TEnqf8"
+        href="https://www.google.com/maps/place/MOMCHIC+Boutique/@24.0410241,84.0624716,17z"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition"
