@@ -273,40 +273,32 @@ onClick={() => {
 
         <div className="flex-grow">
 {showBanner && (
-<section
-  className="relative w-full h-[35vh] md:h-[50vh] bg-cover bg-center"
-  style={{
-    backgroundImage:
-      "url('https://images.unsplash.com/photo-1612423284934-0b2f67ed8c6e?auto=format&fit=crop&w=1500&q=80')",
-  }}
->
-
+  <section
+    className="relative w-full h-[35vh] md:h-[50vh] bg-cover bg-center"
+    style={{
+      backgroundImage:
+        "url('https://images.unsplash.com/photo-1612423284934-0b2f67ed8c6e?auto=format&fit=crop&w=1500&q=80')",
+    }}
+  >
     <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white text-center px-4">
-<h1 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-1">
-  Welcome to MOMCHIC Boutique
-</h1>
-<h2 className="text-3xl md:text-5xl font-bold text-white tracking-wide mb-2 md:mb-4"
-style={{ fontFamily: 'Gabriola, cursive' }}>
-  <span className="text-pink-300">Girls Styling Station...</span>
-</h2>
-
-
-      <p className="text-sm md:text-base max-w-xl">
-        Explore our premium collection of Ethnic wear, Western styles, Sandals, Handbags and more -
-        available at our store.
+      <h1 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-1">
+        Discover the World of Style at <span className="text-pink-300">MOMCHIC</span>
+      </h1>
+      <p className="text-sm md:text-base max-w-xl mt-2">
+        Explore our exclusive range of ethnic wear, western styles, sandals, handbags and
+        more — available in-store at <b>MOMCHIC Boutique</b>.
       </p>
       <a
-        href="https://maps.app.goo.gl/Wex2fRRN76BqJPq29" // Replace with your actual Google Maps location
+        href="https://www.google.com/maps/place/MOMCHIC+Boutique/@24.0410241,84.0624716,17z"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition"
       >
-        Get Directions
+        🛍️ Visit Our Store
       </a>
     </div>
   </section>
 )}
-
 
           <section className="p-6 max-w-7xl mx-auto">
             <h3 className="text-xl font-semibold text-gray-800 mb-4">
@@ -331,67 +323,80 @@ style={{ fontFamily: 'Gabriola, cursive' }}>
           </section>
         </div>
 
-<footer className="bg-gray-100 border-t border-gray-300 text-gray-700 mt-10">
-  <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center sm:text-left">
+{/* Why Visit Us Section */}
+<section className="bg-pink-50 py-10">
+  <div className="max-w-6xl mx-auto px-4 text-center">
+    <h2 className="text-2xl font-bold text-gray-800 mb-4">
+      Why Visit MOMCHIC Boutique?
+    </h2>
+    <p className="text-gray-600 max-w-2xl mx-auto mb-6">
+      Experience our latest ethnic, western and beauty collections in person.
+      Enjoy personal styling assistance, new-arrival previews, and exclusive
+      in-store discounts available only at our Daltonganj showroom.
+    </p>
+    <a
+      href="https://www.google.com/maps/place/MOMCHIC+Boutique/@24.0410241,84.0624716,17z"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block bg-pink-600 text-white px-6 py-3 rounded-full font-medium hover:bg-pink-700 transition-all"
+    >
+      📍 Get Directions on Google Maps
+    </a>
+  </div>
+</section>
 
-    {/* 🛍️ SHOP CATEGORIES */}
+<footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-10 pb-6">
+  <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
     <div>
-      <h4 className="text-lg font-semibold text-pink-600 mb-3">Shop Categories</h4>
-      <ul className="space-y-2 text-sm">
-        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Suits")}>Suits & Kurtis</li>
-        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Lehengas")}>Lehengas & Sarees</li>
-        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Handbags")}>Handbags & Clutches</li>
-        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Footwear")}>Footwear Collection</li>
-        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Beauty")}>Beauty & Skincare</li>
+      <h4 className="font-semibold text-pink-600 mb-3">Shop Categories</h4>
+      <ul className="space-y-1 text-sm">
+        <li>Suits & Kurtis</li>
+        <li>Lehengas & Sarees</li>
+        <li>Handbags & Clutches</li>
+        <li>Footwear Collection</li>
+        <li>Beauty & Skincare</li>
       </ul>
     </div>
 
-    {/* 📍 STORE INFO */}
     <div>
-      <h4 className="text-lg font-semibold text-pink-600 mb-3">Visit Our Store</h4>
-      <p className="text-sm leading-relaxed">
-        <span className="block font-semibold">MOMCHIC Boutique</span>
-        Mohan Cinema, 1st Floor<br />
-        Daltonganj, Jharkhand<br />
-        <span className="block mt-1">📞 <a href="tel:+919204613635" className="text-pink-600 hover:underline">+91 9204613635</a></span>
-        <span className="block mt-1">🕒 Open: 10:00 AM – 8:00 PM</span>
-      </p>
+      <h4 className="font-semibold text-pink-600 mb-3">Visit Our Store</h4>
+      <p className="text-sm font-semibold">MOMCHIC Boutique</p>
+      <p className="text-sm">1st Floor, Mohan Cinema, near Bus Stand<br/>Daltonganj, Jharkhand</p>
+      <p className="text-sm mt-2">📞 +91 9204613635</p>
+      <p className="text-sm">🕒 Open 10 AM – 8 PM | Closed on Mondays</p>
       <a
-        href="https://maps.app.goo.gl/YDafNYtySgWeYvzS7"
+        href="https://www.google.com/maps/place/MOMCHIC+Boutique/@24.0410241,84.0624716,17z"
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block mt-3 text-sm font-semibold text-pink-600 hover:underline"
+        className="text-pink-600 text-sm mt-1 inline-block hover:underline"
       >
-        📍 Get Directions
+        📍 Find Us on Google Maps
       </a>
     </div>
 
-    {/* 🤝 CONNECT WITH US */}
     <div>
-      <h4 className="text-lg font-semibold text-pink-600 mb-3">Connect With Us</h4>
-      <div className="flex justify-center sm:justify-start gap-4 mt-2">
-        <a href="https://wa.me/919204613635" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" className="w-6 h-6" />
+      <h4 className="font-semibold text-pink-600 mb-3">Connect With Us</h4>
+      <div className="flex justify-center md:justify-start space-x-4">
+        <a href="https://wa.me/919204613635" target="_blank" rel="noopener noreferrer">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-6 h-6" alt="WhatsApp" />
         </a>
-        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" className="w-6 h-6" />
+        <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" className="w-6 h-6" alt="Instagram" />
         </a>
-        <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" className="w-6 h-6" />
+        <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" className="w-6 h-6" alt="Facebook" />
         </a>
       </div>
-      <p className="text-xs text-gray-500 mt-3">
-        For collaboration or custom orders, DM us on Instagram or WhatsApp 💬
+      <p className="text-xs mt-2 text-gray-500">
+        For collaborations or custom orders, DM us on Instagram or WhatsApp.
       </p>
     </div>
   </div>
 
-  {/* © COPYRIGHT LINE */}
-  <div className="border-t border-gray-300 py-3 text-center text-xs text-gray-500">
-    © {new Date().getFullYear()} <span className="font-semibold text-pink-600">MOMCHIC Boutique</span> — All Rights Reserved.
+  <div className="text-center text-xs text-gray-400 mt-8">
+    © {new Date().getFullYear()} <b>MOMCHIC Boutique</b> — All Rights Reserved.
   </div>
 </footer>
-
 
 {/* ✅ Floating WhatsApp Button */}
 <a
