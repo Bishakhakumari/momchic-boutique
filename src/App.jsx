@@ -323,25 +323,34 @@ onClick={() => {
           </section>
         </div>
 
-{/* Why Visit Us Section */}
-<section className="bg-pink-50 py-10">
-  <div className="max-w-6xl mx-auto px-4 text-center">
-    <h2 className="text-2xl font-bold text-gray-800 mb-4">
-      Why Visit MOMCHIC Boutique?
+{/* ✅ Why Visit MOMCHIC Boutique Section */}
+<section className="bg-pink-50 py-12 mt-8 border-t border-pink-100">
+  <div className="max-w-6xl mx-auto px-6 text-center">
+    <h2 className="text-2xl md:text-3xl font-bold text-pink-700 mb-4">
+      Why Visit <span className="text-gray-800">MOMCHIC Boutique</span>?
     </h2>
-    <p className="text-gray-600 max-w-2xl mx-auto mb-6">
-      Experience our latest ethnic, western and beauty collections in person.
-      Enjoy personal styling assistance, new-arrival previews, and exclusive
-      in-store discounts available only at our Daltonganj showroom.
+    <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto text-sm md:text-base">
+      MOMCHIC Boutique is your one-stop destination for elegant{" "}
+      <span className="font-semibold">wedding lehengas, designer sarees, party wear, and festive outfits</span>.
+      Whether you want to buy or rent, we bring you premium fashion at prices that fit every budget.
+      <br />
+      <br />
+      From <span className="font-semibold text-pink-600">bridal lehengas</span> and{" "}
+      <span className="font-semibold text-pink-600">dandiya dresses</span> to exclusive{" "}
+      <span className="font-semibold text-pink-600">designer pieces for special occasions</span> — 
+      MOMCHIC helps you look stunning without the stress of expensive purchases.
     </p>
-    <a
-      href="https://www.google.com/maps/place/MOMCHIC+Boutique/@24.0410241,84.0624716,17z"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-block bg-pink-600 text-white px-6 py-3 rounded-full font-medium hover:bg-pink-700 transition-all"
-    >
-      📍 Get Directions on Google Maps
-    </a>
+
+    <div className="mt-6 flex justify-center">
+      <a
+        href="https://www.google.com/maps/place/MOMCHIC+Boutique/@24.0410241,84.0624716,17z"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-2 rounded-full shadow-md transition-all duration-300"
+      >
+        Visit Our Store
+      </a>
+    </div>
   </div>
 </section>
 
