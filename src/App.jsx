@@ -285,7 +285,7 @@ onClick={() => {
   Discover the World of Style at <span className="text-pink-300">MOMCHIC</span>
 </h1>
 <p className="text-sm md:text-base max-w-xl mt-2">
-  Shop our best hand-picked collection of lehengas, sarees, suits, handbags, footwear and more — available in-store at <b>MOMCHIC Boutique</b>. Rent or buy your dream outfit with ease!
+  Shop our best hand-picked collection of lehengas, sarees, suits, handbags, footwear and more - at <b>MOMCHIC Boutique</b>. Rent or buy your dream outfit with ease!
 </p>
 
 <a
