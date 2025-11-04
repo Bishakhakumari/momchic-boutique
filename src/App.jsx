@@ -333,8 +333,8 @@ onClick={() => {
     </h2>
     <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto text-sm md:text-base">
       MOMCHIC Boutique is your one-stop destination for elegant{" "}
-      <span className="font-semibold">wedding lehengas, designer sarees, party wear, and festive outfits</span>.
-      Whether you want to buy or rent, we bring you premium fashion at prices that fit every budget.
+      <span className="font-semibold">wedding lehengas, designer sarees, party wear, festive outfits, stylish footwear, trendy handbags & beauty products</span>.
+      Rent or purchase designer fashion at affordable prices.
       <br />
       <br />
       From <span className="font-semibold text-pink-600">bridal lehengas</span> and{" "}
