@@ -289,7 +289,7 @@ onClick={() => {
         more — available in-store at <b>MOMCHIC Boutique</b>.
       </p>
       <a
-        href="https://maps.app.goo.gl/RfcYjejb3PmSAVNW8"
+        href="https://maps.app.goo.gl/1PhVVoiMmA2TEnqf8"
         target="_blank"
         rel="noopener noreferrer"
         className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition"
@@ -374,7 +374,7 @@ onClick={() => {
       <p className="text-sm mt-2">📞 +91 9204613635</p>
       <p className="text-sm">🕒 Open 10 AM – 8 PM | Closed on Mondays</p>
       <a
-        href="https://maps.app.goo.gl/RfcYjejb3PmSAVNW8"
+        href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
         target="_blank"
         rel="noopener noreferrer"
         className="text-pink-600 text-sm mt-1 inline-block hover:underline"
