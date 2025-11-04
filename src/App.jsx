@@ -34,22 +34,14 @@ export default function App() {
     ],
   };
 
-const handleSubcategoryClick = (subcategory) => {
-  setFilteredProducts([]);
-  setTimeout(() => {
-    const filtered = products.filter((p) => {
-      const categoryMatch = p.category?.toLowerCase().includes(subcategory.toLowerCase());
-      const subcategoryMatch = p.subcategory?.toLowerCase().includes(subcategory.toLowerCase());
-      return categoryMatch || subcategoryMatch;
-    });
-    setFilteredProducts(filtered);
-  }, 0);
-
-  setSelectedSubcategory(subcategory);
-  setActiveCategory(null);
-  setShowBanner(false);
-};
-
+  const handleSubcategoryClick = (subcategory) => {
+    setFilteredProducts([]);
+    setTimeout(() => {
+      const filtered = products.filter((p) =>
+        p.category?.toLowerCase().includes(subcategory.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }, 0);
 
     setSelectedSubcategory(subcategory);
     setActiveCategory(null);
@@ -88,16 +80,14 @@ const handleSubcategoryClick = (subcategory) => {
                 10
               );
 
-return {
-  id: item["Item Name"] + Math.random(),
-  name: item["Item Name"],
-  category: item["Category"],
-  subcategory: item["Subcategory"] || "",
-  price: isNaN(price) ? 0 : price,
-  originalPrice: isNaN(originalPrice) ? null : originalPrice,
-  image: item["Image Link"],
-};
-
+              return {
+                id: item["Item Name"] + Math.random(),
+                name: item["Item Name"],
+                category: item["Category"],
+                price: isNaN(price) ? 0 : price,
+                originalPrice: isNaN(originalPrice) ? null : originalPrice,
+                image: item["Image Link"],
+              };
             });
 
           setProducts(cleanedData);
