@@ -360,29 +360,27 @@ onClick={() => {
 <footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-10 pb-6">
   <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-6 text-center md:text-left">
 {/* Shop Categories */}
-    <div>
-      <h4 className="font-semibold text-pink-600 text-base mb-3">Shop Categories</h4>
-      <ul className="space-y-1">
-        {[
-          "Suits",
-          "Kurtis",
-          "Lehengas",
-          "Sarees",
-          "Handbags",
-          "Clutches",
-          "Footwear",
-          "Beauty",
-        ].map((item, idx) => (
-          <li
-            key={idx}
-            onClick={() => handleSubcategoryClick(item)}
-            className="cursor-pointer text-gray-700 hover:text-pink-600 transition"
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
+<div>
+  <h4 className="font-semibold text-pink-600 text-base mb-3">Shop Categories</h4>
+  <ul className="space-y-1">
+    {[
+      "Suits & Kurtis",
+      "Lehengas & Sarees",
+      "Handbags & Clutches",
+      "Footwear Collection",
+      "Beauty & Skincare",
+    ].map((item, idx) => (
+      <li
+        key={idx}
+        onClick={() => handleSubcategoryClick(item)}
+        className="cursor-pointer text-gray-700 hover:text-pink-600 transition"
+      >
+        {item}
+      </li>
+    ))}
+  </ul>
+</div>
+
 
     <div>
       <h4 className="font-semibold text-pink-600 mb-3">Visit Our Store</h4>
