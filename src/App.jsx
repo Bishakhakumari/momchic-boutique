@@ -331,15 +331,67 @@ style={{ fontFamily: 'Gabriola, cursive' }}>
           </section>
         </div>
 
-<footer className="bg-gray-50 border-t border-gray-200 text-center text-sm text-gray-600 py-4">
-  <p className="font-semibold text-pink-600 text-base">Visit Us In-Store</p>
-  <p className="mt-1 text-gray-500">
-    Address - Mohan Cinema, 1st Floor, Daltonganj
-  </p>
-  <p className="mt-1 text-xs text-gray-400">
-    © {new Date().getFullYear()} MOMCHIC Boutique. All rights reserved.
-  </p>
+<footer className="bg-gray-100 border-t border-gray-300 text-gray-700 mt-10">
+  <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center sm:text-left">
+
+    {/* 🛍️ SHOP CATEGORIES */}
+    <div>
+      <h4 className="text-lg font-semibold text-pink-600 mb-3">Shop Categories</h4>
+      <ul className="space-y-2 text-sm">
+        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Suits")}>Suits & Kurtis</li>
+        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Lehengas")}>Lehengas & Sarees</li>
+        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Handbags")}>Handbags & Clutches</li>
+        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Footwear")}>Footwear Collection</li>
+        <li className="hover:text-pink-600 cursor-pointer transition-all" onClick={() => handleSubcategoryClick("Beauty")}>Beauty & Skincare</li>
+      </ul>
+    </div>
+
+    {/* 📍 STORE INFO */}
+    <div>
+      <h4 className="text-lg font-semibold text-pink-600 mb-3">Visit Our Store</h4>
+      <p className="text-sm leading-relaxed">
+        <span className="block font-semibold">MOMCHIC Boutique</span>
+        Mohan Cinema, 1st Floor<br />
+        Daltonganj, Jharkhand<br />
+        <span className="block mt-1">📞 <a href="tel:+919204613635" className="text-pink-600 hover:underline">+91 9204613635</a></span>
+        <span className="block mt-1">🕒 Open: 10:00 AM – 8:00 PM</span>
+      </p>
+      <a
+        href="https://maps.app.goo.gl/Wex2fRRN76BqJPq29"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-block mt-3 text-sm font-semibold text-pink-600 hover:underline"
+      >
+        📍 Get Directions
+      </a>
+    </div>
+
+    {/* 🤝 CONNECT WITH US */}
+    <div>
+      <h4 className="text-lg font-semibold text-pink-600 mb-3">Connect With Us</h4>
+      <div className="flex justify-center sm:justify-start gap-4 mt-2">
+        <a href="https://wa.me/919204613635" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp" className="w-6 h-6" />
+        </a>
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram" className="w-6 h-6" />
+        </a>
+        <a href="https://facebook.com/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" alt="Facebook" className="w-6 h-6" />
+        </a>
+      </div>
+      <p className="text-xs text-gray-500 mt-3">
+        For collaboration or custom orders, DM us on Instagram or WhatsApp 💬
+      </p>
+    </div>
+  </div>
+
+  {/* © COPYRIGHT LINE */}
+  <div className="border-t border-gray-300 py-3 text-center text-xs text-gray-500">
+    © {new Date().getFullYear()} <span className="font-semibold text-pink-600">MOMCHIC Boutique</span> — All Rights Reserved.
+  </div>
 </footer>
+
 
 {/* ✅ Floating WhatsApp Button */}
 <a
