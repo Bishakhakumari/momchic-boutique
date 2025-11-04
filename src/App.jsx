@@ -399,7 +399,7 @@ onClick={() => {
         </a>
       </div>
       <p className="text-xs mt-2 text-gray-500">
-        For collaborations or custom orders, DM us on Instagram or WhatsApp.
+        For product inquiries, dress rentals, or personalized styling assistance — connect with us on Instagram or WhatsApp.
       </p>
     </div>
   </div>
