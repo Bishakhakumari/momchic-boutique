@@ -379,7 +379,7 @@ onClick={() => {
         rel="noopener noreferrer"
         className="text-pink-600 text-sm mt-1 inline-block hover:underline"
       >
-        📍 Find Us on Google Maps
+        📍 Get in-store direction
       </a>
     </div>
 
