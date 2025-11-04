@@ -357,7 +357,7 @@ style={{ fontFamily: 'Gabriola, cursive' }}>
         <span className="block mt-1">🕒 Open: 10:00 AM – 8:00 PM</span>
       </p>
       <a
-        href="https://maps.app.goo.gl/Wex2fRRN76BqJPq29"
+        href="https://maps.app.goo.gl/YDafNYtySgWeYvzS7"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-block mt-3 text-sm font-semibold text-pink-600 hover:underline"
