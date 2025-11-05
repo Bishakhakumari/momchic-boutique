@@ -16,6 +16,7 @@ export default function CategoryPage() {
       try {
         const sheetURL =
           "https://docs.google.com/spreadsheets/d/e/2PACX-1vTRzxK2v6S7Nuv5ANm4czSpdHhpyWNzTvpzIear47a5fH0lZSGu5psAXig2xCwegSJZuVdrH9N9PGgK/pub?output=csv";
+
         const response = await axios.get(sheetURL);
         Papa.parse(response.data, {
           header: true,
@@ -54,25 +55,24 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* 1️⃣ Elegant Category Header */}
+      {/* 🩷 Elegant Boutique Header */}
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.6 }}
         className="bg-pink-50 border-b border-pink-100 py-10 text-center"
       >
-        <h1 className="text-3xl font-bold text-gray-800">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-800">
           Shop {name} at{" "}
           <span className="text-pink-600">MOMCHIC Boutique</span>
         </h1>
-        <p className="text-gray-600 text-sm md:text-base mt-2 max-w-xl mx-auto">
-          Discover our handpicked collection of {name.toLowerCase()} designed
-          for every occasion — elegant, affordable, and exclusive to our
-          boutique.
+        <p className="text-gray-600 text-sm md:text-base mt-3 max-w-xl mx-auto">
+          Discover our curated {name.toLowerCase()} — elegant, affordable, and
+          made to define your personal style at MOMCHIC Boutique.
         </p>
       </motion.div>
 
-      {/* 2️⃣ Info Bar */}
+      {/* 🛍 Info Bar */}
       <div className="flex justify-between items-center px-6 py-3 border-b bg-white text-sm text-gray-600 max-w-6xl mx-auto">
         <p className="font-medium">
           {loading
@@ -86,7 +86,7 @@ export default function CategoryPage() {
         </button>
       </div>
 
-      {/* 3️⃣ Product Grid with Animation */}
+      {/* 🧴 Product Grid with Motion */}
       <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
         {loading ? (
           <p className="text-gray-400 text-center col-span-full">
@@ -96,7 +96,7 @@ export default function CategoryPage() {
           products.map((product, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: i * 0.05 }}
             >
@@ -110,7 +110,7 @@ export default function CategoryPage() {
         )}
       </div>
 
-      {/* 4️⃣ Footer / Back Section */}
+      {/* 💖 Footer Navigation */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -124,7 +124,8 @@ export default function CategoryPage() {
           ← Back to All Collections
         </button>
         <p className="text-xs text-gray-400 mt-3">
-          Designed with love & elegance at <span className="text-pink-500">MOMCHIC Boutique</span>
+          Designed with love & elegance at{" "}
+          <span className="text-pink-500">MOMCHIC Boutique</span>
         </p>
       </motion.div>
     </div>
