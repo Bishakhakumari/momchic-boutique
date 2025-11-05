@@ -86,10 +86,10 @@ export default function CategoryPage() {
         </p>
       </motion.div>
 
-     {/* 🌸 Centered Quick Category Navigation Bar */}
+{/* 🌸 Centered Category Navigation Bar */}
 <div className="sticky top-0 z-20 bg-white border-b border-pink-100 shadow-sm">
-  <div className="max-w-5xl mx-auto px-4">
-    <div className="flex flex-wrap justify-center gap-3 py-3">
+  <div className="w-full flex justify-center">
+    <div className="flex flex-wrap justify-center items-center gap-3 py-3 px-4 max-w-6xl">
       {categories.map((cat, i) => (
         <button
           key={i}
@@ -106,8 +106,6 @@ export default function CategoryPage() {
     </div>
   </div>
 </div>
-
-
 
       {/* 🛍 Info Bar */}
       <div className="flex justify-between items-center px-6 py-3 border-b bg-white text-sm text-gray-600 max-w-6xl mx-auto">
