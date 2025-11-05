@@ -55,7 +55,7 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* 🩷 Boutique Header Section */}
+      {/* 🌸 Boutique Header */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -67,8 +67,8 @@ export default function CategoryPage() {
           <span className="text-pink-600">MOMCHIC Boutique</span>
         </h1>
         <p className="text-gray-600 text-sm md:text-base mt-3 max-w-xl mx-auto">
-          Discover our curated {name.toLowerCase()} — elegant, affordable, and
-          made to define your personal style at MOMCHIC Boutique.
+          Discover our handpicked {name.toLowerCase()} — elegant, affordable, and
+          exclusively available in-store at MOMCHIC Boutique.
         </p>
       </motion.div>
 
@@ -86,7 +86,7 @@ export default function CategoryPage() {
         </button>
       </div>
 
-      {/* 🧴 Product Grid with Motion */}
+      {/* 🧴 Product Grid */}
       <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
         {loading ? (
           <p className="text-gray-400 text-center col-span-full">
