@@ -89,7 +89,7 @@ export default function CategoryPage() {
 {/* 🌸 Centered Category Navigation Bar */}
 <div className="sticky top-0 z-20 bg-white border-b border-pink-100 shadow-sm">
   <div className="w-full flex justify-center">
-    <div className="flex flex-wrap justify-center items-center gap-3 py-3 px-4 max-w-6xl">
+    <div className="flex flex-wrap justify-center items-center gap-3 py-3 px-4 max-w-6xl overflow-x-auto">
       {categories.map((cat, i) => (
         <button
           key={i}
@@ -107,19 +107,17 @@ export default function CategoryPage() {
   </div>
 </div>
 
-      {/* 🛍 Info Bar */}
-      <div className="flex justify-between items-center px-6 py-3 border-b bg-white text-sm text-gray-600 max-w-6xl mx-auto">
-        <p className="font-medium">
-          {loading
-            ? "Loading items..."
-            : `Showing ${products.length} item${
-                products.length !== 1 ? "s" : ""
-              }`}
-        </p>
-        <button className="hover:text-pink-600 transition">
-          Sort by: Latest
-        </button>
-      </div>
+{/* 🛍 Info Bar */}
+<div className="flex flex-wrap justify-between items-center px-6 py-3 border-b bg-white text-sm text-gray-600 max-w-6xl mx-auto">
+  <p className="font-medium">
+    {loading
+      ? "Loading items..."
+      : `Showing ${products.length} item${products.length !== 1 ? "s" : ""}`}
+  </p>
+  <button className="hover:text-pink-600 transition">
+    Sort by: Latest
+  </button>
+</div>
 
       {/* 🧴 Product Grid */}
       <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
