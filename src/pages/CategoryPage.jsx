@@ -86,24 +86,27 @@ export default function CategoryPage() {
         </p>
       </motion.div>
 
-      {/* 🌈 Quick Category Navigation Bar */}
+     {/* 🌸 Centered Quick Category Navigation Bar */}
 <div className="sticky top-0 z-20 bg-white border-b border-pink-100 shadow-sm">
-  <div className="flex overflow-x-auto gap-3 py-3 px-4 justify-center md:justify-center scrollbar-hide">
-    {categories.map((cat, i) => (
-      <button
-        key={i}
-        onClick={() => navigate(`/category/${encodeURIComponent(cat)}`)}
-        className={`px-4 py-1.5 rounded-full border text-sm font-medium whitespace-nowrap transition-all duration-200 ${
-          name === cat
-            ? "bg-pink-600 text-white border-pink-600 shadow-md"
-            : "border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-400"
-        }`}
-      >
-        {cat}
-      </button>
-    ))}
+  <div className="max-w-5xl mx-auto px-4">
+    <div className="flex flex-wrap justify-center gap-3 py-3">
+      {categories.map((cat, i) => (
+        <button
+          key={i}
+          onClick={() => navigate(`/category/${encodeURIComponent(cat)}`)}
+          className={`px-4 py-1.5 rounded-full border text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+            name === cat
+              ? "bg-pink-600 text-white border-pink-600 shadow-md"
+              : "border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-400"
+          }`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
   </div>
 </div>
+
 
 
       {/* 🛍 Info Bar */}
