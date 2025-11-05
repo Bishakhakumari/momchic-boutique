@@ -36,14 +36,19 @@ const menuItems = {
 };
 
 
-  const navigate = useNavigate();
+  const handleSubcategoryClick = (subcategory) => {
+    setFilteredProducts([]);
+    setTimeout(() => {
+      const filtered = products.filter((p) =>
+        p.category?.toLowerCase().includes(subcategory.toLowerCase())
+      );
+      setFilteredProducts(filtered);
+    }, 0);
 
-const handleSubcategoryClick = (subcategory) => {
-  navigate(`/category/${encodeURIComponent(subcategory)}`); // ✅ route to category page
-  setActiveCategory(null);
-  setShowBanner(false);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
+    setSelectedSubcategory(subcategory);
+    setActiveCategory(null);
+    setShowBanner(false);
+  };
 
   useEffect(() => {
   const handleClickOutside = (e) => {
