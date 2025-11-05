@@ -296,7 +296,7 @@ onClick={() => {
     {/* Tagline Line */}
     <p className="text-sm md:text-base max-w-xl mt-2 animate-fadeInUp delay-100">
       Shop our hand-picked collection of lehengas, sarees, suits, handbags, footwear, and more —
-      at <b>MOMCHIC Boutique</b>. Premium fashion made affordable, right here in Daltonganj.
+      at <b>MOMCHIC Boutique</b>. Premium fashion made affordable, right here in your town Daltonganj.
     </p>
 
     {/* Visit Button */}
