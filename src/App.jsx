@@ -16,23 +16,24 @@ export default function App() {
   const [showBanner, setShowBanner] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const menuItems = {
-    Women: [
-      { title: "Apparels", items: ["Suits", "Kurtis", "Western Wear", "Palazzos", "Lehengas"] },
-      { title: "Footwear", items: ["Ethnic Sandals", "Heels", "Casual Slippers"] },
-      { title: "Purses", items: ["Handbags", "Sling Bags", "Tote Bags", "Clutches", "Potli Bags"] },
-    ],
-    Beauty: [
-      { title: "Makeup", items: ["Lipsticks", "Kajal, Eyeliner & Mascara", "Foundations & BB Creams"] },
-      { title: "Skincare", items: ["Face Creams & Moisturizers", "Deodrants & Perfumes"] },
-    ],
-    "New Arrivals": [
-      { title: "", items: ["Trending Now", "Fresh In Stock"] },
-    ],
-    Offers: [
-      { title: "", items: ["Buy 1 Get 1", "Flat 50%", "Bundle Deals"] },
-    ],
-  };
+const menuItems = {
+  COLLECTIONS: [
+    { title: "Ethnic Wear", items: ["Lehengas", "Sarees", "Suits & Kurtis"] },
+    { title: "Western Wear", items: ["Tops & Dresses", "Palazzos", "Gowns"] },
+    { title: "Accessories", items: ["Handbags", "Footwear"] },
+  ],
+  BEAUTY: [
+    { title: "Makeup", items: ["Lipsticks", "Eyeliner & Mascara", "Nail Paints"] },
+    { title: "Fragrance & Care", items: ["Perfumes", "Body Mist", "Skincare Essentials"] },
+  ],
+  "RENTAL WEAR": [
+    { title: "Occasion Wear", items: ["Bridal Lehengas", "Dandiya Dresses", "Party Gowns", "Designer Sarees"] },
+  ],
+  OFFERS: [
+    { title: "", items: ["Flat 50% Off", "Buy 1 Get 1", "Festive Combos"] },
+  ],
+};
+
 
   const handleSubcategoryClick = (subcategory) => {
     setFilteredProducts([]);
