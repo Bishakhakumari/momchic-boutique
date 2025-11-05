@@ -359,8 +359,8 @@ onClick={() => {
 
 <footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-10 pb-6">
   <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-
-    {/* 🛍️ Shop Categories */}
+    
+    {/* Shop Categories */}
     <div>
       <h4 className="text-pink-600 font-semibold mb-3">Shop Categories</h4>
       <ul className="space-y-1 text-sm text-gray-700">
@@ -382,7 +382,7 @@ onClick={() => {
       </ul>
     </div>
 
-    {/* 🏬 Visit Our Store */}
+    {/* Visit Our Store */}
     <div>
       <h4 className="font-semibold text-pink-600 mb-3">Visit Our Store</h4>
       <p className="text-sm font-semibold">MOMCHIC Boutique</p>
@@ -402,30 +402,18 @@ onClick={() => {
       </a>
     </div>
 
-    {/* 🤝 Connect With Us */}
+    {/* Connect With Us */}
     <div>
       <h4 className="font-semibold text-pink-600 mb-3">Connect With Us</h4>
       <div className="flex justify-center md:justify-start space-x-4">
         <a href="https://wa.me/919204613635" target="_blank" rel="noopener noreferrer">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-            className="w-6 h-6 hover:scale-110 transition-transform"
-            alt="WhatsApp"
-          />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-6 h-6 hover:scale-110 transition-transform" alt="WhatsApp" />
         </a>
         <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
-            className="w-6 h-6 hover:scale-110 transition-transform"
-            alt="Instagram"
-          />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" className="w-6 h-6 hover:scale-110 transition-transform" alt="Instagram" />
         </a>
         <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-            className="w-6 h-6 hover:scale-110 transition-transform"
-            alt="Facebook"
-          />
+          <img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg" className="w-6 h-6 hover:scale-110 transition-transform" alt="Facebook" />
         </a>
       </div>
       <p className="text-xs mt-2 text-gray-500 max-w-xs mx-auto md:mx-0 leading-relaxed">
@@ -434,17 +422,13 @@ onClick={() => {
     </div>
   </div>
 
-  {/* ✨ Boutique Tagline */}
-  <div className="mt-10 text-center text-sm text-pink-600 font-medium tracking-wide">
-    Designed with love and elegance at <span className="font-semibold">MOMCHIC Boutique 💖</span>
-  </div>
-
-  {/* 📜 Copyright Section */}
-  <div className="mt-3 border-t border-gray-200 pt-3 text-center text-xs text-gray-400">
-    © {new Date().getFullYear()} <span className="font-semibold text-pink-600">MOMCHIC Boutique</span> — All Rights Reserved.
+  {/* Copyright Section */}
+  <div className="mt-10 border-t border-gray-200 pt-4 text-center text-xs text-gray-400">
+    <p className="tracking-wide">
+      © {new Date().getFullYear()} <span className="font-semibold text-pink-600">MOMCHIC Boutique</span> — All Rights Reserved.
+    </p>
   </div>
 </footer>
-
 
 
 {/* ✅ Floating WhatsApp Button */}
