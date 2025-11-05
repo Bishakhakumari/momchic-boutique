@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import App from './App.jsx';
 import CategoryPage from './pages/CategoryPage.jsx'; // make sure this file exists
 import './index.css';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -15,3 +17,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </BrowserRouter>
   </React.StrictMode>
 );
+AOS.init({
+  duration: 800,   // animation duration in ms
+  once: true,      // animate only once per scroll
+});

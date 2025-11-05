@@ -336,37 +336,58 @@ onClick={() => {
           </section>
         </div>
 
-{/* ✅ Why Visit MOMCHIC Boutique Section */}
-<section className="bg-pink-50 py-12 mt-8 border-t border-pink-100">
-  <div className="max-w-6xl mx-auto px-6 text-center">
-    <h2 className="text-2xl md:text-3xl font-bold text-pink-700 mb-4">
+{/* ✅ Why Visit MOMCHIC Boutique Section */}<section
+  className="bg-pink-50 py-12 mt-8 border-t border-pink-100"
+  data-aos="fade-up"
+  data-aos-duration="800"
+>
+  <div className="max-w-6xl mx-auto px-6 text-center" data-aos="fade-up" data-aos-delay="100">
+    <h2
+      className="text-2xl md:text-3xl font-bold text-pink-700 mb-4"
+      data-aos="fade-up"
+      data-aos-delay="150"
+    >
       Why Visit <span className="text-gray-800">MOMCHIC Boutique</span>?
     </h2>
-    <p className="text-gray-700 leading-relaxed max-w-3xl mx-auto text-sm md:text-base">
+
+    <p
+      className="text-gray-700 leading-relaxed max-w-3xl mx-auto text-sm md:text-base"
+      data-aos="fade-up"
+      data-aos-delay="300"
+    >
       MOMCHIC Boutique is your one-stop destination for elegant{" "}
-      <span className="font-semibold">wedding lehengas, designer sarees, party wear, festive outfits, stylish footwear, trendy handbags & beauty products</span>.
-      Rent or buy the look you love at prices that fit every occasion.
+      <span className="font-semibold">
+        wedding lehengas, designer sarees, party wear, festive outfits, stylish footwear,
+        trendy handbags & beauty products
+      </span>
+      . Rent or buy the look you love at prices that fit every occasion.
       <br />
       <br />
       From <span className="font-semibold text-pink-600">bridal lehengas</span> and{" "}
       <span className="font-semibold text-pink-600">dandiya dresses</span> to exclusive{" "}
-      <span className="font-semibold text-pink-600">designer pieces for special occasions</span> — 
-      MOMCHIC helps you look stunning without the stress of expensive purchases.
+      <span className="font-semibold text-pink-600">
+        designer pieces for special occasions
+      </span>{" "}
+      — MOMCHIC helps you look stunning without the stress of expensive purchases.
     </p>
 
-    <div className="mt-6 flex justify-center">
-<a
-  href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
->
-  📍 Visit Our Store
-</a>
-
+    <div
+      className="mt-6 flex justify-center"
+      data-aos="zoom-in"
+      data-aos-delay="500"
+    >
+      <a
+        href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
+      >
+        📍 Visit Our Store
+      </a>
     </div>
   </div>
 </section>
+
 
 <div className="h-[2px] bg-gradient-to-r from-pink-200 via-pink-400 to-pink-200 opacity-70"></div>
 <footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-8 pb-6">
