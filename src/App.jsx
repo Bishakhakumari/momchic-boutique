@@ -61,40 +61,40 @@ const handleSubcategoryClick = (subcategory) => {
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      const sheetURL =
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vTRzxK2v6S7Nuv5ANm4czSpdHhpyWNzTvpzIear47a5fH0lZSGu5psAXig2xCwegSJZuVdrH9N9PGgK/pub?output=csv";
-      const response = await axios.get(sheetURL);
-      Papa.parse(response.data, {
-        header: true,
-        complete: (results) => {
-          const cleanedData = results.data
-            .filter((item) => item["Item Name"] && item.Price)
-            .map((item) => {
-              const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
-              const originalPrice = parseInt(
-                item["Original Price"]?.replace(/\D/g, ""),
-                10
-              );
+  const fetchData = async () => {
+    const sheetURL =
+      "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7ZAmIk7wbGaqjix0PiStR8SiUWD7iTPglZtIcsbM1PIXno0Ry_KTPZI-0Bzvb-8L-yxzHVJ91auA6/pub?output=csv";
+    const response = await axios.get(sheetURL);
+    Papa.parse(response.data, {
+      header: true,
+      complete: (results) => {
+        const cleanedData = results.data
+          .filter((item) => item["Item Name"] && item.Price)
+          .map((item) => {
+            const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
+            const originalPrice = parseInt(
+              item["Original Price"]?.replace(/\D/g, ""),
+              10
+            );
+            return {
+              id: item["Item Name"] + Math.random(),
+              name: item["Item Name"],
+              category: item["Category"],
+              price: isNaN(price) ? 0 : price,
+              originalPrice: isNaN(originalPrice) ? null : originalPrice,
+              image: item["Image Link"],
+              tag: item["Tag"]?.trim()?.toLowerCase() || "",
+            };
+          });
 
-              return {
-                id: item["Item Name"] + Math.random(),
-                name: item["Item Name"],
-                category: item["Category"],
-                price: isNaN(price) ? 0 : price,
-                originalPrice: isNaN(originalPrice) ? null : originalPrice,
-                image: item["Image Link"],
-              };
-            });
-
-          setProducts(cleanedData);
-          setFilteredProducts(cleanedData);
-          localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
-        },
-      });
-    };
-    fetchData();
-  }, []);
+        setProducts(cleanedData);
+        setFilteredProducts(cleanedData);
+        localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
+      },
+    });
+  };
+  fetchData();
+}, []);
 
   const resetToHome = () => {
     setFilteredProducts(products);
@@ -309,28 +309,88 @@ onClick={() => {
 </section>
 
 )}
+{/* 🆕 New Arrivals Section */}
+<section className="p-6 max-w-7xl mx-auto">
+  <div className="text-center mb-6">
+    <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
+      🆕 New Arrivals
+    </h2>
+    <p className="text-gray-600 text-sm md:text-base mt-1">
+      Discover our latest additions — fresh, elegant, and handpicked for every occasion.
+    </p>
+  </div>
 
-          <section className="p-6 max-w-7xl mx-auto">
-            <h3 className="text-xl font-semibold text-gray-800 mb-4">
-              {selectedSubcategory ? `Showing: ${selectedSubcategory}` : "New Arrivals"}
-            </h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {filteredProducts.length === 0 ? (
-                <div className="col-span-full text-center py-12 text-gray-500">
-                  <img
-                    src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-                    alt="No results"
-                    className="w-40 mx-auto mb-4"
-                  />
-                  <p className="text-sm">No matching products found.</p>
-                </div>
-              ) : (
-                filteredProducts.map((product, i) => (
-                  <ProductCard key={i} product={product} />
-                ))
-              )}
-            </div>
-          </section>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {products.filter(p => p.tag === "new").length === 0 ? (
+      <div className="col-span-full text-center py-12 text-gray-500">
+        <img
+          src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+          alt="No new arrivals"
+          className="w-40 mx-auto mb-4"
+        />
+        <p className="text-sm">No new arrivals available right now.</p>
+      </div>
+    ) : (
+      products
+        .filter(p => p.tag === "new")
+        .slice(0, 10)
+        .map((product, i) => <ProductCard key={i} product={product} />)
+    )}
+  </div>
+
+  <div className="text-center mt-5">
+    <button
+      onClick={() => navigate("/category/New")}
+      className="inline-block text-sm md:text-base text-pink-600 font-semibold hover:underline"
+    >
+      View All New Arrivals →
+    </button>
+  </div>
+</section>
+
+{/* 💖 Customer Favourites Section */}
+<section className="p-6 max-w-7xl mx-auto mt-10 border-t border-pink-100">
+  <div className="text-center mb-6">
+    <h2 className="text-2xl md:text-3xl font-bold text-pink-600">
+      💖 Customer Favourites
+    </h2>
+    <p className="text-gray-600 text-sm md:text-base mt-1">
+      Timeless picks loved by our customers — elegant, affordable, and always in style.
+    </p>
+  </div>
+
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {products.filter(p =>
+      ["bestseller", "favourite", "customer favourite"].includes(p.tag)
+    ).length === 0 ? (
+      <div className="col-span-full text-center py-12 text-gray-500">
+        <img
+          src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+          alt="No favourites"
+          className="w-40 mx-auto mb-4"
+        />
+        <p className="text-sm">No customer favourites yet — check back soon!</p>
+      </div>
+    ) : (
+      products
+        .filter(p =>
+          ["bestseller", "favourite", "customer favourite"].includes(p.tag)
+        )
+        .slice(0, 10)
+        .map((product, i) => <ProductCard key={i} product={product} />)
+    )}
+  </div>
+
+  <div className="text-center mt-5">
+    <button
+      onClick={() => navigate("/category/Bestseller")}
+      className="inline-block text-sm md:text-base text-pink-600 font-semibold hover:underline"
+    >
+      View All Customer Favourites →
+    </button>
+  </div>
+</section>
+
         </div>
 
 {/* ✅ Why Visit MOMCHIC Boutique Section */}<section
@@ -385,8 +445,6 @@ onClick={() => {
   </div>
 </section>
 
-
-<div className="h-[2px] bg-gradient-to-r from-pink-200 via-pink-400 to-pink-200 opacity-70"></div>
 <footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-8 pb-6">
   <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left justify-items-center md:justify-items-center">
     
@@ -466,7 +524,7 @@ onClick={() => {
 
   {/* ✨ Boutique Tagline */}
   <div className="mt-10 text-center text-sm text-pink-600 font-medium tracking-wide">
-    Designed with love and elegance - <span className="font-semibold">MOMCHIC Boutique 💖</span>
+    Designed with love & elegance - <span className="font-semibold">MOMCHIC Boutique 💖</span>
   </div>
 
   {/* 📜 Copyright Section */}
