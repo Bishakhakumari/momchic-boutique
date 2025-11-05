@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Papa from "papaparse";
 import ProductCard from "../components/ProductCard";
+import { motion } from "framer-motion";
 
 export default function CategoryPage() {
   const { name } = useParams();
@@ -53,19 +54,25 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Elegant Category Header */}
-      <div className="bg-pink-50 border-b border-pink-100 py-8 text-center">
-        <h1 className="text-2xl md:text-3xl font-bold text-gray-800">
+      {/* 1️⃣ Elegant Category Header */}
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-pink-50 border-b border-pink-100 py-10 text-center"
+      >
+        <h1 className="text-3xl font-bold text-gray-800">
           Shop {name} at{" "}
           <span className="text-pink-600">MOMCHIC Boutique</span>
         </h1>
-        <p className="text-gray-600 text-sm md:text-base mt-1">
-          Discover our curated selection of {name.toLowerCase()} available
-          exclusively in-store.
+        <p className="text-gray-600 text-sm md:text-base mt-2 max-w-xl mx-auto">
+          Discover our handpicked collection of {name.toLowerCase()} designed
+          for every occasion — elegant, affordable, and exclusive to our
+          boutique.
         </p>
-      </div>
+      </motion.div>
 
-      {/* Subtle Info Bar */}
+      {/* 2️⃣ Info Bar */}
       <div className="flex justify-between items-center px-6 py-3 border-b bg-white text-sm text-gray-600 max-w-6xl mx-auto">
         <p className="font-medium">
           {loading
@@ -74,10 +81,12 @@ export default function CategoryPage() {
                 products.length !== 1 ? "s" : ""
               }`}
         </p>
-        <button className="hover:text-pink-600 transition">Sort by: Latest</button>
+        <button className="hover:text-pink-600 transition">
+          Sort by: Latest
+        </button>
       </div>
 
-      {/* Product Grid */}
+      {/* 3️⃣ Product Grid with Animation */}
       <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
         {loading ? (
           <p className="text-gray-400 text-center col-span-full">
@@ -85,7 +94,14 @@ export default function CategoryPage() {
           </p>
         ) : products.length > 0 ? (
           products.map((product, i) => (
-            <ProductCard key={i} product={product} />
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3, delay: i * 0.05 }}
+            >
+              <ProductCard product={product} />
+            </motion.div>
           ))
         ) : (
           <p className="text-gray-500 text-center col-span-full">
@@ -94,15 +110,23 @@ export default function CategoryPage() {
         )}
       </div>
 
-      {/* Back Button */}
-      <div className="text-center mt-6 pb-10">
+      {/* 4️⃣ Footer / Back Section */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.4 }}
+        className="text-center mt-6 pb-10"
+      >
         <button
           onClick={() => navigate("/")}
           className="px-6 py-2 border border-pink-500 text-pink-600 rounded-full text-sm font-medium hover:bg-pink-50 transition"
         >
           ← Back to All Collections
         </button>
-      </div>
+        <p className="text-xs text-gray-400 mt-3">
+          Designed with love & elegance at <span className="text-pink-500">MOMCHIC Boutique</span>
+        </p>
+      </motion.div>
     </div>
   );
 }
