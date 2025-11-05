@@ -466,7 +466,7 @@ onClick={() => {
 
   {/* ✨ Boutique Tagline */}
   <div className="mt-10 text-center text-sm text-pink-600 font-medium tracking-wide">
-    Designed with love and elegance for <span className="font-semibold">MOMCHIC Boutique 💖</span>
+    Designed with love and elegance - <span className="font-semibold">MOMCHIC Boutique 💖</span>
   </div>
 
   {/* 📜 Copyright Section */}
