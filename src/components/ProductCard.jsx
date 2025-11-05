@@ -103,7 +103,7 @@ export default function ProductCard({ product }) {
             </div>
 
             <p className="text-xs text-green-600 mt-3">
-              ✅ Available exclusively in-store at{" "}
+              ✅ Available in-store at{" "}
               <b>MOMCHIC Boutique</b>
             </p>
 
