@@ -111,123 +111,123 @@ export default function App() {
     <>
       <Toaster />
       <div className="min-h-screen flex flex-col bg-white font-sans">
-       <header className="bg-white shadow-sm p-4 sticky top-0 z-30 border-b border-gray-200">
-<div className="max-w-7xl mx-auto flex flex-col items-center gap-3 md:flex-row md:justify-between md:items-center">
-  {/* Logo - stays left */}
-  <Link
-    to="/"
-    onClick={resetToHome}
-    className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
-  >
-    <img
-      src="src/public/logo.png"
-      alt="MOMCHIC Logo"
-      className="h-10 w-auto md:h-12 object-contain"
-    />
-    <span className="text-2xl font-extrabold text-pink-600">MOMCHIC</span>
-  </Link>
+<header className="bg-white shadow-sm p-4 sticky top-0 z-30 border-b border-gray-200">
+  <div className="max-w-7xl mx-auto flex flex-col items-center gap-3 md:flex-row md:justify-between md:items-center">
+    
+    {/* 🔗 Logo — Redirects to Homepage */}
+    <Link
+      to="/"
+      onClick={resetToHome}
+      className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
+    >
+      <img
+        src="src/public/logo.png"
+        alt="MOMCHIC Logo"
+        className="h-10 w-auto md:h-12 object-contain"
+      />
+      <span className="text-2xl font-extrabold text-pink-600">MOMCHIC</span>
+    </Link>
 
-  {/* Wrap Search & Nav in reverse row for desktop only */}
-  <div className="w-full md:flex md:flex-row-reverse md:items-center md:gap-6">
-    {/* Search Bar */}
-    <div className="w-full md:w-auto flex items-center justify-center">
-      <div className="flex items-center bg-gray-100 px-3 py-1 rounded-md w-64">
-        <Search size={16} className="text-gray-500 mr-2" />
-        <input
-          type="text"
-          placeholder="Search"
-          className="bg-transparent outline-none text-sm w-full"
-          value={searchQuery}
-          onChange={(e) => {
-            const query = e.target.value;
-            setSearchQuery(query);
-
-            const filtered = products.filter((product) =>
-              (product.name + product.category)
-                .toLowerCase()
-                .includes(query.toLowerCase())
-            );
-            setFilteredProducts(filtered);
-            setShowBanner(query === "");
-          }}
-        />
-      </div>
-    </div>
-
-    {/* Desktop Navigation */}
-    <nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700 pointer-events-none">
-      {Object.keys(menuItems).map((category) => (
-        <div
-          key={category}
-          className="relative group pointer-events-auto"
-          onMouseEnter={() => {
-            clearTimeout(hoverTimeout.current);
-            setActiveCategory(category);
-          }}
-          onMouseLeave={() => {
-            hoverTimeout.current = setTimeout(() => {
-              setActiveCategory(null);
-            }, 200);
-          }}
-        >
-          <div
-            className={`cursor-pointer uppercase tracking-wide transition-colors duration-200 px-1 ${
-              activeCategory === category
-                ? "text-pink-700 font-semibold"
-                : "hover:text-pink-600"
-            }`}
-          >
-            {category}
-          </div>
-
-          <AnimatePresence>
-            {activeCategory === category && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 w-64 bg-white shadow-lg border mt-1 z-50 pt-2 pb-2 pointer-events-auto"
-              >
-                <ul className="p-4 flex flex-col gap-2 text-sm text-gray-700">
-                  {menuItems[category].map((group, i) => (
-                    <div key={i}>
-                      {group.title && (
-                        <li className="text-pink-500 font-bold uppercase text-xs tracking-wide mt-3 mb-1">
-                          {group.title}
-                        </li>
-                      )}
-                      {group.items.map((item, idx) => {
-                        const label = item
-                          .toLowerCase()
-                          .split(" ")
-                          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                          .join(" ");
-
-                        return (
-                          <li
-                            key={idx}
-                            className="text-gray-600 cursor-pointer pl-2 transition-all duration-200 hover:font-semibold hover:text-gray-800"
-                            onClick={() => handleSubcategoryClick(item)}
-                          >
-                            {label}
-                          </li>
-                        );
-                      })}
-                    </div>
-                  ))}
-                </ul>
-              </motion.div>
-            )}
-          </AnimatePresence>
+    {/* 🔍 Search + Navigation (Desktop Layout) */}
+    <div className="w-full md:flex md:flex-row-reverse md:items-center md:gap-6">
+      
+      {/* Search Bar */}
+      <div className="w-full md:w-auto flex items-center justify-center">
+        <div className="flex items-center bg-gray-100 px-3 py-1 rounded-md w-64 shadow-sm hover:shadow-md transition">
+          <Search size={16} className="text-gray-500 mr-2" />
+          <input
+            type="text"
+            placeholder="Search for lehengas, suits, handbags..."
+            className="bg-transparent outline-none text-sm w-full"
+            value={searchQuery}
+            onChange={(e) => {
+              const query = e.target.value;
+              setSearchQuery(query);
+              const filtered = products.filter((product) =>
+                (product.name + product.category)
+                  .toLowerCase()
+                  .includes(query.toLowerCase())
+              );
+              setFilteredProducts(filtered);
+              setShowBanner(query === "");
+            }}
+          />
         </div>
-      ))}
-    </nav>
+      </div>
+
+      {/* Navigation Menu */}
+      <nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700 pointer-events-none">
+        {Object.keys(menuItems).map((category) => (
+          <div
+            key={category}
+            className="relative group pointer-events-auto"
+            onMouseEnter={() => {
+              clearTimeout(hoverTimeout.current);
+              setActiveCategory(category);
+            }}
+            onMouseLeave={() => {
+              hoverTimeout.current = setTimeout(() => {
+                setActiveCategory(null);
+              }, 200);
+            }}
+          >
+            {/* Top-level Category Name */}
+            <div
+              className={`cursor-pointer uppercase tracking-wide transition-colors duration-200 px-1 ${
+                activeCategory === category
+                  ? "text-pink-700 font-semibold"
+                  : "hover:text-pink-600"
+              }`}
+            >
+              {category}
+            </div>
+
+            {/* Dropdown Animation */}
+            <AnimatePresence>
+              {activeCategory === category && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-full left-0 w-64 bg-white shadow-lg border mt-1 z-50 pt-2 pb-2 rounded-md pointer-events-auto"
+                >
+                  <ul className="p-4 flex flex-col gap-2 text-sm text-gray-700">
+                    {menuItems[category].map((group, i) => (
+                      <div key={i}>
+                        {group.title && (
+                          <li className="text-pink-500 font-bold uppercase text-xs tracking-wide mt-3 mb-1">
+                            {group.title}
+                          </li>
+                        )}
+                        {group.items.map((item, idx) => {
+                          const label = item
+                            .toLowerCase()
+                            .split(" ")
+                            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+                            .join(" ");
+                          return (
+                            <li
+                              key={idx}
+                              className="text-gray-600 cursor-pointer pl-2 transition-all duration-200 hover:font-semibold hover:text-gray-800"
+                              onClick={() => handleSubcategoryClick(item)}
+                            >
+                              {label}
+                            </li>
+                          );
+                        })}
+                      </div>
+                    ))}
+                  </ul>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        ))}
+      </nav>
+    </div>
   </div>
-</div>
-
 </header>
-
 
         {/* Mobile Category Bar */}
 <div className="md:hidden overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-200 bg-white sticky top-[64px] z-20 mobile-category text-center">
