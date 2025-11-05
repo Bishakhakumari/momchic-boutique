@@ -53,7 +53,7 @@ export default function ProductCard({ product }) {
 
           <p className="text-xs text-green-600 font-medium mt-1">
             Available in-store at{" "}
-            <span className="font-semibold">MOMCHIC Boutique</span>
+            <span className="font-semibold">MOMCHIC</span>
           </p>
         </div>
       </div>
