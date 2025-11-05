@@ -11,6 +11,20 @@ export default function CategoryPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  // 🛍️ List of main categories for Quick Navigation
+  const categories = [
+    "Lehengas",
+    "Sarees",
+    "Suits & Kurtis",
+    "Tops & Dresses",
+    "Handbags",
+    "Footwear",
+    "Lipsticks",
+    "Eyeliner & Mascara",
+    "Perfumes",
+    "Body Mist",
+  ];
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -71,6 +85,23 @@ export default function CategoryPage() {
           exclusively available in-store at MOMCHIC Boutique.
         </p>
       </motion.div>
+
+      {/* 🌈 Quick Category Navigation Bar */}
+      <div className="flex overflow-x-auto gap-3 py-3 px-4 border-b border-pink-100 bg-white text-sm scrollbar-hide">
+        {categories.map((cat, i) => (
+          <button
+            key={i}
+            onClick={() => navigate(`/category/${encodeURIComponent(cat)}`)}
+            className={`px-4 py-1.5 rounded-full border ${
+              name === cat
+                ? "bg-pink-600 text-white border-pink-600"
+                : "border-pink-300 text-pink-700 hover:bg-pink-50"
+            } transition`}
+          >
+            {cat}
+          </button>
+        ))}
+      </div>
 
       {/* 🛍 Info Bar */}
       <div className="flex justify-between items-center px-6 py-3 border-b bg-white text-sm text-gray-600 max-w-6xl mx-auto">
