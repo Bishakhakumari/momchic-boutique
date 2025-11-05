@@ -82,7 +82,7 @@ export default function CategoryPage() {
         </h1>
         <p className="text-gray-600 text-sm md:text-base mt-3 max-w-xl mx-auto">
           Discover our handpicked {name.toLowerCase()} — elegant, affordable, and
-          exclusively available in-store at MOMCHIC Boutique.
+          exclusively available in-store at MOMCHIC.
         </p>
       </motion.div>
 
