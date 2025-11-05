@@ -357,7 +357,8 @@ onClick={() => {
   </div>
 </section>
 
-<footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-10 pb-6">
+<div className="h-[2px] bg-gradient-to-r from-pink-200 via-pink-400 to-pink-200 opacity-70"></div>
+<footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-8 pb-6">
   <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left justify-items-center md:justify-items-center">
     
     {/* 🛍️ Shop Categories */}
