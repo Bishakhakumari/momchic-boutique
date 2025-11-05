@@ -87,21 +87,24 @@ export default function CategoryPage() {
       </motion.div>
 
       {/* 🌈 Quick Category Navigation Bar */}
-      <div className="flex overflow-x-auto gap-3 py-3 px-4 border-b border-pink-100 bg-white text-sm scrollbar-hide">
-        {categories.map((cat, i) => (
-          <button
-            key={i}
-            onClick={() => navigate(`/category/${encodeURIComponent(cat)}`)}
-            className={`px-4 py-1.5 rounded-full border ${
-              name === cat
-                ? "bg-pink-600 text-white border-pink-600"
-                : "border-pink-300 text-pink-700 hover:bg-pink-50"
-            } transition`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+<div className="sticky top-0 z-20 bg-white border-b border-pink-100 shadow-sm">
+  <div className="flex overflow-x-auto gap-3 py-3 px-4 justify-center md:justify-center scrollbar-hide">
+    {categories.map((cat, i) => (
+      <button
+        key={i}
+        onClick={() => navigate(`/category/${encodeURIComponent(cat)}`)}
+        className={`px-4 py-1.5 rounded-full border text-sm font-medium whitespace-nowrap transition-all duration-200 ${
+          name === cat
+            ? "bg-pink-600 text-white border-pink-600 shadow-md"
+            : "border-pink-200 text-pink-700 hover:bg-pink-50 hover:border-pink-400"
+        }`}
+      >
+        {cat}
+      </button>
+    ))}
+  </div>
+</div>
+
 
       {/* 🛍 Info Bar */}
       <div className="flex justify-between items-center px-6 py-3 border-b bg-white text-sm text-gray-600 max-w-6xl mx-auto">
