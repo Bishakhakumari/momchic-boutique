@@ -19,5 +19,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 );
 AOS.init({
   duration: 800,   // animation duration in ms
-  once: false,      // animate only once per scroll
+  once: true,      // animate only once per scroll
 });
