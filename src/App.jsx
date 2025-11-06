@@ -476,7 +476,7 @@ onClick={() => {
       <p className="text-sm font-semibold">MOMCHIC Boutique</p>
       <p className="text-sm leading-relaxed">
         1st Floor, Mohan Cinema, near Bus Stand<br />
-        Daltonganj, Jharkhand
+        Daltonganj, Palamu, Jharkhand - 822101
       </p>
       <p className="text-sm mt-2">📞 +91 9204613635</p>
       <p className="text-sm">🕒 Open Daily: 10:30 AM – 9 PM</p>
