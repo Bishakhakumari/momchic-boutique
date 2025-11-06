@@ -6,7 +6,7 @@ import { Toaster } from "react-hot-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import ProductCard from "./components/ProductCard";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
-import CategoryPage from "./pages/CategoryPage"; // ✅ add your CategoryPage path here
+import { Gift } from "lucide-react";
 
 export default function App() {
   const hoverTimeout = useRef(null);
@@ -39,11 +39,28 @@ const menuItems = {
 const navigate = useNavigate();
 
 const handleSubcategoryClick = (subcategory) => {
-  navigate(`/category/${encodeURIComponent(subcategory)}`); // ✅ route to category page
+  // 🩷 Handle special redirects
+  const redirectMap = {
+    Palazzos: "Tops & Dresses",
+    Lipsticks: "Beauty & Skincare",
+    "Nail Paints": "Beauty & Skincare",
+    "Perfumes": "Beauty & Skincare",
+    "Eyeliner & Mascara": "Beauty & Skincare",
+    "Skincare": "Beauty & Skincare",
+    "Body Mist": "Beauty & Skincare",
+    "Skincare Essentials": "Beauty & Skincare",
+  };
+
+    // 🔍 Normalize key (trim + lowercase)
+  const normalized = subcategory.trim().toLowerCase();
+  const finalCategory = redirectMap[subcategory] || subcategory;
+
+  navigate(`/category/${encodeURIComponent(finalCategory)}`);
   setActiveCategory(null);
   setShowBanner(false);
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
+
 
   useEffect(() => {
   const handleClickOutside = (e) => {
@@ -311,11 +328,12 @@ onClick={() => {
 )}
 {/* 🆕 New Arrivals Section */}
 <section className="p-6 max-w-7xl mx-auto">
-  <div className="text-center mb-6">
-    <h2 className="text-2xl md:text-3xl font-bold text-gray-800">
-      🆕 New Arrivals
-    </h2>
-    <p className="text-gray-600 text-sm md:text-base mt-1">
+  <div className="flex flex-col items-center mb-2">
+    <div className="flex items-center justify-center gap-2 mb-1">
+      <Gift className="text-pink-500 w-6 h-6" />
+      <h2 className="text-2xl font-semibold text-gray-800">New Arrivals</h2>
+    </div>
+    <p className="text-gray-600 text-sm md:text-base">
       Discover our latest additions — fresh, elegant, and handpicked for every occasion.
     </p>
   </div>
@@ -336,15 +354,6 @@ onClick={() => {
         .slice(0, 10)
         .map((product, i) => <ProductCard key={i} product={product} />)
     )}
-  </div>
-
-  <div className="text-center mt-5">
-    <button
-      onClick={() => navigate("/category/New")}
-      className="inline-block text-sm md:text-base text-pink-600 font-semibold hover:underline"
-    >
-      View All New Arrivals →
-    </button>
   </div>
 </section>
 
@@ -379,15 +388,6 @@ onClick={() => {
         .slice(0, 10)
         .map((product, i) => <ProductCard key={i} product={product} />)
     )}
-  </div>
-
-  <div className="text-center mt-5">
-    <button
-      onClick={() => navigate("/category/Bestseller")}
-      className="inline-block text-sm md:text-base text-pink-600 font-semibold hover:underline"
-    >
-      View All Customer Favourites →
-    </button>
   </div>
 </section>
 
@@ -535,19 +535,6 @@ onClick={() => {
   </div>
 </footer>
 
-{/* ✅ Floating WhatsApp Button */}
-<a
-  href="https://wa.me/919204613635"  // Replace with your actual number
-  target="_blank"
-  rel="noopener noreferrer"
-  className="fixed bottom-4 right-4 bg-green-500 text-white p-3 rounded-full shadow-lg z-50"
->
-  <img
-    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-    alt="WhatsApp"
-    className="w-6 h-6"
-/>
-</a>
       </div>
     </>
   );

@@ -6,6 +6,8 @@ import CategoryPage from './pages/CategoryPage.jsx'; // make sure this file exis
 import './index.css';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import FloatingWhatsApp from "./components/FloatingWhatsApp.jsx";
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -14,6 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/category/:name" element={<CategoryPage />} />
       </Routes>
+      <FloatingWhatsApp />
     </BrowserRouter>
   </React.StrictMode>
 );

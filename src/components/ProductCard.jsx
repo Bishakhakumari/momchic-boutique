@@ -68,10 +68,16 @@ export default function ProductCard({ product }) {
             )}
           </div>
 
-          <p className="text-xs text-green-600 font-medium mt-1">
-            Available in-store at{" "}
-            <span className="font-semibold">MOMCHIC</span>
-          </p>
+          <p
+  className={`text-xs font-medium mt-1 ${
+    product.inStock ? "text-green-600" : "text-red-500"
+  }`}
+>
+  {product.inStock
+    ? "✅ Available in-store at MOMCHIC"
+    : "❌ Currently out of stock"}
+</p>
+
         </div>
       </div>
 
@@ -150,7 +156,16 @@ className="absolute -top-2 -right-2 bg-pink-600 text-white rounded-full w-7 h-7 
               )}
             </div>
 
-            <p className="text-xs text-green-600 mt-3">✅ Available in-store</p>
+            <p
+  className={`text-xs font-medium mt-3 ${
+    product.inStock ? "text-green-600" : "text-red-500"
+  }`}
+>
+  {product.inStock
+    ? "✅ Available in-store"
+    : "❌ Currently out of stock"}
+</p>
+
 
             <a
               href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"

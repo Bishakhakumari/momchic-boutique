@@ -13,7 +13,7 @@ export default function CategoryPage() {
 
   // Define all standard categories for cross-match
   const allCategories = [
-    "Lehengas",
+    "Lehengas & Gowns",
     "Sarees",
     "Suits & Kurtis",
     "Tops & Dresses",
@@ -65,13 +65,16 @@ export default function CategoryPage() {
                   : [];
 
                 return {
-                  id: item["Item Name"] + Math.random(),
-                  name: item["Item Name"]?.trim(),
-                  category: item["Category"]?.trim(),
-                  image: imageLinks, // ✅ Array of images
-                  price: isNaN(price) ? 0 : price,
-                  originalPrice: isNaN(original) ? null : original,
-                };
+  id: item["Item Name"] + Math.random(),
+  name: item["Item Name"]?.trim(),
+  category: item["Category"]?.trim(),
+  image: imageLinks,
+  price: isNaN(price) ? 0 : price,
+  originalPrice: isNaN(original) ? null : original,
+  inStock:
+    item["Stock Status"]?.toLowerCase().includes("in") ?? true, // ✅ New line
+};
+
               })
               // ✅ Filter out items without any valid image
               .filter((item) => item.image && item.image.length > 0);
@@ -190,7 +193,7 @@ export default function CategoryPage() {
           ← Back to All Collections
         </button>
         <p className="text-xs text-gray-400 mt-3">
-          Designed with love & elegance at{" "}
+          Designed with love & elegance -{" "}
           <span className="text-pink-500">MOMCHIC Boutique</span>
         </p>
       </motion.div>
