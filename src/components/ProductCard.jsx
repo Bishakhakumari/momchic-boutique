@@ -3,6 +3,14 @@ import React, { useState } from "react";
 export default function ProductCard({ product }) {
   const { name, category, image, price, originalPrice } = product;
   const [showModal, setShowModal] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // Handle images: support both single string and array
+  const images = Array.isArray(image)
+    ? image
+    : image
+    ? [image]
+    : ["https://via.placeholder.com/300x400?text=No+Image"];
 
   // Validate and compute discount
   const validPrice = parseInt(price);
@@ -11,6 +19,15 @@ export default function ProductCard({ product }) {
   const discountPercent = hasDiscount
     ? Math.round(((validOriginal - validPrice) / validOriginal) * 100)
     : 0;
+
+  // Next / Previous image logic
+  const nextImage = () => {
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = () => {
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <>
@@ -21,7 +38,7 @@ export default function ProductCard({ product }) {
       >
         <div className="overflow-hidden">
           <img
-            src={image || "https://via.placeholder.com/300x400?text=No+Image"}
+            src={images[0]}
             alt={name}
             className="w-full h-60 object-cover transition-transform duration-300 hover:scale-105"
           />
@@ -58,7 +75,7 @@ export default function ProductCard({ product }) {
         </div>
       </div>
 
-      {/* Modal Popup */}
+      {/* Modal Popup with Image Slider */}
       {showModal && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
@@ -70,16 +87,47 @@ export default function ProductCard({ product }) {
           >
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-2 right-3 text-gray-400 hover:text-gray-600 text-lg"
+className="absolute -top-2 -right-2 bg-pink-600 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md hover:bg-pink-700 transition"
             >
               ✕
             </button>
 
-            <img
-              src={image || "https://via.placeholder.com/300x400?text=No+Image"}
-              alt={name}
-              className="w-full h-56 object-cover rounded-md"
-            />
+            {/* Image Slider */}
+            <div className="relative">
+              <img
+                src={images[currentIndex]}
+                alt={`${name} ${currentIndex + 1}`}
+                className="w-full h-64 object-cover rounded-md"
+              />
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute top-1/2 left-2 -translate-y-1/2 bg-white/70 text-gray-700 rounded-full w-7 h-7 flex items-center justify-center hover:bg-white transition"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute top-1/2 right-2 -translate-y-1/2 bg-white/70 text-gray-700 rounded-full w-7 h-7 flex items-center justify-center hover:bg-white transition"
+                  >
+                    ›
+                  </button>
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1">
+                    {images.map((_, i) => (
+                      <div
+                        key={i}
+                        className={`w-2 h-2 rounded-full ${
+                          i === currentIndex
+                            ? "bg-pink-600"
+                            : "bg-gray-300"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
 
             <h3 className="text-base font-semibold text-gray-800 mt-3">
               {name}
@@ -102,9 +150,7 @@ export default function ProductCard({ product }) {
               )}
             </div>
 
-            <p className="text-xs text-green-600 mt-3">
-              ✅ Available in-store
-            </p>
+            <p className="text-xs text-green-600 mt-3">✅ Available in-store</p>
 
             <a
               href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"

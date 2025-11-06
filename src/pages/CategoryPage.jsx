@@ -49,25 +49,32 @@ export default function CategoryPage() {
           skipEmptyLines: true,
           complete: (results) => {
             const data = results.data
-  .map((item) => {
-    const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
-    const original = parseInt(
-      item["Original Price"]?.replace(/\D/g, ""),
-      10
-    );
-    const imageLink = item["Image Link"]?.trim();
+              .map((item) => {
+                const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
+                const original = parseInt(
+                  item["Original Price"]?.replace(/\D/g, ""),
+                  10
+                );
 
-    return {
-      id: item["Item Name"] + Math.random(),
-      name: item["Item Name"]?.trim(),
-      category: item["Category"]?.trim(),
-      image: imageLink && imageLink !== "undefined" ? imageLink : null,
-      price: isNaN(price) ? 0 : price,
-      originalPrice: isNaN(original) ? null : original,
-    };
-  })
-  // ✅ Filter out blank image rows
-  .filter((item) => item.image);
+                // 🩷 Multi-image support (comma-separated URLs)
+                const imageLinks = item["Image Link"]
+                  ? item["Image Link"]
+                      .split(",")
+                      .map((url) => url.trim())
+                      .filter((url) => url && url !== "undefined")
+                  : [];
+
+                return {
+                  id: item["Item Name"] + Math.random(),
+                  name: item["Item Name"]?.trim(),
+                  category: item["Category"]?.trim(),
+                  image: imageLinks, // ✅ Array of images
+                  price: isNaN(price) ? 0 : price,
+                  originalPrice: isNaN(original) ? null : original,
+                };
+              })
+              // ✅ Filter out items without any valid image
+              .filter((item) => item.image && item.image.length > 0);
 
             // Smart filtering – even partial matches
             const filtered = data.filter((p) => {
@@ -100,23 +107,21 @@ export default function CategoryPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* 🌸 Boutique Header */}
-      {/* 🌸 Sticky Boutique Header (from updated version) */}
-<motion.div
-  initial={{ opacity: 0, y: -15 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.4 }}
-  className="bg-pink-50 border-b border-pink-100 py-5 md:py-8 text-center sticky top-0 z-20 shadow-sm"
->
-  <h1 className="text-2xl md:text-4xl font-extrabold text-gray-800 leading-tight">
-    Shop {selectedCategory} at{" "}
-    <span className="text-pink-600">MOMCHIC Boutique</span>
-  </h1>
-  <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
-    Explore best {selectedCategory.toLowerCase()} - elegant,
-    affordable, and exclusively available in-store at MOMCHIC Boutique.
-  </p>
-</motion.div>
-
+      <motion.div
+        initial={{ opacity: 0, y: -15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4 }}
+        className="bg-pink-50 border-b border-pink-100 py-5 md:py-8 text-center sticky top-0 z-20 shadow-sm"
+      >
+        <h1 className="text-2xl md:text-4xl font-extrabold text-gray-800 leading-tight">
+          Shop {selectedCategory} at{" "}
+          <span className="text-pink-600">MOMCHIC Boutique</span>
+        </h1>
+        <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
+          Explore best {selectedCategory.toLowerCase()} - elegant, affordable,
+          and exclusively available in-store at MOMCHIC Boutique.
+        </p>
+      </motion.div>
 
       {/* 🧁 Centered Category Navigation */}
       <div className="flex flex-wrap justify-center gap-3 py-4 bg-white border-b border-pink-100">
@@ -144,9 +149,7 @@ export default function CategoryPage() {
                 products.length !== 1 ? "s" : ""
               }`}
         </p>
-        <button className="hover:text-pink-600 transition">
-          Sort by: Latest
-        </button>
+        <button className="hover:text-pink-600 transition">Sort by: Latest</button>
       </div>
 
       {/* 🧴 Product Grid */}
