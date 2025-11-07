@@ -142,7 +142,7 @@ const handleSubcategoryClick = (subcategory) => {
   className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
 >
   <img
-    src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762550993/Logo_wm5imt.png"
+    src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762553569/Logof_vksu8r.png"
     alt="MOMCHIC Boutique Logo"
     className="h-10 w-10 rounded-full border border-pink-100 object-contain"
   />
