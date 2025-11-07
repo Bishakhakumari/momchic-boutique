@@ -121,7 +121,7 @@ export default function CategoryPage() {
           <span className="text-pink-600">MOMCHIC Boutique</span>
         </h1>
         <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
-          Explore best {selectedCategory.toLowerCase()} - elegant, affordable,
+          Explore best {selectedCategory.toLowerCase()} – elegant, affordable,
           and exclusively available in-store at MOMCHIC Boutique.
         </p>
       </motion.div>
@@ -152,11 +152,13 @@ export default function CategoryPage() {
                 products.length !== 1 ? "s" : ""
               }`}
         </p>
-        <button className="hover:text-pink-600 transition">Sort by: Latest</button>
+<span className="text-gray-500 cursor-default select-none">
+  Sort by: <span className="font-medium text-pink-600">Latest</span>
+</span>
       </div>
 
       {/* 🧴 Product Grid */}
-      <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5">
+      <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {loading ? (
           <p className="text-gray-400 text-center col-span-full">
             Loading products...
@@ -193,7 +195,7 @@ export default function CategoryPage() {
           ← Back to All Collections
         </button>
         <p className="text-xs text-gray-400 mt-3">
-          Designed with love & elegance -{" "}
+          Designed with love & elegance –{" "}
           <span className="text-pink-500">MOMCHIC Boutique</span>
         </p>
       </motion.div>

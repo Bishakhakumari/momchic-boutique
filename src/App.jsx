@@ -135,18 +135,22 @@ const handleSubcategoryClick = (subcategory) => {
   <div className="max-w-7xl mx-auto flex flex-col items-center gap-3 md:flex-row md:justify-between md:items-center">
     
     {/* 🔗 Logo — Redirects to Homepage */}
-    <Link
-      to="/"
-      onClick={resetToHome}
-      className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
-    >
-      <img
-        src="src/public/logo.png"
-        alt="MOMCHIC Logo"
-        className="h-10 w-auto md:h-12 object-contain"
-      />
-      <span className="text-2xl font-extrabold text-pink-600">MOMCHIC</span>
-    </Link>
+{/* 🔗 Logo — Redirects to Homepage */}
+<Link
+  to="/"
+  onClick={resetToHome}
+  className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
+>
+  <img
+    src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762550993/Logo_wm5imt.png"
+    alt="MOMCHIC Boutique Logo"
+    className="h-10 w-10 rounded-full border border-pink-100 object-contain"
+  />
+  <span className="text-2xl font-extrabold text-pink-600 tracking-wide">
+    MOMCHIC
+  </span>
+</Link>
+
 
     {/* 🔍 Search + Navigation (Desktop Layout) */}
     <div className="w-full md:flex md:flex-row-reverse md:items-center md:gap-6">
@@ -315,7 +319,7 @@ onClick={() => {
 
     {/* Tagline Line */}
     <p className="text-sm md:text-base max-w-xl mt-2 animate-fadeInUp delay-100">
-      Shop our hand-picked collection of lehengas, sarees, suits, handbags, footwear, and more —
+      Shop our hand-picked collection of lehengas, sarees, suits, handbags, footwear, and more –
       at <b>MOMCHIC Boutique</b>. Premium fashion made affordable, right here in your town Daltonganj.
     </p>
 
@@ -482,7 +486,7 @@ onClick={() => {
       <p className="text-sm font-semibold">MOMCHIC Boutique</p>
       <p className="text-sm leading-relaxed">
         1st Floor, Mohan Cinema, near Bus Stand<br />
-        Daltonganj, Palamu, Jharkhand - 822101
+        Daltonganj, Palamu, Jharkhand – 822101
       </p>
       <p className="text-sm mt-2">📞 +91 9204613635</p>
       <p className="text-sm">🕒 Open Daily: 10:30 AM – 9 PM</p>
@@ -530,7 +534,7 @@ onClick={() => {
 
   {/* ✨ Boutique Tagline */}
   <div className="mt-10 text-center text-sm text-pink-600 font-medium tracking-wide">
-    Designed with love & elegance - <span className="font-semibold">MOMCHIC Boutique 💖</span>
+    Designed with love & elegance – <span className="font-semibold">MOMCHIC Boutique 💖</span>
   </div>
 
   {/* 📜 Copyright Section */}

@@ -53,10 +53,10 @@ export default function ProductCard({ product }) {
           <div className="text-sm text-gray-600 mt-1">
             {hasDiscount ? (
               <>
-                <span className="line-through mr-2 text-gray-400">
-                  ₹{validOriginal}
+                <span className="text-pink-600 font-bold">₹{validPrice}
                 </span>
-                <span className="text-pink-600 font-bold">₹{validPrice}</span>
+                <span className="line-through ml-2 text-gray-400">
+        ₹{validOriginal}</span>
                 <span className="text-green-700 text-xs ml-1 font-medium">
                   ({discountPercent}% OFF)
                 </span>
@@ -125,21 +125,20 @@ export default function ProductCard({ product }) {
             </h3>
             <p className="text-sm text-gray-500 capitalize">{category}</p>
 
-            <div className="mt-2 text-sm text-gray-700">
-              {hasDiscount ? (
-                <>
-                  <span className="line-through mr-2 text-gray-400">
-                    ₹{validOriginal}
-                  </span>
-                  <span className="text-pink-600 font-bold">₹{validPrice}</span>
-                  <span className="text-green-700 text-xs ml-1 font-medium">
-                    ({discountPercent}% OFF)
-                  </span>
-                </>
-              ) : (
-                <span className="text-pink-600 font-bold">₹{validPrice}</span>
-              )}
-            </div>
+          <div className="mt-2 text-sm text-gray-700">
+  {hasDiscount ? (
+    <>
+      <span className="text-pink-600 font-bold">₹{validPrice}</span>
+      <span className="line-through ml-2 text-gray-400">₹{validOriginal}</span>
+      <span className="text-green-700 text-xs ml-1 font-medium">
+        ({discountPercent}% OFF)
+      </span>
+    </>
+  ) : (
+    <span className="text-pink-600 font-bold">₹{validPrice}</span>
+  )}
+</div>
+
 
             <p
               className={`text-xs font-medium mt-3 ${
