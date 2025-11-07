@@ -82,6 +82,7 @@ const handleSubcategoryClick = (subcategory) => {
     const sheetURL =
       "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7ZAmIk7wbGaqjix0PiStR8SiUWD7iTPglZtIcsbM1PIXno0Ry_KTPZI-0Bzvb-8L-yxzHVJ91auA6/pub?output=csv";
     const response = await axios.get(sheetURL);
+
     Papa.parse(response.data, {
       header: true,
       complete: (results) => {
@@ -93,6 +94,7 @@ const handleSubcategoryClick = (subcategory) => {
               item["Original Price"]?.replace(/\D/g, ""),
               10
             );
+
             return {
               id: item["Item Name"] + Math.random(),
               name: item["Item Name"],
@@ -101,6 +103,8 @@ const handleSubcategoryClick = (subcategory) => {
               originalPrice: isNaN(originalPrice) ? null : originalPrice,
               image: item["Image Link"],
               tag: item["Tag"]?.trim()?.toLowerCase() || "",
+              inStock:
+                item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
             };
           });
 
@@ -110,8 +114,10 @@ const handleSubcategoryClick = (subcategory) => {
       },
     });
   };
+
   fetchData();
 }, []);
+
 
   const resetToHome = () => {
     setFilteredProducts(products);
