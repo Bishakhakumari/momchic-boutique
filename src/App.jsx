@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProductCard from "./components/ProductCard";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { Gift } from "lucide-react";
+import HeroBanner from "./components/Herobanner";
 
 export default function App() {
   const hoverTimeout = useRef(null);
@@ -296,58 +297,7 @@ onClick={() => {
 
 
         <div className="flex-grow">
-{showBanner && (
-  <section className="relative w-full h-[35vh] md:h-[50vh] overflow-hidden">
-    {/* Background Slideshow */}
-    <div className="absolute inset-0">
-      <div className="slideshow-container h-full w-full">
-        <img
-          src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762607877/28_sv9rko.jpg"
-          alt="Banner 1"
-          className="absolute inset-0 w-full h-full object-cover opacity-0 animate-fade1"
-        />
-        <img
-          src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762607879/25_u0qglo.jpg"
-          alt="Banner 2"
-          className="absolute inset-0 w-full h-full object-cover opacity-0 animate-fade2"
-        />
-        <img
-          src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762607877/22_voww88.jpg"
-          alt="Banner 3"
-          className="absolute inset-0 w-full h-full object-cover opacity-0 animate-fade3"
-        />
-      </div>
-      <div className="absolute inset-0 bg-black bg-opacity-40"></div>
-    </div>
-
-    {/* Text Overlay */}
-    <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4">
-      <p className="text-xs md:text-sm uppercase tracking-[3px] text-gray-200 mb-2">
-        Your Local Fashion Destination
-      </p>
-
-      <h1 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-1 animate-fadeInUp">
-        Discover the World of Style at{" "}
-        <span className="text-pink-300">MOMCHIC</span>
-      </h1>
-
-      <p className="text-sm md:text-base max-w-xl mt-2 animate-fadeInUp delay-100">
-        Shop our hand-picked collection of lehengas, sarees, suits, handbags,
-        footwear, and more – at <b>MOMCHIC Boutique</b>. Premium fashion made
-        affordable, right here in your town Daltonganj.
-      </p>
-
-      <a
-        href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition-all duration-300 animate-fadeInUp delay-200"
-      >
-        🛍️ Visit Our Store
-      </a>
-    </div>
-  </section>
-)}
+{showBanner && <HeroBanner />}
 
 {/* 🆕 New Arrivals Section */}
 <section className="p-6 max-w-7xl mx-auto">
