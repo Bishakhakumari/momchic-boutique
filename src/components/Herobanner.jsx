@@ -62,7 +62,7 @@ export default function HeroBanner() {
           <div
             className="w-full h-full bg-cover bg-center transform scale-100 animate-zoomInSlow"
             style={{
-              backgroundImage: `url(${src})`,
+              backgroundImage: `url(${src}?auto=format&fit=crop&w=1600&q=60)`,
             }}
           />
         </div>

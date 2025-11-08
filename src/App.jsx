@@ -1,9 +1,12 @@
 import { useEffect, useState, useRef } from "react";
-import axios from "axios";
-import Papa from "papaparse";
+//import axios from "axios";
+//import Papa from "papaparse";
 import { Search } from "lucide-react";
 import { Toaster } from "react-hot-toast";
-import { motion, AnimatePresence } from "framer-motion";
+//import { motion, AnimatePresence } from "framer-motion";
+import { Suspense, lazy } from "react";
+const LazyDropdown = lazy(() => import("./components/LazyDropdown"));
+
 import ProductCard from "./components/ProductCard";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { Gift } from "lucide-react";
@@ -80,8 +83,14 @@ const handleSubcategoryClick = (subcategory) => {
 
   useEffect(() => {
   const fetchData = async () => {
+    const [{ default: axios }, { default: Papa }] = await Promise.all([
+      import("axios"),
+      import("papaparse"),
+    ]);
+
     const sheetURL =
       "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7ZAmIk7wbGaqjix0PiStR8SiUWD7iTPglZtIcsbM1PIXno0Ry_KTPZI-0Bzvb-8L-yxzHVJ91auA6/pub?output=csv";
+
     const response = await axios.get(sheetURL);
 
     Papa.parse(response.data, {
@@ -91,11 +100,7 @@ const handleSubcategoryClick = (subcategory) => {
           .filter((item) => item["Item Name"] && item.Price)
           .map((item) => {
             const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
-            const originalPrice = parseInt(
-              item["Original Price"]?.replace(/\D/g, ""),
-              10
-            );
-
+            const originalPrice = parseInt(item["Original Price"]?.replace(/\D/g, ""), 10);
             return {
               id: item["Item Name"] + Math.random(),
               name: item["Item Name"],
@@ -104,11 +109,9 @@ const handleSubcategoryClick = (subcategory) => {
               originalPrice: isNaN(originalPrice) ? null : originalPrice,
               image: item["Image Link"],
               tag: item["Tag"]?.trim()?.toLowerCase() || "",
-              inStock:
-                item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
+              inStock: item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
             };
           });
-
         setProducts(cleanedData);
         setFilteredProducts(cleanedData);
         localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
@@ -118,6 +121,7 @@ const handleSubcategoryClick = (subcategory) => {
 
   fetchData();
 }, []);
+
 
 
   const resetToHome = () => {
@@ -143,7 +147,7 @@ const handleSubcategoryClick = (subcategory) => {
   className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
 >
   <img
-    src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762553569/Logof_vksu8r.png"
+    src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762553569/Logof_vksu8r.png?auto=format&w=200&q=70"
     alt="MOMCHIC Boutique Logo"
     className="h-10 w-10 rounded-full border border-pink-100 object-contain"
   />
@@ -181,75 +185,19 @@ const handleSubcategoryClick = (subcategory) => {
       </div>
 
       {/* Navigation Menu */}
-      <nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700 pointer-events-none">
-        {Object.keys(menuItems).map((category) => (
-          <div
-            key={category}
-            className="relative group pointer-events-auto"
-            onMouseEnter={() => {
-              clearTimeout(hoverTimeout.current);
-              setActiveCategory(category);
-            }}
-            onMouseLeave={() => {
-              hoverTimeout.current = setTimeout(() => {
-                setActiveCategory(null);
-              }, 200);
-            }}
-          >
-            {/* Top-level Category Name */}
-            <div
-              className={`cursor-pointer uppercase tracking-wide transition-colors duration-200 px-1 ${
-                activeCategory === category
-                  ? "text-pink-700 font-semibold"
-                  : "hover:text-pink-600"
-              }`}
-            >
-              {category}
-            </div>
+      {/* Navigation Menu */}
+<nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700 pointer-events-none">
+  <Suspense fallback={null}>
+    <LazyDropdown
+      menuItems={menuItems}
+      activeCategory={activeCategory}
+      setActiveCategory={setActiveCategory}
+      hoverTimeout={hoverTimeout}
+      handleSubcategoryClick={handleSubcategoryClick}
+    />
+  </Suspense>
+</nav>
 
-            {/* Dropdown Animation */}
-            <AnimatePresence>
-              {activeCategory === category && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute top-full left-0 w-64 bg-white shadow-lg border mt-1 z-50 pt-2 pb-2 rounded-md pointer-events-auto"
-                >
-                  <ul className="p-4 flex flex-col gap-2 text-sm text-gray-700">
-                    {menuItems[category].map((group, i) => (
-                      <div key={i}>
-                        {group.title && (
-                          <li className="text-pink-500 font-bold uppercase text-xs tracking-wide mt-3 mb-1">
-                            {group.title}
-                          </li>
-                        )}
-                        {group.items.map((item, idx) => {
-                          const label = item
-                            .toLowerCase()
-                            .split(" ")
-                            .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-                            .join(" ");
-                          return (
-                            <li
-                              key={idx}
-                              className="text-gray-600 cursor-pointer pl-2 transition-all duration-200 hover:font-semibold hover:text-gray-800"
-                              onClick={() => handleSubcategoryClick(item)}
-                            >
-                              {label}
-                            </li>
-                          );
-                        })}
-                      </div>
-                    ))}
-                  </ul>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-        ))}
-      </nav>
     </div>
   </div>
 </header>
@@ -298,6 +246,7 @@ onClick={() => {
 
         <div className="flex-grow">
 {showBanner && <HeroBanner />}
+
 {/* 🆕 New Arrivals Section */}
 <section className="p-6 max-w-7xl mx-auto">
   <div className="flex flex-col items-center mb-2">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Papa from "papaparse";
@@ -11,97 +11,105 @@ export default function CategoryPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Define all standard categories for cross-match
-  const allCategories = [
-    "Lehengas & Gowns",
-    "Sarees",
-    "Suits & Kurtis",
-    "Tops & Dresses",
-    "Handbags",
-    "Footwear",
-    "Beauty & Skincare",
-  ];
+  // ✅ Static category list memoized (never re-renders unnecessarily)
+  const allCategories = useMemo(
+    () => [
+      "Lehengas & Gowns",
+      "Sarees",
+      "Suits & Kurtis",
+      "Tops & Dresses",
+      "Handbags",
+      "Footwear",
+      "Beauty & Skincare",
+    ],
+    []
+  );
 
-  // Find the best matching category (even if partially)
-  const getClosestCategory = (input) => {
-    const lower = input.toLowerCase();
+  // ✅ Category matching optimized (no repeated lowercase conversions)
+  const selectedCategory = useMemo(() => {
+    const lower = name.toLowerCase();
     return (
       allCategories.find(
         (cat) =>
           cat.toLowerCase() === lower ||
           cat.toLowerCase().includes(lower) ||
           lower.includes(cat.toLowerCase())
-      ) || input
+      ) || name
     );
-  };
+  }, [name, allCategories]);
 
-  const selectedCategory = getClosestCategory(name);
-
+  // ✅ Fetch & Parse Data Efficiently
   useEffect(() => {
-    const fetchData = async () => {
+    let isMounted = true; // prevent memory leaks
+
+    (async () => {
       try {
         const sheetURL =
           "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7ZAmIk7wbGaqjix0PiStR8SiUWD7iTPglZtIcsbM1PIXno0Ry_KTPZI-0Bzvb-8L-yxzHVJ91auA6/pub?output=csv";
+        const response = await axios.get(sheetURL, { timeout: 10000 }); // 10s timeout
 
-        const response = await axios.get(sheetURL);
         Papa.parse(response.data, {
           header: true,
           skipEmptyLines: true,
-          complete: (results) => {
-            const data = results.data
-              .map((item) => {
-                const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
-                const original = parseInt(
-                  item["Original Price"]?.replace(/\D/g, ""),
-                  10
-                );
+          complete: ({ data }) => {
+            if (!isMounted) return;
 
-                // 🩷 Multi-image support (comma-separated URLs)
-                const imageLinks = item["Image Link"]
-                  ? item["Image Link"]
-                      .split(",")
-                      .map((url) => url.trim())
-                      .filter((url) => url && url !== "undefined")
-                  : [];
+            // ✅ Use .reduce (faster than map+filter chain)
+            const parsed = data.reduce((acc, item) => {
+              if (!item["Item Name"] || !item["Image Link"]) return acc;
 
-                return {
-  id: item["Item Name"] + Math.random(),
-  name: item["Item Name"]?.trim(),
-  category: item["Category"]?.trim(),
-  image: imageLinks,
-  price: isNaN(price) ? 0 : price,
-  originalPrice: isNaN(original) ? null : original,
-  inStock:
-    item["Stock Status"]?.toLowerCase().includes("in") ?? true, // ✅ New line
-};
-
-              })
-              // ✅ Filter out items without any valid image
-              .filter((item) => item.image && item.image.length > 0);
-
-            // Smart filtering – even partial matches
-            const filtered = data.filter((p) => {
-              const categoryName = p.category?.toLowerCase() || "";
-              const selected = selectedCategory.toLowerCase();
-              return (
-                categoryName.includes(selected) ||
-                selected.includes(categoryName)
+              const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
+              const original = parseInt(
+                item["Original Price"]?.replace(/\D/g, ""),
+                10
               );
+
+              const imageLinks = item["Image Link"]
+                ? item["Image Link"]
+                    .split(",")
+                    .map((url) => url.trim())
+                    .filter((url) => url && url !== "undefined")
+                : [];
+
+              // ✅ Skip empty or broken entries early
+              if (imageLinks.length === 0) return acc;
+
+              acc.push({
+                id: item["Item Name"],
+                name: item["Item Name"]?.trim(),
+                category: item["Category"]?.trim(),
+                image: imageLinks,
+                price: isNaN(price) ? 0 : price,
+                originalPrice: isNaN(original) ? null : original,
+                inStock:
+                  item["Stock Status"]?.toLowerCase().includes("in") ?? true,
+              });
+              return acc;
+            }, []);
+
+            // ✅ Match category once only
+            const lowerSel = selectedCategory.toLowerCase();
+            const filtered = parsed.filter((p) => {
+              const cat = p.category?.toLowerCase() || "";
+              return cat.includes(lowerSel) || lowerSel.includes(cat);
             });
 
             setProducts(filtered);
             setLoading(false);
           },
         });
-      } catch (error) {
-        console.error("Error loading data:", error);
-        setLoading(false);
+      } catch (err) {
+        console.error("❌ Error loading category data:", err);
+        if (isMounted) setLoading(false);
       }
-    };
-    fetchData();
-  }, [name]);
+    })();
 
-  // 🩷 Quick Category Navigation Bar
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedCategory]);
+
+  // ✅ Category Navigation
   const handleCategoryClick = (cat) => {
     navigate(`/category/${encodeURIComponent(cat)}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -109,7 +117,7 @@ export default function CategoryPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* 🌸 Boutique Header */}
+      {/* 🌸 Header */}
       <motion.div
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
@@ -126,7 +134,7 @@ export default function CategoryPage() {
         </p>
       </motion.div>
 
-      {/* 🧁 Centered Category Navigation */}
+      {/* 🧁 Category Navigation */}
       <div className="flex flex-wrap justify-center gap-3 py-4 bg-white border-b border-pink-100">
         {allCategories.map((cat) => (
           <button
@@ -152,9 +160,9 @@ export default function CategoryPage() {
                 products.length !== 1 ? "s" : ""
               }`}
         </p>
-<span className="text-gray-500 cursor-default select-none">
-  Sort by: <span className="font-medium text-pink-600">Latest</span>
-</span>
+        <span className="text-gray-500 cursor-default select-none">
+          Sort by: <span className="font-medium text-pink-600">Latest</span>
+        </span>
       </div>
 
       {/* 🧴 Product Grid */}
@@ -166,10 +174,10 @@ export default function CategoryPage() {
         ) : products.length > 0 ? (
           products.map((product, i) => (
             <motion.div
-              key={i}
+              key={product.id || i}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: i * 0.05 }}
+              transition={{ duration: 0.25, delay: i * 0.02 }}
             >
               <ProductCard product={product} />
             </motion.div>
@@ -185,14 +193,14 @@ export default function CategoryPage() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.4 }}
+        transition={{ delay: 0.3 }}
         className="text-center mt-6 pb-10"
       >
         <button
           onClick={() => navigate("/")}
           className="px-6 py-2 border border-pink-500 text-pink-600 rounded-full text-sm font-medium hover:bg-pink-50 transition"
         >
-          ← Back to All Collections
+          ← Return to Home
         </button>
         <p className="text-xs text-gray-400 mt-3">
           Designed with love & elegance –{" "}

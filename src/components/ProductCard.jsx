@@ -1,42 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
 
-export default function ProductCard({ product }) {
-  const { name, category, image, price, originalPrice } = product;
+function ProductCard({ product }) {
+  const { name, category, image, price, originalPrice, inStock } = product;
   const [showModal, setShowModal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // Handle images (array or single)
+  // ✅ Prepare images once
   const images = Array.isArray(image)
     ? image
     : image
     ? [image]
     : ["https://via.placeholder.com/300x400?text=No+Image"];
 
-  // Validate and compute discount
-  const validPrice = parseInt(price);
-  const validOriginal = parseInt(originalPrice);
-  const hasDiscount = !isNaN(validOriginal) && validOriginal > validPrice;
+  // ✅ Use Math for discount calculation only when needed
+  const validPrice = +price || 0;
+  const validOriginal = +originalPrice || 0;
+  const hasDiscount = validOriginal > validPrice;
   const discountPercent = hasDiscount
     ? Math.round(((validOriginal - validPrice) / validOriginal) * 100)
     : 0;
 
-  // 🖼️ On image click, go to next image
-  const handleImageClick = () => {
+  // ✅ Memoized Handlers (prevents unnecessary re-renders)
+  const handleImageClick = useCallback(() => {
     if (images.length > 1) {
       setCurrentIndex((prev) => (prev + 1) % images.length);
     }
-  };
+  }, [images.length]);
+
+  const handleModalToggle = useCallback(() => {
+    setShowModal((prev) => !prev);
+  }, []);
 
   return (
     <>
-      {/* Product Card */}
+      {/* 🩷 Product Card */}
       <div
-        onClick={() => setShowModal(true)}
+        onClick={handleModalToggle}
         className="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
       >
         <div className="overflow-hidden">
           <img
-            src={images[0]}
+            loading="lazy"
+            src={`${images[0]}?auto=format&fit=crop&w=600&q=60`}
             alt={name}
             className="w-full h-60 object-cover transition-transform duration-300 hover:scale-105"
           />
@@ -53,10 +58,10 @@ export default function ProductCard({ product }) {
           <div className="text-sm text-gray-600 mt-1">
             {hasDiscount ? (
               <>
-                <span className="text-pink-600 font-bold">₹{validPrice}
-                </span>
+                <span className="text-pink-600 font-bold">₹{validPrice}</span>
                 <span className="line-through ml-2 text-gray-400">
-        ₹{validOriginal}</span>
+                  ₹{validOriginal}
+                </span>
                 <span className="text-green-700 text-xs ml-1 font-medium">
                   ({discountPercent}% OFF)
                 </span>
@@ -68,21 +73,21 @@ export default function ProductCard({ product }) {
 
           <p
             className={`text-xs font-medium mt-1 ${
-              product.inStock ? "text-green-600" : "text-red-500"
+              inStock ? "text-green-600" : "text-red-500"
             }`}
           >
-            {product.inStock
+            {inStock
               ? "✅ Available in-store at MOMCHIC"
               : "❌ Currently out of stock"}
           </p>
         </div>
       </div>
 
-      {/* Modal Popup with Clickable Image + Dots */}
+      {/* 💎 Modal Popup */}
       {showModal && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
-          onClick={() => setShowModal(false)}
+          onClick={handleModalToggle}
         >
           <div
             className="bg-white rounded-lg shadow-lg w-80 p-4 relative"
@@ -90,21 +95,26 @@ export default function ProductCard({ product }) {
           >
             {/* Close Button */}
             <button
-              onClick={() => setShowModal(false)}
+              onClick={handleModalToggle}
+              aria-label="Close modal"
               className="absolute -top-2 -right-2 bg-pink-600 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md hover:bg-pink-700 transition"
             >
               ✕
             </button>
 
             {/* 🖼️ Clickable Image Area */}
-            <div className="relative cursor-pointer" onClick={handleImageClick}>
+            <div
+              className="relative cursor-pointer"
+              onClick={handleImageClick}
+            >
               <img
-                src={images[currentIndex]}
+                loading="lazy"
+                src={`${images[currentIndex]}?auto=format&fit=crop&w=900&q=70`}
                 alt={`${name} ${currentIndex + 1}`}
                 className="w-full h-64 object-cover rounded-md"
               />
 
-              {/* 🔘 Dots below image */}
+              {/* 🔘 Dots */}
               {images.length > 1 && (
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1.5">
                   {images.map((_, i) => (
@@ -125,27 +135,28 @@ export default function ProductCard({ product }) {
             </h3>
             <p className="text-sm text-gray-500 capitalize">{category}</p>
 
-          <div className="mt-2 text-sm text-gray-700">
-  {hasDiscount ? (
-    <>
-      <span className="text-pink-600 font-bold">₹{validPrice}</span>
-      <span className="line-through ml-2 text-gray-400">₹{validOriginal}</span>
-      <span className="text-green-700 text-xs ml-1 font-medium">
-        ({discountPercent}% OFF)
-      </span>
-    </>
-  ) : (
-    <span className="text-pink-600 font-bold">₹{validPrice}</span>
-  )}
-</div>
-
+            <div className="mt-2 text-sm text-gray-700">
+              {hasDiscount ? (
+                <>
+                  <span className="text-pink-600 font-bold">₹{validPrice}</span>
+                  <span className="line-through ml-2 text-gray-400">
+                    ₹{validOriginal}
+                  </span>
+                  <span className="text-green-700 text-xs ml-1 font-medium">
+                    ({discountPercent}% OFF)
+                  </span>
+                </>
+              ) : (
+                <span className="text-pink-600 font-bold">₹{validPrice}</span>
+              )}
+            </div>
 
             <p
               className={`text-xs font-medium mt-3 ${
-                product.inStock ? "text-green-600" : "text-red-500"
+                inStock ? "text-green-600" : "text-red-500"
               }`}
             >
-              {product.inStock
+              {inStock
                 ? "✅ Available in-store"
                 : "❌ Currently out of stock"}
             </p>
@@ -164,3 +175,6 @@ export default function ProductCard({ product }) {
     </>
   );
 }
+
+// ✅ memo() prevents re-rendering unless props change
+export default memo(ProductCard);
