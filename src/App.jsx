@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import ProductCard from "./components/ProductCard";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { Gift } from "lucide-react";
+import HeroBanner from "./components/Herobanner";
 
 export default function App() {
   const hoverTimeout = useRef(null);
@@ -296,46 +297,8 @@ onClick={() => {
 
 
         <div className="flex-grow">
-{showBanner && (
-  <section
-  className="relative w-full h-[35vh] md:h-[50vh] bg-cover bg-center"
-  style={{
-    backgroundImage:
-      "url('https://images.unsplash.com/photo-1612423284934-0b2f67ed8c6e?auto=format&fit=crop&w=1500&q=80')",
-  }}
->
-  {/* Overlay */}
-  <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col justify-center items-center text-white text-center px-4">
-    
-    {/* Optional Mini Tagline */}
-    <p className="text-xs md:text-sm uppercase tracking-[3px] text-gray-200 mb-2">
-      Your Local Fashion Destination
-    </p>
+{showBanner && <HeroBanner />}
 
-    {/* Main Heading */}
-    <h1 className="text-4xl md:text-5xl font-extrabold tracking-wide mb-1 animate-fadeInUp">
-      Discover the World of Style at <span className="text-pink-300">MOMCHIC</span>
-    </h1>
-
-    {/* Tagline Line */}
-    <p className="text-sm md:text-base max-w-xl mt-2 animate-fadeInUp delay-100">
-      Shop our hand-picked collection of lehengas, sarees, suits, handbags, footwear, and more –
-      at <b>MOMCHIC Boutique</b>. Premium fashion made affordable, right here in your town Daltonganj.
-    </p>
-
-    {/* Visit Button */}
-    <a
-      href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition-all duration-300 animate-fadeInUp delay-200"
-    >
-      🛍️ Visit Our Store
-    </a>
-  </div>
-</section>
-
-)}
 {/* 🆕 New Arrivals Section */}
 <section className="p-6 max-w-7xl mx-auto">
   <div className="flex flex-col items-center mb-2">
