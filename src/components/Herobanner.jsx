@@ -7,6 +7,7 @@ export default function HeroBanner() {
     "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607878/20_bpqdul.jpg",
     "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607877/28_sv9rko.jpg",
     "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607879/25_u0qglo.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762631933/a2_he7qm2.jpg",
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
