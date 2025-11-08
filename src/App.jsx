@@ -298,7 +298,6 @@ onClick={() => {
 
         <div className="flex-grow">
 {showBanner && <HeroBanner />}
-
 {/* 🆕 New Arrivals Section */}
 <section className="p-6 max-w-7xl mx-auto">
   <div className="flex flex-col items-center mb-2">
