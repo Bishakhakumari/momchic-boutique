@@ -21,6 +21,7 @@ export default function CategoryPage() {
       "Handbags",
       "Footwear",
       "Beauty & Skincare",
+      "Rental Wear"
     ],
     []
   );
@@ -125,9 +126,15 @@ export default function CategoryPage() {
         className="bg-pink-50 border-b border-pink-100 py-5 md:py-8 text-center sticky top-0 z-20 shadow-sm"
       >
         <h1 className="text-2xl md:text-4xl font-extrabold text-gray-800 leading-tight">
-          Shop {selectedCategory} at{" "}
-          <span className="text-pink-600">MOMCHIC Boutique</span>
-        </h1>
+  Shop {selectedCategory} at{" "}
+  <span
+    className="text-pink-600 hover:text-pink-700 cursor-pointer transition"
+    onClick={() => navigate("/")}
+  >
+    MOMCHIC Boutique
+  </span>
+</h1>
+
         <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
           Explore best {selectedCategory.toLowerCase()} – elegant, affordable,
           and exclusively available in-store at MOMCHIC Boutique.
@@ -165,7 +172,7 @@ export default function CategoryPage() {
         </span>
       </div>
 
-      {/* 🧴 Product Grid */}
+           {/* 🧴 Product Grid */}
       <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {loading ? (
           <p className="text-gray-400 text-center col-span-full">
@@ -188,6 +195,19 @@ export default function CategoryPage() {
           </p>
         )}
       </div>
+
+      {/* 🏬 Boutique Note */}
+      <p className="text-center text-sm text-gray-500 mt-8">
+  <a
+    href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-pink-600 hover:underline font-medium transition-colors"
+  >
+    📍 Visit our boutique in Daltonganj
+  </a>{" "}
+  for bridal rentals and exclusive in-store collections.
+</p>
 
       {/* 💖 Footer Navigation */}
       <motion.div

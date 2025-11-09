@@ -32,10 +32,10 @@ const menuItems = {
     { title: "Fragrance & Care", items: ["Perfumes", "Body Mist", "Skincare Essentials"] },
   ],
   "RENTAL WEAR": [
-    { title: "Occasion Wear", items: ["Bridal Lehengas", "Dandiya Dresses", "Party Gowns", "Designer Sarees"] },
+    { title: "Occasion Wear", items: ["Bridal Lehengas", "Dandiya Dresses"] },
   ],
   OFFERS: [
-    { title: "", items: ["Flat 50% Off", "Buy 1 Get 1", "Festive Combos"] },
+    { title: "", items: ["Flat 50% Off", "Festive Combos"] },
   ],
 };
 
@@ -53,6 +53,8 @@ const handleSubcategoryClick = (subcategory) => {
     "Skincare": "Beauty & Skincare",
     "Body Mist": "Beauty & Skincare",
     "Skincare Essentials": "Beauty & Skincare",
+    "Bridal Lehengas": "Rental wear",
+    "Dandiya Dresses": "Rental Wear",
   };
 
     // 🔍 Normalize key (trim + lowercase)
@@ -379,6 +381,7 @@ onClick={() => {
           "Handbags & Clutches",
           "Footwear Collection",
           "Beauty & Skincare",
+          "Rental Wear",
         ].map((category, index) => (
           <li
             key={index}
