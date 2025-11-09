@@ -3,8 +3,8 @@ import { useEffect, useState, useRef } from "react";
 export default function HeroBanner() {
   const bannerImages = [
     "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762614252/a1_s2xapg.jpg",
-    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762707346/a3_dk8pbn.jpg",
     "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607877/22_voww88.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762707346/a3_dk8pbn.jpg",
     "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607878/20_bpqdul.jpg",
     "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607877/28_sv9rko.jpg",
     "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607879/25_u0qglo.jpg",
