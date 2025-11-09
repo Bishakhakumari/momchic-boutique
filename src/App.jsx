@@ -109,7 +109,13 @@ const handleSubcategoryClick = (subcategory) => {
               category: item["Category"],
               price: isNaN(price) ? 0 : price,
               originalPrice: isNaN(originalPrice) ? null : originalPrice,
-              image: item["Image Link"],
+              image: item["Image Link"]
+  ? item["Image Link"]
+      .split(",")
+      .map((url) => url.trim())
+      .filter((url) => url && url !== "undefined")
+  : [],
+
               tag: item["Tag"]?.trim()?.toLowerCase() || "",
               inStock: item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
             };
