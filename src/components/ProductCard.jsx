@@ -55,7 +55,7 @@ function ProductCard({ product }) {
             {category}
           </p>
 
-          <div className="text-sm text-gray-600 mt-1">
+          {/*<div className="text-sm text-gray-600 mt-1">
             {hasDiscount ? (
               <>
                 <span className="text-pink-600 font-bold">₹{validPrice}</span>
@@ -69,7 +69,7 @@ function ProductCard({ product }) {
             ) : (
               <span className="text-pink-600 font-bold">₹{validPrice}</span>
             )}
-          </div>
+          </div>*/}
 
           <p
             className={`text-xs font-medium mt-1 ${
@@ -135,7 +135,7 @@ function ProductCard({ product }) {
             </h3>
             <p className="text-sm text-gray-500 capitalize">{category}</p>
 
-            <div className="mt-2 text-sm text-gray-700">
+            {/*<div className="mt-2 text-sm text-gray-700">
               {hasDiscount ? (
                 <>
                   <span className="text-pink-600 font-bold">₹{validPrice}</span>
@@ -149,7 +149,7 @@ function ProductCard({ product }) {
               ) : (
                 <span className="text-pink-600 font-bold">₹{validPrice}</span>
               )}
-            </div>
+            </div>*/}
 
             <p
               className={`text-xs font-medium mt-3 ${
