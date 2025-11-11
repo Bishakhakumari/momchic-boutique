@@ -285,7 +285,6 @@ onClick={() => {
     )}
   </div>
 </section>
-
 {/* 💖 Customer Favourites Section */}
 <section className="p-6 max-w-7xl mx-auto mt-10 border-t border-pink-100">
   <div className="text-center mb-6">

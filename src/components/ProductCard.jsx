@@ -77,7 +77,7 @@ function ProductCard({ product }) {
             }`}
           >
             {inStock
-              ? "✅ Available in-store at MOMCHIC"
+              ? "✅ Available in-store"
               : "❌ Currently out of stock"}
           </p>
         </div>
