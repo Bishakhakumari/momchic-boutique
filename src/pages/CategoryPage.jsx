@@ -11,7 +11,6 @@ export default function CategoryPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ Static category list memoized (never re-renders unnecessarily)
   const allCategories = useMemo(
     () => [
       "Lehengas & Gowns",
@@ -21,12 +20,11 @@ export default function CategoryPage() {
       "Handbags",
       "Footwear",
       "Beauty & Skincare",
-      "Rental Wear"
+      "Rental Wear",
     ],
     []
   );
 
-  // ✅ Category matching optimized (no repeated lowercase conversions)
   const selectedCategory = useMemo(() => {
     const lower = name.toLowerCase();
     return (
@@ -39,15 +37,14 @@ export default function CategoryPage() {
     );
   }, [name, allCategories]);
 
-  // ✅ Fetch & Parse Data Efficiently
   useEffect(() => {
-    let isMounted = true; // prevent memory leaks
-
+    let isMounted = true;
     (async () => {
       try {
         const sheetURL =
           "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7ZAmIk7wbGaqjix0PiStR8SiUWD7iTPglZtIcsbM1PIXno0Ry_KTPZI-0Bzvb-8L-yxzHVJ91auA6/pub?output=csv";
-        const response = await axios.get(sheetURL, { timeout: 10000 }); // 10s timeout
+
+        const response = await axios.get(sheetURL, { timeout: 10000 });
 
         Papa.parse(response.data, {
           header: true,
@@ -55,7 +52,6 @@ export default function CategoryPage() {
           complete: ({ data }) => {
             if (!isMounted) return;
 
-            // ✅ Use .reduce (faster than map+filter chain)
             const parsed = data.reduce((acc, item) => {
               if (!item["Item Name"] || !item["Image Link"]) return acc;
 
@@ -72,7 +68,6 @@ export default function CategoryPage() {
                     .filter((url) => url && url !== "undefined")
                 : [];
 
-              // ✅ Skip empty or broken entries early
               if (imageLinks.length === 0) return acc;
 
               acc.push({
@@ -85,10 +80,10 @@ export default function CategoryPage() {
                 inStock:
                   item["Stock Status"]?.toLowerCase().includes("in") ?? true,
               });
+
               return acc;
             }, []);
 
-            // ✅ Match category once only
             const lowerSel = selectedCategory.toLowerCase();
             const filtered = parsed.filter((p) => {
               const cat = p.category?.toLowerCase() || "";
@@ -104,13 +99,11 @@ export default function CategoryPage() {
         if (isMounted) setLoading(false);
       }
     })();
-
     return () => {
       isMounted = false;
     };
   }, [selectedCategory]);
 
-  // ✅ Category Navigation
   const handleCategoryClick = (cat) => {
     navigate(`/category/${encodeURIComponent(cat)}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -126,20 +119,36 @@ export default function CategoryPage() {
         className="bg-pink-50 border-b border-pink-100 py-5 md:py-8 text-center sticky top-0 z-20 shadow-sm"
       >
         <h1 className="text-2xl md:text-4xl font-extrabold text-gray-800 leading-tight">
-  Shop {selectedCategory} at{" "}
-  <span
-    className="text-pink-600 hover:text-pink-700 cursor-pointer transition"
-    onClick={() => navigate("/")}
-  >
-    MOMCHIC Boutique
-  </span>
-</h1>
+          Shop {selectedCategory} at{" "}
+          <span
+            className="text-pink-600 hover:text-pink-700 cursor-pointer transition"
+            onClick={() => navigate("/")}
+          >
+            MOMCHIC Boutique
+          </span>
+        </h1>
 
         <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
           Explore best {selectedCategory.toLowerCase()} – elegant, affordable,
           and exclusively available in-store at MOMCHIC Boutique.
         </p>
       </motion.div>
+
+      {/* 🩷 Category Discount Banner (Fade-in) */}
+<div className="w-full flex justify-center mt-3 mb-4 px-4 animate-fadeInUp">
+  <div className="
+    bg-pink-50 border border-pink-200 text-pink-700 
+    text-sm md:text-base py-2 px-4 rounded-lg shadow-sm 
+    text-center max-w-3xl w-full
+    transition-all duration-500 ease-out
+  ">
+    🎀 Wedding Season Offer:{" "}
+    <span className="font-semibold">
+      Up to 20% Off on Bridal Lehengas, Partywear & more
+    </span>{" "}
+    — In-Store Only
+  </div>
+</div>
 
       {/* 🧁 Category Navigation */}
       <div className="flex flex-wrap justify-center gap-3 py-4 bg-white border-b border-pink-100">
@@ -172,7 +181,7 @@ export default function CategoryPage() {
         </span>
       </div>
 
-           {/* 🧴 Product Grid */}
+      {/* 🧴 Product Grid */}
       <div className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {loading ? (
           <p className="text-gray-400 text-center col-span-full">
@@ -198,16 +207,16 @@ export default function CategoryPage() {
 
       {/* 🏬 Boutique Note */}
       <p className="text-center text-sm text-gray-500 mt-8">
-  <a
-    href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-pink-600 hover:underline font-medium transition-colors"
-  >
-    📍 Visit our boutique in Daltonganj
-  </a>{" "}
-  for bridal rentals and exclusive in-store collections.
-</p>
+        <a
+          href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-pink-600 hover:underline font-medium transition-colors"
+        >
+          📍 Visit our boutique in Daltonganj
+        </a>{" "}
+        for bridal rentals and exclusive in-store collections.
+      </p>
 
       {/* 💖 Footer Navigation */}
       <motion.div

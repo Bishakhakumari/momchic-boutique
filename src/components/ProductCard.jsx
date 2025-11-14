@@ -5,22 +5,19 @@ function ProductCard({ product }) {
   const [showModal, setShowModal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // ✅ Prepare images once
+  // Prepare image list
   const images = Array.isArray(image)
     ? image
     : image
     ? [image]
     : ["https://via.placeholder.com/300x400?text=No+Image"];
 
-  // ✅ Use Math for discount calculation only when needed
+  // Discount logic (unchanged)
   const validPrice = +price || 0;
   const validOriginal = +originalPrice || 0;
   const hasDiscount = validOriginal > validPrice;
-  const discountPercent = hasDiscount
-    ? Math.round(((validOriginal - validPrice) / validOriginal) * 100)
-    : 0;
 
-  // ✅ Memoized Handlers (prevents unnecessary re-renders)
+  // Handlers
   const handleImageClick = useCallback(() => {
     if (images.length > 1) {
       setCurrentIndex((prev) => (prev + 1) % images.length);
@@ -31,9 +28,70 @@ function ProductCard({ product }) {
     setShowModal((prev) => !prev);
   }, []);
 
+  // ⭐ DRAG FUNCTION FOR VIEWING FULL IMAGE (vertical movement inverted)
+  const enableDrag = (img) => {
+    let startX = 0;
+    let startY = 0;
+    let initX = 50;
+    let initY = 50;
+
+    const getInitPos = () => {
+      const pos = (img.style.objectPosition && img.style.objectPosition.trim()) || "50% 50%";
+      const parts = pos.split(" ");
+      const xPart = parts[0] || "50%";
+      const yPart = parts[1] || "50%";
+      initX = parseFloat(xPart);
+      initY = parseFloat(yPart);
+      if (Number.isNaN(initX)) initX = 50;
+      if (Number.isNaN(initY)) initY = 50;
+    };
+
+    const startDrag = (e) => {
+      const pos = e.touches ? e.touches[0] : e;
+      startX = pos.clientX;
+      startY = pos.clientY;
+      getInitPos();
+
+      window.addEventListener("mousemove", moveDrag, { passive: false });
+      window.addEventListener("mouseup", stopDrag);
+      window.addEventListener("touchmove", moveDrag, { passive: false });
+      window.addEventListener("touchend", stopDrag);
+    };
+
+    const moveDrag = (e) => {
+      e.preventDefault();
+      const pos = e.touches ? e.touches[0] : e;
+      const diffX = pos.clientX - startX;
+      const diffY = pos.clientY - startY;
+
+      // NOTE: vertical direction inverted here (user asked to interchange)
+      let newX = initX + diffX * 0.2;
+      let newY = initY - diffY * 0.2; // inverted: dragging down increases clientY but should move image downward visually
+
+      newX = Math.max(0, Math.min(100, newX));
+      newY = Math.max(0, Math.min(100, newY));
+
+      img.style.objectPosition = `${newX}% ${newY}%`;
+    };
+
+    const stopDrag = () => {
+      window.removeEventListener("mousemove", moveDrag);
+      window.removeEventListener("mouseup", stopDrag);
+      window.removeEventListener("touchmove", moveDrag);
+      window.removeEventListener("touchend", stopDrag);
+    };
+
+    // Remove previously attached handlers to avoid duplicates
+    img.onmousedown = null;
+    img.ontouchstart = null;
+
+    img.onmousedown = startDrag;
+    img.ontouchstart = startDrag;
+  };
+
   return (
     <>
-      {/* 🩷 Product Card */}
+      {/* PRODUCT CARD */}
       <div
         onClick={handleModalToggle}
         className="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
@@ -48,42 +106,20 @@ function ProductCard({ product }) {
         </div>
 
         <div className="p-3">
-          <h3 className="text-sm font-semibold text-gray-800 truncate">
-            {name}
-          </h3>
-          <p className="text-xs text-gray-500 mt-0.5 truncate capitalize">
-            {category}
-          </p>
-
-          {/*<div className="text-sm text-gray-600 mt-1">
-            {hasDiscount ? (
-              <>
-                <span className="text-pink-600 font-bold">₹{validPrice}</span>
-                <span className="line-through ml-2 text-gray-400">
-                  ₹{validOriginal}
-                </span>
-                <span className="text-green-700 text-xs ml-1 font-medium">
-                  ({discountPercent}% OFF)
-                </span>
-              </>
-            ) : (
-              <span className="text-pink-600 font-bold">₹{validPrice}</span>
-            )}
-          </div>*/}
+          <h3 className="text-sm font-semibold text-gray-800 truncate">{name}</h3>
+          <p className="text-xs text-gray-500 mt-0.5 truncate capitalize">{category}</p>
 
           <p
             className={`text-xs font-medium mt-1 ${
               inStock ? "text-green-600" : "text-red-500"
             }`}
           >
-            {inStock
-              ? "✅ Available in-store"
-              : "❌ Currently out of stock"}
+            {inStock ? "✅ Available in-store" : "❌ Currently out of stock"}
           </p>
         </div>
       </div>
 
-      {/* 💎 Modal Popup */}
+      {/* MODAL */}
       {showModal && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
@@ -93,28 +129,29 @@ function ProductCard({ product }) {
             className="bg-white rounded-lg shadow-lg w-80 p-4 relative"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
+            {/* Close */}
             <button
               onClick={handleModalToggle}
-              aria-label="Close modal"
               className="absolute -top-2 -right-2 bg-pink-600 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md hover:bg-pink-700 transition"
             >
               ✕
             </button>
 
-            {/* 🖼️ Clickable Image Area */}
-            <div
-              className="relative cursor-pointer"
-              onClick={handleImageClick}
-            >
+            {/* IMAGE (CROPPED LOOK + DRAG ENABLED) */}
+            <div className="relative cursor-pointer" onClick={handleImageClick}>
               <img
+                id="modalImage"
                 loading="lazy"
                 src={`${images[currentIndex]}?auto=format&fit=crop&w=900&q=70`}
-                alt={`${name} ${currentIndex + 1}`}
-                className="w-full h-64 object-cover rounded-md"
+                alt={name}
+                className="w-full h-64 object-cover rounded-md select-none"
+                style={{ objectPosition: "50% 50%", cursor: "grab", touchAction: "none" }}
+                ref={(img) => {
+                  if (img) enableDrag(img);
+                }}
               />
 
-              {/* 🔘 Dots */}
+              {/* DOTS */}
               {images.length > 1 && (
                 <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex space-x-1.5">
                   {images.map((_, i) => (
@@ -129,36 +166,16 @@ function ProductCard({ product }) {
               )}
             </div>
 
-            {/* Product Info */}
-            <h3 className="text-base font-semibold text-gray-800 mt-3">
-              {name}
-            </h3>
+            {/* TEXT INFO */}
+            <h3 className="text-base font-semibold text-gray-800 mt-3">{name}</h3>
             <p className="text-sm text-gray-500 capitalize">{category}</p>
-
-            {/*<div className="mt-2 text-sm text-gray-700">
-              {hasDiscount ? (
-                <>
-                  <span className="text-pink-600 font-bold">₹{validPrice}</span>
-                  <span className="line-through ml-2 text-gray-400">
-                    ₹{validOriginal}
-                  </span>
-                  <span className="text-green-700 text-xs ml-1 font-medium">
-                    ({discountPercent}% OFF)
-                  </span>
-                </>
-              ) : (
-                <span className="text-pink-600 font-bold">₹{validPrice}</span>
-              )}
-            </div>*/}
 
             <p
               className={`text-xs font-medium mt-3 ${
                 inStock ? "text-green-600" : "text-red-500"
               }`}
             >
-              {inStock
-                ? "✅ Available in-store"
-                : "❌ Currently out of stock"}
+              {inStock ? "✅ Available in-store" : "❌ Currently out of stock"}
             </p>
 
             <a
@@ -176,5 +193,4 @@ function ProductCard({ product }) {
   );
 }
 
-// ✅ memo() prevents re-rendering unless props change
 export default memo(ProductCard);

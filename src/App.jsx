@@ -21,114 +21,114 @@ export default function App() {
   const [showBanner, setShowBanner] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
 
-const menuItems = {
-  COLLECTIONS: [
-    { title: "Ethnic Wear", items: ["Lehengas", "Sarees", "Suits & Kurtis"] },
-    { title: "Western Wear", items: ["Tops & Dresses", "Palazzos", "Gowns"] },
-    { title: "Accessories", items: ["Handbags", "Footwear"] },
-  ],
-  BEAUTY: [
-    { title: "Makeup", items: ["Lipsticks", "Eyeliner & Mascara", "Nail Paints"] },
-    { title: "Fragrance & Care", items: ["Perfumes", "Body Mist", "Skincare Essentials"] },
-  ],
-  "RENTAL WEAR": [
-    { title: "Occasion Wear", items: ["Bridal Lehengas", "Dandiya Dresses"] },
-  ],
-  OFFERS: [
-    { title: "", items: ["Flat 50% Off", "Festive Combos"] },
-  ],
-};
-
-
-const navigate = useNavigate();
-
-const handleSubcategoryClick = (subcategory) => {
-  // 🩷 Handle special redirects
-  const redirectMap = {
-    Palazzos: "Tops & Dresses",
-    Lipsticks: "Beauty & Skincare",
-    "Nail Paints": "Beauty & Skincare",
-    "Perfumes": "Beauty & Skincare",
-    "Eyeliner & Mascara": "Beauty & Skincare",
-    "Skincare": "Beauty & Skincare",
-    "Body Mist": "Beauty & Skincare",
-    "Skincare Essentials": "Beauty & Skincare",
-    "Bridal Lehengas": "Rental wear",
-    "Dandiya Dresses": "Rental Wear",
+  const menuItems = {
+    COLLECTIONS: [
+      { title: "Ethnic Wear", items: ["Lehengas", "Sarees", "Suits & Kurtis"] },
+      { title: "Western Wear", items: ["Tops & Dresses", "Palazzos", "Gowns"] },
+      { title: "Accessories", items: ["Handbags", "Footwear"] },
+    ],
+    BEAUTY: [
+      { title: "Makeup", items: ["Lipsticks", "Eyeliner & Mascara", "Nail Paints"] },
+      { title: "Fragrance & Care", items: ["Perfumes", "Body Mist", "Skincare Essentials"] },
+    ],
+    "RENTAL WEAR": [
+      { title: "Occasion Wear", items: ["Bridal Lehengas", "Dandiya Dresses"] },
+    ],
+    OFFERS: [
+      { title: "", items: ["Flat 50% Off", "Festive Combos"] },
+    ],
   };
+
+
+  const navigate = useNavigate();
+
+  const handleSubcategoryClick = (subcategory) => {
+    // 🩷 Handle special redirects
+    const redirectMap = {
+      Palazzos: "Tops & Dresses",
+      Lipsticks: "Beauty & Skincare",
+      "Nail Paints": "Beauty & Skincare",
+      "Perfumes": "Beauty & Skincare",
+      "Eyeliner & Mascara": "Beauty & Skincare",
+      "Skincare": "Beauty & Skincare",
+      "Body Mist": "Beauty & Skincare",
+      "Skincare Essentials": "Beauty & Skincare",
+      "Bridal Lehengas": "Rental wear",
+      "Dandiya Dresses": "Rental Wear",
+    };
 
     // 🔍 Normalize key (trim + lowercase)
-  const normalized = subcategory.trim().toLowerCase();
-  const finalCategory = redirectMap[subcategory] || subcategory;
+    const normalized = subcategory.trim().toLowerCase();
+    const finalCategory = redirectMap[subcategory] || subcategory;
 
-  navigate(`/category/${encodeURIComponent(finalCategory)}`);
-  setActiveCategory(null);
-  setShowBanner(false);
-  window.scrollTo({ top: 0, behavior: "smooth" });
-};
+    navigate(`/category/${encodeURIComponent(finalCategory)}`);
+    setActiveCategory(null);
+    setShowBanner(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 
 
   useEffect(() => {
-  const handleClickOutside = (e) => {
-    const isMobile = window.innerWidth < 768;
-    if (!e.target.closest(".mobile-category") && isMobile) {
-      setActiveCategory(null);
-    }
-  };
+    const handleClickOutside = (e) => {
+      const isMobile = window.innerWidth < 768;
+      if (!e.target.closest(".mobile-category") && isMobile) {
+        setActiveCategory(null);
+      }
+    };
 
-  document.addEventListener("click", handleClickOutside);
-  return () => {
-    document.removeEventListener("click", handleClickOutside);
-  };
-}, []);
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
 
 
   useEffect(() => {
-  const fetchData = async () => {
-    const [{ default: axios }, { default: Papa }] = await Promise.all([
-      import("axios"),
-      import("papaparse"),
-    ]);
+    const fetchData = async () => {
+      const [{ default: axios }, { default: Papa }] = await Promise.all([
+        import("axios"),
+        import("papaparse"),
+      ]);
 
-    const sheetURL =
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7ZAmIk7wbGaqjix0PiStR8SiUWD7iTPglZtIcsbM1PIXno0Ry_KTPZI-0Bzvb-8L-yxzHVJ91auA6/pub?output=csv";
+      const sheetURL =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7ZAmIk7wbGaqjix0PiStR8SiUWD7iTPglZtIcsbM1PIXno0Ry_KTPZI-0Bzvb-8L-yxzHVJ91auA6/pub?output=csv";
 
-    const response = await axios.get(sheetURL);
+      const response = await axios.get(sheetURL);
 
-    Papa.parse(response.data, {
-      header: true,
-      complete: (results) => {
-        const cleanedData = results.data
-          .filter((item) => item["Item Name"] && item.Price)
-          .map((item) => {
-            const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
-            const originalPrice = parseInt(item["Original Price"]?.replace(/\D/g, ""), 10);
-            return {
-              id: item["Item Name"] + Math.random(),
-              name: item["Item Name"],
-              category: item["Category"],
-              price: isNaN(price) ? 0 : price,
-              originalPrice: isNaN(originalPrice) ? null : originalPrice,
-              image: item["Image Link"]
-  ? item["Image Link"]
-      .split(",")
-      .map((url) => url.trim())
-      .filter((url) => url && url !== "undefined")
-  : [],
+      Papa.parse(response.data, {
+        header: true,
+        complete: (results) => {
+          const cleanedData = results.data
+            .filter((item) => item["Item Name"] && item.Price)
+            .map((item) => {
+              const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
+              const originalPrice = parseInt(item["Original Price"]?.replace(/\D/g, ""), 10);
+              return {
+                id: item["Item Name"] + Math.random(),
+                name: item["Item Name"],
+                category: item["Category"],
+                price: isNaN(price) ? 0 : price,
+                originalPrice: isNaN(originalPrice) ? null : originalPrice,
+                image: item["Image Link"]
+                  ? item["Image Link"]
+                    .split(",")
+                    .map((url) => url.trim())
+                    .filter((url) => url && url !== "undefined")
+                  : [],
 
-              tag: item["Tag"]?.trim()?.toLowerCase() || "",
-              inStock: item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
-            };
-          });
-        setProducts(cleanedData);
-        setFilteredProducts(cleanedData);
-        localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
-      },
-    });
-  };
+                tag: item["Tag"]?.trim()?.toLowerCase() || "",
+                inStock: item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
+              };
+            });
+          setProducts(cleanedData);
+          setFilteredProducts(cleanedData);
+          localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
+        },
+      });
+    };
 
-  fetchData();
-}, []);
+    fetchData();
+  }, []);
 
 
 
@@ -144,345 +144,365 @@ const handleSubcategoryClick = (subcategory) => {
     <>
       <Toaster />
       <div className="min-h-screen flex flex-col bg-white font-sans">
-<header className="bg-white shadow-sm p-4 sticky top-0 z-30 border-b border-gray-200">
-  <div className="max-w-7xl mx-auto flex flex-col items-center gap-3 md:flex-row md:justify-between md:items-center">
-    
-    {/* 🔗 Logo — Redirects to Homepage */}
-{/* 🔗 Logo — Redirects to Homepage */}
-<Link
-  to="/"
-  onClick={resetToHome}
-  className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
->
-  <img
-    src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762553569/Logof_vksu8r.png?auto=format&w=200&q=70"
-    alt="MOMCHIC Boutique Logo"
-    className="h-10 w-10 rounded-full border border-pink-100 object-contain"
-  />
-  <span className="text-2xl font-extrabold text-pink-600 tracking-wide">
-    MOMCHIC
-  </span>
-</Link>
+        <header className="bg-white shadow-sm p-4 sticky top-0 z-30 border-b border-gray-200">
+          <div className="max-w-7xl mx-auto flex flex-col items-center gap-3 md:flex-row md:justify-between md:items-center">
+
+            {/* 🔗 Logo — Redirects to Homepage */}
+            {/* 🔗 Logo — Redirects to Homepage */}
+            <Link
+              to="/"
+              onClick={resetToHome}
+              className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
+            >
+              <img
+                src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762553569/Logof_vksu8r.png?auto=format&w=200&q=70"
+                alt="MOMCHIC Boutique Logo"
+                className="h-10 w-10 rounded-full border border-pink-100 object-contain"
+              />
+              <span className="text-2xl font-extrabold text-pink-600 tracking-wide">
+                MOMCHIC
+              </span>
+            </Link>
 
 
-    {/* 🔍 Search + Navigation (Desktop Layout) */}
-    <div className="w-full md:flex md:flex-row-reverse md:items-center md:gap-6">
-      
-      {/* Search Bar */}
-      <div className="w-full md:w-auto flex items-center justify-center">
-        <div className="flex items-center bg-gray-100 px-3 py-1 rounded-md w-64 shadow-sm hover:shadow-md transition">
-          <Search size={16} className="text-gray-500 mr-2" />
-          <input
-            type="text"
-            placeholder="Search for lehengas, suits, handbags..."
-            className="bg-transparent outline-none text-sm w-full"
-            value={searchQuery}
-            onChange={(e) => {
-              const query = e.target.value;
-              setSearchQuery(query);
-              const filtered = products.filter((product) =>
-                (product.name + product.category)
-                  .toLowerCase()
-                  .includes(query.toLowerCase())
-              );
-              setFilteredProducts(filtered);
-              setShowBanner(query === "");
-            }}
-          />
-        </div>
-      </div>
+            {/* 🔍 Search + Navigation (Desktop Layout) */}
+            <div className="w-full md:flex md:flex-row-reverse md:items-center md:gap-6">
 
-      {/* Navigation Menu */}
-      {/* Navigation Menu */}
-<nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700 pointer-events-none">
-  <Suspense fallback={null}>
-    <LazyDropdown
-      menuItems={menuItems}
-      activeCategory={activeCategory}
-      setActiveCategory={setActiveCategory}
-      hoverTimeout={hoverTimeout}
-      handleSubcategoryClick={handleSubcategoryClick}
-    />
-  </Suspense>
-</nav>
+              {/* Search Bar */}
+              <div className="w-full md:w-auto flex items-center justify-center">
+                <div className="flex items-center bg-gray-100 px-3 py-1 rounded-md w-64 shadow-sm hover:shadow-md transition">
+                  <Search size={16} className="text-gray-500 mr-2" />
+                  <input
+                    type="text"
+                    placeholder="Search for lehengas, suits, handbags..."
+                    className="bg-transparent outline-none text-sm w-full"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      const query = e.target.value;
+                      setSearchQuery(query);
+                      const filtered = products.filter((product) =>
+                        (product.name + product.category)
+                          .toLowerCase()
+                          .includes(query.toLowerCase())
+                      );
+                      setFilteredProducts(filtered);
+                      setShowBanner(query === "");
+                    }}
+                  />
+                </div>
+              </div>
 
-    </div>
-  </div>
-</header>
+              {/* Navigation Menu */}
+              {/* Navigation Menu */}
+              <nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700 pointer-events-none">
+                <Suspense fallback={null}>
+                  <LazyDropdown
+                    menuItems={menuItems}
+                    activeCategory={activeCategory}
+                    setActiveCategory={setActiveCategory}
+                    hoverTimeout={hoverTimeout}
+                    handleSubcategoryClick={handleSubcategoryClick}
+                  />
+                </Suspense>
+              </nav>
+
+            </div>
+          </div>
+        </header>
 
         {/* Mobile Category Bar */}
-<div className="md:hidden overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-200 bg-white sticky top-[64px] z-20 mobile-category text-center">
-  {Object.keys(menuItems).map((category, i) => (
-    <button
-      key={i}
-onClick={() => {
-  setActiveCategory((prev) => (prev === category ? null : category));
-  setShowBanner(false); // Hide the banner on category click
-}}
-
-      className="inline-block text-sm font-medium text-gray-700 hover:text-pink-600 mx-2"
-    >
-      {category}
-    </button>
-  ))}
-</div>
-
-{/* ✅ Mobile Subcategories if a category is active */}
-{activeCategory && (
-  <div className="md:hidden bg-pink-50 border-b border-pink-200 px-4 py-2">
-    {menuItems[activeCategory].map((group, idx) => (
-      <div key={idx}>
-        {group.title && (
-          <div className="text-xs font-semibold text-pink-700 uppercase mt-2">{group.title}</div>
-        )}
-        <div className="flex flex-wrap gap-2 mt-1">
-          {group.items.map((item, subIdx) => (
+        <div className="md:hidden overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-200 bg-white sticky top-[64px] z-20 mobile-category text-center">
+          {Object.keys(menuItems).map((category, i) => (
             <button
-              key={subIdx}
-              onClick={() => handleSubcategoryClick(item)}
-              className="bg-white border text-xs px-2 py-1 rounded shadow-sm text-gray-700 hover:bg-pink-100"
+              key={i}
+              onClick={() => {
+                setActiveCategory((prev) => (prev === category ? null : category));
+                setShowBanner(false); // Hide the banner on category click
+              }}
+
+              className="inline-block text-sm font-medium text-gray-700 hover:text-pink-600 mx-2"
             >
-              {item}
+              {category}
             </button>
           ))}
         </div>
-      </div>
-    ))}
+
+        {/* ✅ Mobile Subcategories if a category is active */}
+        {activeCategory && (
+          <div className="md:hidden bg-pink-50 border-b border-pink-200 px-4 py-2">
+            {menuItems[activeCategory].map((group, idx) => (
+              <div key={idx}>
+                {group.title && (
+                  <div className="text-xs font-semibold text-pink-700 uppercase mt-2">{group.title}</div>
+                )}
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {group.items.map((item, subIdx) => (
+                    <button
+                      key={subIdx}
+                      onClick={() => handleSubcategoryClick(item)}
+                      className="bg-white border text-xs px-2 py-1 rounded shadow-sm text-gray-700 hover:bg-pink-100"
+                    >
+                      {item}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+
+        <div className="flex-grow">
+          {showBanner && <HeroBanner />}
+{/* 🩷 Wedding Season Discount Banner (Fade-in) */}
+{showBanner && (
+  <div className="w-full flex justify-center mt-4 mb-3 px-4 animate-fadeInUp">
+    <div className="
+      bg-pink-50 border border-pink-200 text-pink-700 
+      text-sm md:text-base py-2 px-4 rounded-lg shadow-sm 
+      text-center max-w-3xl w-full
+      transition-all duration-500 ease-out
+    ">
+      🎀 Wedding Season Offer:{" "}
+      <span className="font-semibold">
+        Up to 20% Off on Bridal Lehengas, Partywear & more
+      </span>{" "}
+      — In-Store Only
+    </div>
   </div>
 )}
 
 
-        <div className="flex-grow">
-{showBanner && <HeroBanner />}
 
-{/* 🆕 New Arrivals Section */}
-<section className="p-6 max-w-7xl mx-auto">
-  <div className="flex flex-col items-center mb-2">
-    <div className="flex items-center justify-center gap-2 mb-1">
-      <Gift className="text-pink-500 w-6 h-6" />
-      <h2 className="text-2xl font-semibold text-gray-800">New Arrivals</h2>
-    </div>
-    <p className="text-gray-600 text-sm md:text-base">
-      Discover our latest additions — fresh, elegant, and handpicked for every occasion.
-    </p>
-  </div>
 
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-    {products.filter(p => p.tag === "new").length === 0 ? (
-      <div className="col-span-full text-center py-12 text-gray-500">
-        <img
-          src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-          alt="No new arrivals"
-          className="w-40 mx-auto mb-4"
-        />
-        <p className="text-sm">No new arrivals available right now.</p>
-      </div>
-    ) : (
-      products
-        .filter(p => p.tag === "new")
-        .slice(0, 10)
-        .map((product, i) => <ProductCard key={i} product={product} />)
-    )}
-  </div>
-</section>
-{/* 💖 Customer Favourites Section */}
-<section className="p-6 max-w-7xl mx-auto mt-10 border-t border-pink-100">
-  <div className="text-center mb-6">
-    <h2 className="text-2xl md:text-3xl font-bold text-pink-600">
-      💖 Customer Favourites
-    </h2>
-    <p className="text-gray-600 text-sm md:text-base mt-1">
-      Timeless picks loved by our customers — elegant, affordable, and always in style.
-    </p>
-  </div>
+          {/* 🆕 New Arrivals Section */}
+          <section className="p-6 max-w-7xl mx-auto">
+            <div className="flex flex-col items-center mb-2">
+              <div className="flex items-center justify-center gap-2 mb-1">
+                <Gift className="text-pink-500 w-6 h-6" />
+                <h2 className="text-2xl font-semibold text-gray-800">New Arrivals</h2>
+              </div>
+              <p className="text-gray-600 text-sm md:text-base">
+                Discover our latest additions — fresh, elegant, and handpicked for every occasion.
+              </p>
+            </div>
 
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-    {products.filter(p =>
-      ["bestseller", "favourite", "customer favourite"].includes(p.tag)
-    ).length === 0 ? (
-      <div className="col-span-full text-center py-12 text-gray-500">
-        <img
-          src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-          alt="No favourites"
-          className="w-40 mx-auto mb-4"
-        />
-        <p className="text-sm">No customer favourites yet — check back soon!</p>
-      </div>
-    ) : (
-      products
-        .filter(p =>
-          ["bestseller", "favourite", "customer favourite"].includes(p.tag)
-        )
-        .slice(0, 10)
-        .map((product, i) => <ProductCard key={i} product={product} />)
-    )}
-  </div>
-</section>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {products.filter(p => p.tag === "new").length === 0 ? (
+                <div className="col-span-full text-center py-12 text-gray-500">
+                  <img
+                    src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+                    alt="No new arrivals"
+                    className="w-40 mx-auto mb-4"
+                  />
+                  <p className="text-sm">No new arrivals available right now.</p>
+                </div>
+              ) : (
+                products
+                  .filter(p => p.tag === "new")
+                  .slice(0, 10)
+                  .map((product, i) => <ProductCard key={i} product={product} />)
+              )}
+            </div>
+          </section>
+          {/* 💖 Customer Favourites Section */}
+          <section className="p-6 max-w-7xl mx-auto mt-8 border-t border-pink-100">
+            <div className="text-center mb-6">
+              <h2 className="text-2xl md:text-3xl font-bold text-pink-600">
+                💖 Customer Favourites
+              </h2>
+              <p className="text-gray-600 text-sm md:text-base mt-1">
+                Timeless picks loved by our customers — elegant, affordable, and always in style.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+              {products.filter(p =>
+                ["bestseller", "favourite", "customer favourite"].includes(p.tag)
+              ).length === 0 ? (
+                <div className="col-span-full text-center py-12 text-gray-500">
+                  <img
+                    src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+                    alt="No favourites"
+                    className="w-40 mx-auto mb-4"
+                  />
+                  <p className="text-sm">No customer favourites yet — check back soon!</p>
+                </div>
+              ) : (
+                products
+                  .filter(p =>
+                    ["bestseller", "favourite", "customer favourite"].includes(p.tag)
+                  )
+                  .slice(0, 10)
+                  .map((product, i) => <ProductCard key={i} product={product} />)
+              )}
+            </div>
+          </section>
 
         </div>
 
-{/* ✅ Why Visit MOMCHIC Boutique Section */}<section
-  className="bg-pink-50 py-12 mt-8 border-t border-pink-100"
-  data-aos="fade-up"
-  data-aos-duration="800"
->
-  <div className="max-w-6xl mx-auto px-6 text-center" data-aos="fade-up" data-aos-delay="100">
-    <h2
-      className="text-2xl md:text-3xl font-bold text-pink-700 mb-4"
-      data-aos="fade-up"
-      data-aos-delay="150"
-    >
-      Why Visit <span className="text-gray-800">MOMCHIC Boutique</span>?
-    </h2>
+        {/* ✅ Why Visit MOMCHIC Boutique Section */}<section
+          className="bg-pink-50 py-12 mt-8 border-t border-pink-100"
+          data-aos="fade-up"
+          data-aos-duration="800"
+        >
+          <div className="max-w-6xl mx-auto px-6 text-center" data-aos="fade-up" data-aos-delay="100">
+            <h2
+              className="text-2xl md:text-3xl font-bold text-pink-700 mb-4"
+              data-aos="fade-up"
+              data-aos-delay="150"
+            >
+              Why Visit <span className="text-gray-800">MOMCHIC Boutique</span>?
+            </h2>
 
-    <p
-      className="text-gray-700 leading-relaxed max-w-3xl mx-auto text-sm md:text-base"
-      data-aos="fade-up"
-      data-aos-delay="300"
-    >
-      MOMCHIC Boutique is your one-stop destination for elegant{" "}
-      <span className="font-semibold">
-        wedding lehengas, designer sarees, party wear, festive outfits, stylish footwear,
-        trendy handbags & beauty products
-      </span>
-      . Make your wedding truly special with our exclusive <span className="font-semibold text-pink-600">bridal lehenga rental service.</span>
-      <br />
-      <br />
-      From <span className="font-semibold text-pink-600">bridal lehengas</span> and{" "}
-      <span className="font-semibold text-pink-600">dandiya dresses</span> available on rent, to premium{" "}
-      <span className="font-semibold text-pink-600">
-        designer pieces 
-      </span> for sale{" "}
-      – MOMCHIC helps you look stunning without the stress of expensive purchases.
-    </p>
+            <p
+              className="text-gray-700 leading-relaxed max-w-3xl mx-auto text-sm md:text-base"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
+              MOMCHIC Boutique is your one-stop destination for elegant{" "}
+              <span className="font-semibold">
+                wedding lehengas, designer sarees, party wear, festive outfits, stylish footwear,
+                trendy handbags & beauty products
+              </span>
+              . Make your wedding truly special with our exclusive <span className="font-semibold text-pink-600">bridal lehenga rental service.</span>
+              <br />
+              <br />
+              From <span className="font-semibold text-pink-600">bridal lehengas</span> and{" "}
+              <span className="font-semibold text-pink-600">dandiya dresses</span> available on rent, to premium{" "}
+              <span className="font-semibold text-pink-600">
+                designer pieces
+              </span> for sale{" "}
+              – MOMCHIC helps you look stunning without the stress of expensive purchases.
+            </p>
 
-    <div
-      className="mt-6 flex justify-center"
-      data-aos="zoom-in"
-      data-aos-delay="500"
-    >
-      <a
-        href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
-      >
-        📍 Visit Our Store
-      </a>
-    </div>
-  </div>
-</section>
+            <div
+              className="mt-6 flex justify-center"
+              data-aos="zoom-in"
+              data-aos-delay="500"
+            >
+              <a
+                href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
+              >
+                📍 Visit Our Store
+              </a>
+            </div>
+          </div>
+        </section>
 
-<footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-8 pb-6">
-  <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left justify-items-center md:justify-items-center">
-    
-    {/* 🛍️ Shop Categories */}
-    <div className="w-full md:w-auto">
-      <h4 className="text-pink-600 font-semibold mb-3 text-center md:text-left">Shop Categories</h4>
-      <ul className="space-y-1 text-sm text-gray-700 text-center md:text-left">
-        {[
-          "Suits & Kurtis",
-          "Lehengas & Sarees",
-          "Handbags & Clutches",
-          "Footwear Collection",
-          "Beauty & Skincare",
-          "Rental Wear",
-        ].map((category, index) => (
-          <li
-            key={index}
-            className="hover:text-pink-600 cursor-pointer transition"
-            onClick={() => handleSubcategoryClick(category)}
-          >
-            {category}
-          </li>
-        ))}
-      </ul>
-    </div>
+        <footer className="bg-gray-50 border-t border-gray-200 text-gray-700 pt-8 pb-6">
+          <div className="max-w-5xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left justify-items-center md:justify-items-center">
 
-    {/* 🏬 Visit Our Store */}
-    <div className="w-full md:w-auto text-center md:text-left">
-      <h4 className="font-semibold text-pink-600 mb-3">Visit Our Store</h4>
-      <p className="text-sm font-semibold">MOMCHIC Boutique</p>
-      <p className="text-sm leading-relaxed">
-        1st Floor, Mohan Cinema, near Bus Stand<br />
-        Daltonganj, Palamu, Jharkhand – 822101
-      </p>
-      <p className="text-sm mt-2">📞 +91 9204613635</p>
-      <p className="text-sm">🕒 Open Daily: 10:30 AM – 9 PM</p>
-      <a
-        href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-pink-600 text-sm mt-1 inline-block hover:underline"
-      >
-        📍 Get in-store direction
-      </a>
-    </div>
+            {/* 🛍️ Shop Categories */}
+            <div className="w-full md:w-auto">
+              <h4 className="text-pink-600 font-semibold mb-3 text-center md:text-left">Shop Categories</h4>
+              <ul className="space-y-1 text-sm text-gray-700 text-center md:text-left">
+                {[
+                  "Suits & Kurtis",
+                  "Lehengas & Sarees",
+                  "Handbags & Clutches",
+                  "Footwear Collection",
+                  "Beauty & Skincare",
+                  "Rental Wear",
+                ].map((category, index) => (
+                  <li
+                    key={index}
+                    className="hover:text-pink-600 cursor-pointer transition"
+                    onClick={() => handleSubcategoryClick(category)}
+                  >
+                    {category}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-    {/* 🤝 Connect With Us */}
-<div className="w-full md:w-auto text-center md:text-left">
-  <h4 className="font-semibold text-pink-600 mb-3">Connect With Us</h4>
+            {/* 🏬 Visit Our Store */}
+            <div className="w-full md:w-auto text-center md:text-left">
+              <h4 className="font-semibold text-pink-600 mb-3">Visit Our Store</h4>
+              <p className="text-sm font-semibold">MOMCHIC Boutique</p>
+              <p className="text-sm leading-relaxed">
+                1st Floor, Mohan Cinema, near Bus Stand<br />
+                Daltonganj, Palamu, Jharkhand – 822101
+              </p>
+              <p className="text-sm mt-2">📞 +91 9204613635</p>
+              <p className="text-sm">🕒 Open Daily: 10:30 AM – 9 PM</p>
+              <a
+                href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-pink-600 text-sm mt-1 inline-block hover:underline"
+              >
+                📍 Get in-store direction
+              </a>
+            </div>
 
-  <div className="flex justify-center md:justify-start items-center space-x-4">
-    <a
-      href="https://wa.me/919204613635"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="hover:scale-110 transition-transform duration-200"
-    >
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-        alt="WhatsApp"
-        className="w-6 h-6 object-contain scale-110"
-      />
-    </a>
+            {/* 🤝 Connect With Us */}
+            <div className="w-full md:w-auto text-center md:text-left">
+              <h4 className="font-semibold text-pink-600 mb-3">Connect With Us</h4>
 
-    <a
-      href="https://www.instagram.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="hover:scale-110 transition-transform duration-200"
-    >
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
-        alt="Instagram"
-        className="w-5 h-5 object-contain"
-      />
-    </a>
+              <div className="flex justify-center md:justify-start items-center space-x-4">
+                <a
+                  href="https://wa.me/919204613635"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform duration-200"
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+                    alt="WhatsApp"
+                    className="w-6 h-6 object-contain scale-110"
+                  />
+                </a>
 
-    <a
-      href="https://www.facebook.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      className="hover:scale-110 transition-transform duration-200"
-    >
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-        alt="Facebook"
-        className="w-5 h-5 object-contain scale-90"
-      />
-    </a>
-  </div>
+                <a
+                  href="https://www.instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform duration-200"
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
+                    alt="Instagram"
+                    className="w-5 h-5 object-contain"
+                  />
+                </a>
 
-  <p className="text-xs mt-2 text-gray-500 max-w-xs mx-auto md:mx-0 leading-relaxed">
-    For latest collections, inquiries, rentals, or personalized styling assistance.
-  </p>
-</div>
+                <a
+                  href="https://www.facebook.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:scale-110 transition-transform duration-200"
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+                    alt="Facebook"
+                    className="w-5 h-5 object-contain scale-90"
+                  />
+                </a>
+              </div>
 
-  </div>
+              <p className="text-xs mt-2 text-gray-500 max-w-xs mx-auto md:mx-0 leading-relaxed">
+                For latest collections, inquiries, rentals, or personalized styling assistance.
+              </p>
+            </div>
 
-  {/* ✨ Boutique Tagline */}
-  <div className="mt-10 text-center text-sm text-pink-600 font-medium tracking-wide">
-    Designed with love & elegance – <span className="font-semibold">MOMCHIC Boutique 💖</span>
-  </div>
+          </div>
 
-  {/* 📜 Copyright Section */}
-  <div className="mt-3 border-t border-gray-200 pt-3 text-center text-xs text-gray-400">
-    <p className="tracking-wide">
-      © {new Date().getFullYear()} <span className="font-semibold text-pink-600">MOMCHIC Boutique</span> — All Rights Reserved.
-    </p>
-  </div>
-</footer>
+          {/* ✨ Boutique Tagline */}
+          <div className="mt-10 text-center text-sm text-pink-600 font-medium tracking-wide">
+            Designed with love & elegance – <span className="font-semibold">MOMCHIC Boutique 💖</span>
+          </div>
+
+          {/* 📜 Copyright Section */}
+          <div className="mt-3 border-t border-gray-200 pt-3 text-center text-xs text-gray-400">
+            <p className="tracking-wide">
+              © {new Date().getFullYear()} <span className="font-semibold text-pink-600">MOMCHIC Boutique</span> — All Rights Reserved.
+            </p>
+          </div>
+        </footer>
 
       </div>
     </>
