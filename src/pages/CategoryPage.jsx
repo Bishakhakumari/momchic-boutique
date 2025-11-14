@@ -181,12 +181,17 @@ export default function CategoryPage() {
 </h1>
 
 
+<p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
+  {tag ? (
+    "Exclusive limited-time offers curated just for you — grab them before they're gone!"
+  ) : (
+    <>
+      Explore best <span className="font-semibold">{selectedCategory.toLowerCase()}</span> —
+      elegant, affordable, and exclusively available in-store{" "}
+    </>
+  )}
+</p>
 
-        <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
-          {tag
-            ? "Exclusive offer limited time deals - Hurry Up."
-            : `Best ${selectedCategory.toLowerCase()} available in-store.`}
-        </p>
       </motion.div>
 
       {/* DISCOUNT BANNER */}
