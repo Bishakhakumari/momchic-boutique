@@ -89,12 +89,45 @@ export default function CategoryPage() {
             let filtered;
 
             // ⭐ CASE 1: FILTER BY TAG
-            if (tag) {
-              const lowerTag = tag.toLowerCase().trim();
-              filtered = parsed.filter(
-                (p) => p.tag && p.tag === lowerTag
-              );
-            } else {
+          if (tag) {
+  const urlTag = tag.toLowerCase(); // "flat50", "combo"
+
+  const matchesFlat50 = [
+    "flat 50% off",
+    "flat 50 off",
+    "50% off",
+    "flat50",
+    "flat_50",
+    "50off"
+  ];
+
+  const matchesCombo = [
+    "festive combos",
+    "festive combo",
+    "combo",
+    "combo offer",
+    "combos"
+  ];
+
+  filtered = parsed.filter((p) => {
+    const rowTag = p.tag?.toLowerCase().trim();
+
+    if (!rowTag) return false;
+
+    if (urlTag === "flat50") {
+      return matchesFlat50.includes(rowTag);
+    }
+
+    if (urlTag === "combo") {
+      return matchesCombo.includes(rowTag);
+    }
+
+    return false;
+  });
+}
+
+
+ else {
               // ⭐ CASE 2: FILTER BY CATEGORY
               const lowerSel = selectedCategory.toLowerCase();
               filtered = parsed.filter((p) => {
@@ -151,7 +184,7 @@ export default function CategoryPage() {
 
         <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
           {tag
-            ? "Exclusive offer products curated specially for you."
+            ? "Exclusive offer limited time deals - Hurry Up."
             : `Best ${selectedCategory.toLowerCase()} available in-store.`}
         </p>
       </motion.div>

@@ -35,7 +35,7 @@ export default function App() {
       { title: "Occasion Wear", items: ["Bridal Lehengas", "Dandiya Dresses"] },
     ],
     OFFERS: [
-      { title: "", items: ["flat50", "combo"] },
+      { title: "", items: ["Flat 50% Off", "Festive Combos"] },
     ],
   };
 
@@ -43,22 +43,39 @@ export default function App() {
   const navigate = useNavigate();
 
 const handleSubcategoryClick = (subcategory) => {
-  // ⭐ OFFER TAGS (Flat 50 & Combos)
-  const offerTagMap = {
-    "flat50": "flat50",
-    "combo": "combo",
-  };
+  // normalize the incoming label (lowercase, trim)
+  const raw = (subcategory || "").toString();
+  const lower = raw.toLowerCase().trim();
 
-  // If dropdown sends OFFER item
-  if (offerTagMap[subcategory]) {
-    navigate(`/category/tag/${offerTagMap[subcategory]}`);
+  // compacted key: remove non-alphanum so "Flat 50% Off" -> "flat50off"
+  const compact = lower.replace(/[^a-z0-9]/g, "");
+
+  // offer detection (covers many variants you might enter in sheet / UI)
+  const isFlat50 =
+    /flat\s*50|50%|50percent|flat50|flat50off|50off/.test(lower) ||
+    compact.includes("flat50") ||
+    compact.includes("50off");
+
+  const isCombo =
+    /combo|combos|festive/.test(lower) || compact.includes("combo") || compact.includes("festivecombos");
+
+  if (isFlat50) {
+    navigate(`/category/tag/flat50`);
     setActiveCategory(null);
     setShowBanner(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
     return;
   }
 
-  // 🩷 Existing redirects for subcategories
+  if (isCombo) {
+    navigate(`/category/tag/combo`);
+    setActiveCategory(null);
+    setShowBanner(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  // 🩷 Existing redirects for subcategories (unchanged)
   const redirectMap = {
     Palazzos: "Tops & Dresses",
     Lipsticks: "Beauty & Skincare",
@@ -225,45 +242,51 @@ const handleSubcategoryClick = (subcategory) => {
         </header>
 
         {/* Mobile Category Bar */}
-        <div className="md:hidden overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-200 bg-white sticky top-[64px] z-20 mobile-category text-center">
-          {Object.keys(menuItems).map((category, i) => (
-            <button
-              key={i}
-              onClick={() => {
-                setActiveCategory((prev) => (prev === category ? null : category));
-                setShowBanner(false); // Hide the banner on category click
-              }}
+<div className="md:hidden overflow-x-auto whitespace-nowrap px-4 py-2 border-b border-gray-200 bg-white sticky top-[64px] z-20 mobile-category text-center">
+  {Object.keys(menuItems).map((category, i) => (
+    <button
+      key={i}
+      onClick={() => {
+        setActiveCategory((prev) => (prev === category ? null : category));
+        setShowBanner(false);
+      }}
+      className="inline-block text-sm font-medium text-gray-700 hover:text-pink-600 mx-2"
+    >
+      {category}
+    </button>
+  ))}
+</div>
 
-              className="inline-block text-sm font-medium text-gray-700 hover:text-pink-600 mx-2"
+{/* Mobile Subcategories */}
+{activeCategory && (
+  <div className="md:hidden bg-pink-50 border-b border-pink-200 px-4 py-3">
+
+    {menuItems[activeCategory].map((group, idx) => (
+      <div key={idx} className="mb-2">
+
+        {/* ⭐ Show section title or fallback to category name */}
+        <div className="text-xs font-semibold text-pink-700 uppercase mt-2">
+          {group.title || activeCategory}
+        </div>
+
+        {/* Subcategory buttons */}
+        <div className="flex flex-wrap gap-2 mt-2">
+          {group.items.map((item, subIdx) => (
+            <button
+              key={subIdx}
+              onClick={() => handleSubcategoryClick(item)}
+              className="bg-white border text-xs px-3 py-1 rounded shadow-sm text-gray-700 hover:bg-pink-100"
             >
-              {category}
+              {item}
             </button>
           ))}
         </div>
 
-        {/* ✅ Mobile Subcategories if a category is active */}
-        {activeCategory && (
-          <div className="md:hidden bg-pink-50 border-b border-pink-200 px-4 py-2">
-            {menuItems[activeCategory].map((group, idx) => (
-              <div key={idx}>
-                {group.title && (
-                  <div className="text-xs font-semibold text-pink-700 uppercase mt-2">{group.title}</div>
-                )}
-                <div className="flex flex-wrap gap-2 mt-1">
-                  {group.items.map((item, subIdx) => (
-                    <button
-                      key={subIdx}
-                      onClick={() => handleSubcategoryClick(item)}
-                      className="bg-white border text-xs px-2 py-1 rounded shadow-sm text-gray-700 hover:bg-pink-100"
-                    >
-                      {item}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+      </div>
+    ))}
+
+  </div>
+)}
 
 
         <div className="flex-grow">
