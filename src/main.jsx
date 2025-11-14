@@ -25,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Routes>
           <Route path="/" element={<App />} />
           <Route path="/category/:name" element={<CategoryPage />} />
+          <Route path="/category/tag/:tag" element={<CategoryPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

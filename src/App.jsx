@@ -42,30 +42,44 @@ export default function App() {
 
   const navigate = useNavigate();
 
-  const handleSubcategoryClick = (subcategory) => {
-    // 🩷 Handle special redirects
-    const redirectMap = {
-      Palazzos: "Tops & Dresses",
-      Lipsticks: "Beauty & Skincare",
-      "Nail Paints": "Beauty & Skincare",
-      "Perfumes": "Beauty & Skincare",
-      "Eyeliner & Mascara": "Beauty & Skincare",
-      "Skincare": "Beauty & Skincare",
-      "Body Mist": "Beauty & Skincare",
-      "Skincare Essentials": "Beauty & Skincare",
-      "Bridal Lehengas": "Rental wear",
-      "Dandiya Dresses": "Rental Wear",
-    };
+const handleSubcategoryClick = (subcategory) => {
+  // ⭐ OFFER TAGS (Flat 50 & Combos)
+  const offerTagMap = {
+    "flat50": "flat50",
+    "combo": "combo",
+  };
 
-    // 🔍 Normalize key (trim + lowercase)
-    const normalized = subcategory.trim().toLowerCase();
-    const finalCategory = redirectMap[subcategory] || subcategory;
-
-    navigate(`/category/${encodeURIComponent(finalCategory)}`);
+  // If dropdown sends OFFER item
+  if (offerTagMap[subcategory]) {
+    navigate(`/category/tag/${offerTagMap[subcategory]}`);
     setActiveCategory(null);
     setShowBanner(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+
+  // 🩷 Existing redirects for subcategories
+  const redirectMap = {
+    Palazzos: "Tops & Dresses",
+    Lipsticks: "Beauty & Skincare",
+    "Nail Paints": "Beauty & Skincare",
+    "Perfumes": "Beauty & Skincare",
+    "Eyeliner & Mascara": "Beauty & Skincare",
+    "Skincare": "Beauty & Skincare",
+    "Body Mist": "Beauty & Skincare",
+    "Skincare Essentials": "Beauty & Skincare",
+    "Bridal Lehengas": "Rental wear",
+    "Dandiya Dresses": "Rental Wear",
   };
+
+  const finalCategory = redirectMap[subcategory] || subcategory;
+
+  navigate(`/category/${encodeURIComponent(finalCategory)}`);
+  setActiveCategory(null);
+  setShowBanner(false);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+};
+
 
 
   useEffect(() => {

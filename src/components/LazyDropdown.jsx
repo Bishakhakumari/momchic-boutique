@@ -65,7 +65,16 @@ export default function LazyDropdown({
                           <li
                             key={idx}
                             className="text-gray-600 cursor-pointer pl-2 transition-all duration-200 hover:font-semibold hover:text-gray-800"
-                            onClick={() => handleSubcategoryClick(item)}
+                            onClick={() => {
+  if (item === "Flat 50% Off") {
+    handleSubcategoryClick("flat50");
+  } else if (item === "Festive Combos") {
+    handleSubcategoryClick("combo");
+  } else {
+    handleSubcategoryClick(item);
+  }
+}}
+
                           >
                             {label}
                           </li>
