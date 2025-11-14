@@ -134,16 +134,19 @@ export default function CategoryPage() {
         className="bg-pink-50 border-b border-pink-100 py-5 md:py-8 text-center sticky top-0 z-20 shadow-sm"
       >
 <h1 className="text-2xl md:text-4xl font-extrabold text-gray-800 leading-tight">
-  Shop {selectedCategory}
-  
-  {/* Mobile-only line break */}
+  Shop {selectedCategory} at
+
+  {/* Line break only on mobile */}
   <span className="md:hidden block"></span>
 
-  <span className="text-pink-600 hover:text-pink-700 cursor-pointer transition md:ml-2"
-    onClick={() => navigate("/")}>
+  <span
+    className="text-pink-600 hover:text-pink-700 cursor-pointer transition md:ml-2"
+    onClick={() => navigate("/")}
+  >
     MOMCHIC Boutique
   </span>
 </h1>
+
 
 
         <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
