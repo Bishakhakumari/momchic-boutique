@@ -2,13 +2,13 @@ import { useEffect, useState, useRef } from "react";
 
 export default function HeroBanner() {
   const bannerImages = [
-    "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762614252/a1_s2xapg.jpg",
-    "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607877/22_voww88.jpg",
-    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762707346/a3_dk8pbn.jpg",
-    "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607878/20_bpqdul.jpg",
-    "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607877/28_sv9rko.jpg",
-    "https://res.cloudinary.com/dm5ksdp5o/image/upload/f_auto,q_auto,w_1600/v1762607879/25_u0qglo.jpg",
-    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762631933/a2_he7qm2.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762614252/mohan-cinema-momchic-boutiuqe-daltonganj-bus-stand.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762607877/mohan-cinema-momchic-boutiuqe-daltonganj-grand-opening-mayor-aruna-shankar.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762707346/momchic-boutique-first-mayor-aruna-shankar-daltonganj.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762607878/mohan-cinema-momchic-boutiuqe-daltonganj-bus-stand-game-zone-latest.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762607877/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762607879/mohan-cinema-momchic-boutiuqe-daltonganj-bus-stand-latest.jpg",
+    "https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762631933/momchic-boutique-first-mayor-aruna-shankar-daltonganj-latest.jpg",
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
