@@ -35,7 +35,7 @@ export default function App() {
       { title: "Occasion Wear", items: ["Bridal Lehengas", "Dandiya Dresses"] },
     ],
     OFFERS: [
-      { title: "", items: ["Flat 50% Off", "Festive Combos"] },
+      { title: "", items: ["Flat 50% Off", "Combo deals"] },
     ],
   };
 

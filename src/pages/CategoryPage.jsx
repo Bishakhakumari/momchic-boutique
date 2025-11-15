@@ -167,7 +167,14 @@ export default function CategoryPage() {
         className="bg-pink-50 border-b border-pink-100 py-5 md:py-8 text-center sticky top-0 z-20 shadow-sm"
       >
 <h1 className="text-2xl md:text-4xl font-extrabold text-gray-800 leading-tight">
-  Shop {selectedCategory} at
+
+  {tag ? (
+    <>Shop Offers at</>
+  ) : (
+    <>
+      Shop <span className="font-bold">{selectedCategory}</span> at
+    </>
+  )}
 
   {/* Line break only on mobile */}
   <span className="md:hidden block"></span>
@@ -179,6 +186,7 @@ export default function CategoryPage() {
     MOMCHIC Boutique
   </span>
 </h1>
+
 
 
 <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
