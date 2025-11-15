@@ -127,14 +127,49 @@ export default function CategoryPage() {
 }
 
 
- else {
-              // ⭐ CASE 2: FILTER BY CATEGORY
-              const lowerSel = selectedCategory.toLowerCase();
-              filtered = parsed.filter((p) => {
-                const cat = p.category?.toLowerCase() || "";
-                return cat.includes(lowerSel) || lowerSel.includes(cat);
-              });
-            }
+else {
+  const lowerSel = selectedCategory.toLowerCase();
+
+  // ⭐ Correct Rental Wear Logic
+  if (lowerSel === "rental wear") {
+    // Show ALL rental wear items
+    filtered = parsed.filter((p) => 
+      p.category?.toLowerCase() === "rental wear"
+    );
+  }
+
+  // ⭐ Bridal Lehenga (Clicked from homepage)
+  else if (lowerSel.includes("bridal")) {
+    filtered = parsed.filter((p) =>
+      p.category?.toLowerCase() === "rental wear" &&
+      p.name?.toLowerCase().includes("bridal")
+    );
+  }
+
+  // ⭐ Dandiya Dress (Clicked from homepage)
+  else if (
+    lowerSel.includes("dandiya") ||
+    lowerSel.includes("navratri")
+  ) {
+    filtered = parsed.filter((p) =>
+      p.category?.toLowerCase() === "rental wear" &&
+      (
+        p.name?.toLowerCase().includes("dandiya") ||
+        p.name?.toLowerCase().includes("navratri")
+      )
+    );
+  }
+
+  // ⭐ Normal category logic (other categories)
+  else {
+    filtered = parsed.filter((p) => {
+      const cat = p.category?.toLowerCase() || "";
+      return cat.includes(lowerSel) || lowerSel.includes(cat);
+    });
+  }
+}
+
+            
 
             setProducts(filtered);
             setLoading(false);

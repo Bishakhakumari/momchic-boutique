@@ -85,8 +85,9 @@ const handleSubcategoryClick = (subcategory) => {
     "Skincare": "Beauty & Skincare",
     "Body Mist": "Beauty & Skincare",
     "Skincare Essentials": "Beauty & Skincare",
-    "Bridal Lehengas": "Rental wear",
-    "Dandiya Dresses": "Rental Wear",
+    "Bridal Lehengas": "Bridal Lehengas",
+    "Dandiya Dresses": "Dandiya Dresses",
+    
   };
 
   const finalCategory = redirectMap[subcategory] || subcategory;
