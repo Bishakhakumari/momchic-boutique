@@ -59,20 +59,22 @@ function ProductCard({ product }) {
     };
 
     const moveDrag = (e) => {
-      e.preventDefault();
-      const pos = e.touches ? e.touches[0] : e;
-      const diffX = pos.clientX - startX;
-      const diffY = pos.clientY - startY;
+  e.preventDefault();
+  const pos = e.touches ? e.touches[0] : e;
 
-      // NOTE: vertical direction inverted here (user asked to interchange)
-      let newX = initX + diffX * 0.2;
-      let newY = initY - diffY * 0.2; // inverted: dragging down increases clientY but should move image downward visually
+  const diffX = pos.clientX - startX;  // drag right = positive
+  const diffY = pos.clientY - startY;  // drag down = positive
 
-      newX = Math.max(0, Math.min(100, newX));
-      newY = Math.max(0, Math.min(100, newY));
+  // ⭐ Correct natural directions
+  let newX = initX - diffX * 0.2;  // drag right → image moves right
+  let newY = initY - diffY * 0.2;  // drag down → image moves down
 
-      img.style.objectPosition = `${newX}% ${newY}%`;
-    };
+  // Limit movement
+  newX = Math.max(0, Math.min(100, newX));
+  newY = Math.max(0, Math.min(100, newY));
+
+  img.style.objectPosition = `${newX}% ${newY}%`;
+};
 
     const stopDrag = () => {
       window.removeEventListener("mousemove", moveDrag);
