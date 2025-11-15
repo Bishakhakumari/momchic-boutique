@@ -130,27 +130,14 @@ export default function CategoryPage() {
 else {
   const lowerSel = selectedCategory.toLowerCase();
 
-  // ⭐ Correct Rental Wear Logic
-  if (lowerSel === "rental wear") {
-    // Show ALL rental wear items
-    filtered = parsed.filter((p) => 
-      p.category?.toLowerCase() === "rental wear"
-    );
-  }
-
-  // ⭐ Bridal Lehenga (Clicked from homepage)
-  else if (lowerSel.includes("bridal")) {
+  // ⭐ SPECIAL LOGIC FOR RENTAL WEAR SUB-CATEGORIES
+  if (lowerSel === "bridal lehengas") {
     filtered = parsed.filter((p) =>
       p.category?.toLowerCase() === "rental wear" &&
       p.name?.toLowerCase().includes("bridal")
     );
   }
-
-  // ⭐ Dandiya Dress (Clicked from homepage)
-  else if (
-    lowerSel.includes("dandiya") ||
-    lowerSel.includes("navratri")
-  ) {
+  else if (lowerSel === "dandiya dresses") {
     filtered = parsed.filter((p) =>
       p.category?.toLowerCase() === "rental wear" &&
       (
@@ -159,15 +146,21 @@ else {
       )
     );
   }
-
-  // ⭐ Normal category logic (other categories)
+  else if (lowerSel === "rental wear") {
+    // ⭐ Show ALL rental wear items
+    filtered = parsed.filter((p) =>
+      p.category?.toLowerCase() === "rental wear"
+    );
+  }
   else {
+    // ⭐ Normal category logic
     filtered = parsed.filter((p) => {
       const cat = p.category?.toLowerCase() || "";
       return cat.includes(lowerSel) || lowerSel.includes(cat);
     });
   }
 }
+
 
             
 
@@ -186,10 +179,12 @@ else {
     };
   }, [selectedCategory, tag]);
 
-  const handleCategoryClick = (cat) => {
+const handleCategoryClick = (cat) => {
+    setProducts([]);   // ⭐ CLEAR previous category products here
     navigate(`/category/${encodeURIComponent(cat)}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+};
+
 
   return (
     <div className="min-h-screen bg-white">
