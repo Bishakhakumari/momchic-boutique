@@ -183,7 +183,7 @@ export default function CategoryPage() {
 
 <p className="text-gray-600 text-xs md:text-base mt-2 max-w-xl mx-auto px-3">
   {tag ? (
-    "Exclusive limited-time offers curated just for you — grab them before they're gone!"
+    "Exclusive limited-time offers — grab them before they're gone!"
   ) : (
     <>
       Explore best <span className="font-semibold">{selectedCategory.toLowerCase()}</span> —
