@@ -187,7 +187,7 @@ const handleSubcategoryClick = (subcategory) => {
               className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
             >
               <img
-                src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762553569/Logof_vksu8r.png?auto=format&w=200&q=70"
+                src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762553569/mohan-cinema-momchic-boutiuqe-daltonganj-logo-opening-new-shop-mayor-aruna-shankar.png"
                 alt="MOMCHIC Boutique Logo"
                 className="h-10 w-10 rounded-full border border-pink-100 object-contain"
               />
@@ -496,7 +496,7 @@ const handleSubcategoryClick = (subcategory) => {
                 </a>
 
                 <a
-                  href="https://www.instagram.com"
+                  href="https://www.instagram.com/iambishakha635/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:scale-110 transition-transform duration-200"
