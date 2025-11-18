@@ -141,8 +141,8 @@ const handleSubcategoryClick = (subcategory) => {
                 category: item["Category"],
                 price: isNaN(price) ? 0 : price,
                 originalPrice: isNaN(originalPrice) ? null : originalPrice,
-                image: item["Image Link"]
-                  ? item["Image Link"]
+                image: item["Image URL"]
+                  ? item["Image URL"]
                     .split(",")
                     .map((url) => url.trim())
                     .filter((url) => url && url !== "undefined")

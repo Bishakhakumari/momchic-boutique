@@ -62,7 +62,7 @@ export default function CategoryPage() {
               .map((item) => {
                 if (!item["Item Name"]) return null;
 
-                const imgArr = item["Image Link"]
+                const imgArr = item["Image URL"]
                   ?.split(",")
                   .map((u) => u.trim())
                   .filter((u) => u);
