@@ -485,7 +485,7 @@ const handleSubcategoryClick = (subcategory) => {
 
   {/* Instagram */}
   <a
-    href="https://www.instagram.com/iambishakha635/"
+    href="https://www.instagram.com/momchic.daltonganj/"
     target="_blank"
     rel="noopener noreferrer"
     className="hover:scale-110 transition-transform duration-200"
