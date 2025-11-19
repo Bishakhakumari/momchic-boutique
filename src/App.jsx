@@ -482,45 +482,52 @@ const handleSubcategoryClick = (subcategory) => {
               <h4 className="font-semibold text-pink-600 mb-3">Connect With Us</h4>
 
               <div className="flex justify-center md:justify-start items-center space-x-4">
-                <a
-                  href="https://wa.me/919204613635"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:scale-110 transition-transform duration-200"
-                >
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-                    alt="WhatsApp"
-                    className="w-6 h-6 object-contain scale-110"
-                  />
-                </a>
 
-                <a
-                  href="https://www.instagram.com/iambishakha635/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:scale-110 transition-transform duration-200"
-                >
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
-                    alt="Instagram"
-                    className="w-5 h-5 object-contain"
-                  />
-                </a>
+  {/* Instagram */}
+  <a
+    href="https://www.instagram.com/iambishakha635/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:scale-110 transition-transform duration-200"
+  >
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg"
+      alt="Instagram"
+      className="w-6 h-6 object-contain"
+    />
+  </a>
 
-                <a
-                  href="https://www.facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:scale-110 transition-transform duration-200"
-                >
-                  <img
-                    src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
-                    alt="Facebook"
-                    className="w-5 h-5 object-contain scale-90"
-                  />
-                </a>
-              </div>
+  {/* Facebook */}
+  <a
+    href="https://www.facebook.com"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:scale-110 transition-transform duration-200"
+  >
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg"
+      alt="Facebook"
+      className="w-6 h-6 object-contain"
+    />
+  </a>
+
+  {/* YouTube (Red Square Logo — perfectly matching size) */}
+  <a
+    href="https://www.youtube.com/@momchic_bridal"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="hover:scale-110 transition-transform duration-200"
+  >
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"
+      alt="YouTube"
+      className="w-6 h-6 object-contain"
+
+    />
+  </a>
+
+</div>
+
 
               <p className="text-xs mt-2 text-gray-500 max-w-xs mx-auto md:mx-0 leading-relaxed">
                 For latest collections, inquiries, rentals, or personalized styling assistance.
