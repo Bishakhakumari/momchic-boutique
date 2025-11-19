@@ -11,6 +11,8 @@ import ProductCard from "./components/ProductCard";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { Gift } from "lucide-react";
 import HeroBanner from "./components/Herobanner";
+import CategoryPage from "./pages/CategoryPage";
+
 
 export default function App() {
   const hoverTimeout = useRef(null);
@@ -290,94 +292,113 @@ const handleSubcategoryClick = (subcategory) => {
 )}
 
 
-        <div className="flex-grow">
-          {showBanner && <HeroBanner />}
-{/* 🩷 Wedding Season Discount Banner (Fade-in) */}
-{showBanner && (
-  <div className="w-full flex justify-center mt-4 mb-3 px-4 animate-fadeInUp">
-    <div className="
-      bg-pink-50 border border-pink-200 text-pink-700 
-      text-sm md:text-base py-2 px-4 rounded-lg shadow-sm 
-      text-center max-w-3xl w-full
-      transition-all duration-500 ease-out
-    ">
-      🎀 Wedding Season Offer:{" "}
-      <span className="font-semibold">
-        Up to 20% Off on Bridal Lehengas, Partywear & more
-      </span>{" "}
-      — In-Store Only
-    </div>
-  </div>
-)}
+<div className="flex-grow">
+  <Routes>
 
+    {/* HOME PAGE */}
+    <Route
+      path="/"
+      element={
+        <>
+          <div>
+            {showBanner && <HeroBanner />}
 
-
-
-          {/* 🆕 New Arrivals Section */}
-          <section className="p-6 max-w-7xl mx-auto">
-            <div className="flex flex-col items-center mb-2">
-              <div className="flex items-center justify-center gap-2 mb-1">
-                <Gift className="text-pink-500 w-6 h-6" />
-                <h2 className="text-2xl font-semibold text-gray-800">New Arrivals</h2>
+            {/* 🩷 Wedding Season Discount Banner (Fade-in) */}
+            {showBanner && (
+              <div className="w-full flex justify-center mt-4 mb-3 px-4 animate-fadeInUp">
+                <div className="
+                  bg-pink-50 border border-pink-200 text-pink-700 
+                  text-sm md:text-base py-2 px-4 rounded-lg shadow-sm 
+                  text-center max-w-3xl w-full
+                  transition-all duration-500 ease-out
+                ">
+                  🎀 Wedding Season Offer:{" "}
+                  <span className="font-semibold">
+                    Up to 20% Off on Bridal Lehengas, Partywear & more
+                  </span>{" "}
+                  — In-Store Only
+                </div>
               </div>
-              <p className="text-gray-600 text-sm md:text-base">
-                Discover our latest additions — fresh, elegant, and handpicked for every occasion.
-              </p>
-            </div>
+            )}
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {products.filter(p => p.tag === "new").length === 0 ? (
-                <div className="col-span-full text-center py-12 text-gray-500">
-                  <img
-                    src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-                    alt="No new arrivals"
-                    className="w-40 mx-auto mb-4"
-                  />
-                  <p className="text-sm">No new arrivals available right now.</p>
+            {/* 🆕 New Arrivals Section */}
+            <section className="p-6 max-w-7xl mx-auto">
+              <div className="flex flex-col items-center mb-2">
+                <div className="flex items-center justify-center gap-2 mb-1">
+                  <Gift className="text-pink-500 w-6 h-6" />
+                  <h2 className="text-2xl font-semibold text-gray-800">
+                    New Arrivals
+                  </h2>
                 </div>
-              ) : (
-                products
-                  .filter(p => p.tag === "new")
-                  .slice(0, 10)
-                  .map((product, i) => <ProductCard key={i} product={product} />)
-              )}
-            </div>
-          </section>
-          {/* 💖 Customer Favourites Section */}
-          <section className="p-6 max-w-7xl mx-auto mt-8 border-t border-pink-100">
-            <div className="text-center mb-6">
-              <h2 className="text-2xl md:text-3xl font-bold text-pink-600">
-                💖 Customer Favourites
-              </h2>
-              <p className="text-gray-600 text-sm md:text-base mt-1">
-                Timeless picks loved by our customers — elegant, affordable, and always in style.
-              </p>
-            </div>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Discover our latest additions — fresh, elegant, and handpicked for every occasion.
+                </p>
+              </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-              {products.filter(p =>
-                ["bestseller", "favourite", "customer favourite"].includes(p.tag)
-              ).length === 0 ? (
-                <div className="col-span-full text-center py-12 text-gray-500">
-                  <img
-                    src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-                    alt="No favourites"
-                    className="w-40 mx-auto mb-4"
-                  />
-                  <p className="text-sm">No customer favourites yet — check back soon!</p>
-                </div>
-              ) : (
-                products
-                  .filter(p =>
-                    ["bestseller", "favourite", "customer favourite"].includes(p.tag)
-                  )
-                  .slice(0, 10)
-                  .map((product, i) => <ProductCard key={i} product={product} />)
-              )}
-            </div>
-          </section>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {products.filter(p => p.tag === "new").length === 0 ? (
+                  <div className="col-span-full text-center py-12 text-gray-500">
+                    <img
+                      src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+                      alt="No new arrivals"
+                      className="w-40 mx-auto mb-4"
+                    />
+                    <p className="text-sm">No new arrivals available right now.</p>
+                  </div>
+                ) : (
+                  products
+                    .filter(p => p.tag === "new")
+                    .slice(0, 10)
+                    .map((product, i) => <ProductCard key={i} product={product} />)
+                )}
+              </div>
+            </section>
 
-        </div>
+            {/* 💖 Customer Favourites Section */}
+            <section className="p-6 max-w-7xl mx-auto mt-8 border-t border-pink-100">
+              <div className="text-center mb-6">
+                <h2 className="text-2xl md:text-3xl font-bold text-pink-600">
+                  💖 Customer Favourites
+                </h2>
+                <p className="text-gray-600 text-sm md:text-base mt-1">
+                  Timeless picks loved by our customers — elegant, affordable, and always in style.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                {products.filter(p =>
+                  ["bestseller", "favourite", "customer favourite"].includes(p.tag)
+                ).length === 0 ? (
+                  <div className="col-span-full text-center py-12 text-gray-500">
+                    <img
+                      src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+                      alt="No favourites"
+                      className="w-40 mx-auto mb-4"
+                    />
+                    <p className="text-sm">No customer favourites yet — check back soon!</p>
+                  </div>
+                ) : (
+                  products
+                    .filter(p =>
+                      ["bestseller", "favourite", "customer favourite"].includes(p.tag)
+                    )
+                    .slice(0, 10)
+                    .map((product, i) => <ProductCard key={i} product={product} />)
+                )}
+              </div>
+            </section>
+          </div>
+        </>
+      }
+    />
+
+    {/* CATEGORY PAGES */}
+    <Route path="/category/:name" element={<CategoryPage />} />
+    <Route path="/category/tag/:tag" element={<CategoryPage />} />
+
+  </Routes>
+</div>
+
 
         {/* ✅ Why Visit MOMCHIC Boutique Section */}<section
           className="bg-pink-50 py-12 mt-8 border-t border-pink-100"
