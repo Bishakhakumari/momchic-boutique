@@ -4,13 +4,28 @@ import axios from "axios";
 import Papa from "papaparse";
 import ProductCard from "../components/ProductCard";
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
+
 
 export default function CategoryPage() {
   const { name, tag } = useParams();
   const navigate = useNavigate();
+    const location = useLocation();
+
+  // ⭐ Professional history cleanup
+  useEffect(() => {
+    return () => {
+      if (location.pathname.startsWith("/category")) {
+        navigate("/", { replace: true });
+      }
+    };
+  }, []);
+
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+
 
   const allCategories = useMemo(
     () => [
