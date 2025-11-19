@@ -314,7 +314,8 @@ const handleCategoryClick = (cat) => {
         className="text-center mt-6 pb-10"
       >
         <button
-          onClick={() => navigate("/")}
+  onClick={() => navigate("/", { replace: true })}
+
           className="px-6 py-2 border border-pink-500 text-pink-600 rounded-full text-sm font-medium hover:bg-pink-50 transition"
         >
           ← Return to Home
