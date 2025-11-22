@@ -13,6 +13,22 @@ import { Gift } from "lucide-react";
 import HeroBanner from "./components/Herobanner";
 import CategoryPage from "./pages/CategoryPage";
 
+// Google Ads Conversion Tracking for Visit Our Store buttons
+export const trackStoreVisitConversion = (url) => {
+  const callback = () => {
+    if (url) window.location.href = url;
+  };
+
+  if (typeof window !== "undefined" && window.gtag) {
+    window.gtag("event", "conversion", {
+      send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+      event_callback: callback,
+    });
+  } else {
+    // fallback
+    window.location.href = url;
+  }
+};
 
 export default function App() {
   const hoverTimeout = useRef(null);
@@ -441,13 +457,28 @@ const handleSubcategoryClick = (subcategory) => {
               data-aos-delay="500"
             >
               <a
-                href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
-              >
-                📍 Visit Our Store
-              </a>
+  href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={(e) => {
+    e.preventDefault();
+
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+        event_callback: () => {
+          window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+        },
+      });
+    } else {
+      window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+    }
+  }}
+  className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
+>
+  📍 Visit Our Store
+</a>
+
             </div>
           </div>
         </section>
@@ -488,14 +519,29 @@ const handleSubcategoryClick = (subcategory) => {
               </p>
               <p className="text-sm mt-2">📞 +91 9204613635</p>
               <p className="text-sm">🕒 Open Daily: 10:30 AM – 9 PM</p>
-              <a
-                href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-pink-600 text-sm mt-1 inline-block hover:underline"
-              >
-                📍 Get in-store direction
-              </a>
+           <a
+  href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={(e) => {
+    e.preventDefault();
+
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+        event_callback: () => {
+          window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+        },
+      });
+    } else {
+      window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+    }
+  }}
+  className="text-pink-600 text-sm mt-1 inline-block hover:underline"
+>
+  📍 Get in-store direction
+</a>
+
             </div>
 
             {/* 🤝 Connect With Us */}

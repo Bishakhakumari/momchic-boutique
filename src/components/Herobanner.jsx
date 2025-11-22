@@ -87,14 +87,28 @@ export default function HeroBanner() {
           Premium fashion made affordable, right here in your town Daltonganj.
         </p>
 
-        <a
-          href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition-all duration-300 animate-fadeIn delay-300"
-        >
-          🛍️ Visit Our Store
-        </a>
+    <a
+  href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={(e) => {
+    e.preventDefault();
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+        event_callback: () => {
+          window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+        },
+      });
+    } else {
+      window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+    }
+  }}
+  className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition-all duration-300 animate-fadeIn delay-300"
+>
+  🛍️ Visit Our Store
+</a>
+
       </div>
     </section>
   );

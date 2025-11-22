@@ -308,18 +308,33 @@ const handleCategoryClick = (cat) => {
           </p>
         )}
       </div>
-            {/* 🏬 Boutique Note */}
-      <p className="text-center text-sm text-gray-500 mt-8">
-        <a
-          href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-pink-600 hover:underline font-medium transition-colors"
-        >
-          📍 Visit our boutique in Daltonganj
-        </a>{" "}
-        for bridal rentals and exclusive in-store collections.
-      </p>
+       {/* 🏬 Boutique Note */}
+<p className="text-center text-sm text-gray-500 mt-8">
+  <a
+    href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+    target="_blank"
+    rel="noopener noreferrer"
+    onClick={(e) => {
+      e.preventDefault();
+
+      if (typeof window !== "undefined" && window.gtag) {
+        window.gtag("event", "conversion", {
+          send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+          event_callback: () => {
+            window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+          },
+        });
+      } else {
+        window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+      }
+    }}
+    className="text-pink-600 hover:underline font-medium transition-colors"
+  >
+    📍 Visit our boutique in Daltonganj
+  </a>{" "}
+  for bridal rentals and exclusive in-store collections.
+</p>
+
 
       {/* 💖 Footer Navigation */}
       <motion.div
