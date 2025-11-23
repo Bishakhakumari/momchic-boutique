@@ -522,7 +522,12 @@ const handleSubcategoryClick = (subcategory) => {
                 1st Floor, Mohan Cinema, near Bus Stand<br />
                 Daltonganj, Palamu, Jharkhand – 822101
               </p>
-              <p className="text-sm mt-2">📞 +91 9204613635</p>
+               <a
+    href="tel:+919204613635"
+    className="text-pink-600 text-sm mt-2 inline-block hover:underline font-medium"
+  >
+    📞 +91 9204613635
+  </a>
               <p className="text-sm">🕒 Open Daily: 10:30 AM – 9 PM</p>
            <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
@@ -545,7 +550,6 @@ const handleSubcategoryClick = (subcategory) => {
     window.open(url, "_blank");
   }, 300);
 }}
-
 
   className="text-pink-600 text-sm mt-1 inline-block hover:underline"
 >
