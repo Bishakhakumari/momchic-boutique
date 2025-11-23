@@ -21,7 +21,7 @@ export const trackStoreVisitConversion = (url) => {
 
   if (typeof window !== "undefined" && window.gtag) {
     window.gtag("event", "conversion", {
-      send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+      send_to: "AW-17695821706/Ev8NCKnpvsUbEIqfg_ZB",
       event_callback: callback,
     });
   } else {
