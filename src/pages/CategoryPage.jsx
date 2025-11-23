@@ -254,7 +254,7 @@ const handleCategoryClick = (cat) => {
           text-center max-w-3xl w-full">
           🎀 Wedding Season Offer: <span className="font-semibold">
             Up to 20% Off on Bridal Lehengas, Partywear & more
-          </span> — In-Store Only
+          </span> — Hurry Up
         </div>
       </div>
 
