@@ -182,26 +182,29 @@ function ProductCard({ product }) {
 
           <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-  target="_blank"
-  rel="noopener noreferrer"
   onClick={(e) => {
     e.preventDefault();
+    const url = "https://maps.app.goo.gl/izfeBfpvB65rtzjy7";
 
-    if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", "conversion", {
-        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
-        event_callback: () => {
-          window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
-        },
-      });
-    } else {
-      window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
-    }
+    // Fire Google Ads Conversion
+    try {
+      if (window.gtag) {
+        window.gtag("event", "conversion", {
+          send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+        });
+      }
+    } catch (err) {}
+
+    // Safe redirect (Google requires ~300ms delay)
+    setTimeout(() => {
+      window.location.href = url;  // Same-tab navigation → required for correct tracking
+    }, 300);
   }}
   className="mt-4 block text-center text-sm font-medium text-pink-600 border border-pink-500 rounded-full py-2 hover:bg-pink-50 transition"
 >
   📍 Get In-Store Directions
 </a>
+
 
           </div>
         </div>

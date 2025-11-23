@@ -456,28 +456,31 @@ const handleSubcategoryClick = (subcategory) => {
               data-aos="zoom-in"
               data-aos-delay="500"
             >
-              <a
+    <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-  target="_blank"
-  rel="noopener noreferrer"
   onClick={(e) => {
     e.preventDefault();
+    const url = "https://maps.app.goo.gl/izfeBfpvB65rtzjy7";
 
-    if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", "conversion", {
-        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
-        event_callback: () => {
-          window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
-        },
-      });
-    } else {
-      window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
-    }
+    // Fire conversion safely
+    try {
+      if (window.gtag) {
+        window.gtag("event", "conversion", {
+          send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+        });
+      }
+    } catch (err) {}
+
+    // Redirect after 250–300ms (Google requirement)
+    setTimeout(() => {
+      window.location.href = url;   // SAME TAB → required for tracking
+    }, 300);
   }}
   className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
 >
   📍 Visit Our Store
 </a>
+
 
             </div>
           </div>
@@ -521,21 +524,23 @@ const handleSubcategoryClick = (subcategory) => {
               <p className="text-sm">🕒 Open Daily: 10:30 AM – 9 PM</p>
            <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-  target="_blank"
-  rel="noopener noreferrer"
   onClick={(e) => {
     e.preventDefault();
+    const url = "https://maps.app.goo.gl/izfeBfpvB65rtzjy7";
 
-    if (typeof window !== "undefined" && window.gtag) {
-      window.gtag("event", "conversion", {
-        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
-        event_callback: () => {
-          window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
-        },
-      });
-    } else {
-      window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
-    }
+    // Fire Google Ads Conversion
+    try {
+      if (window.gtag) {
+        window.gtag("event", "conversion", {
+          send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+        });
+      }
+    } catch (err) {}
+
+    // Safe redirect (Google required 300ms delay)
+    setTimeout(() => {
+      window.location.href = url; // SAME TAB redirect
+    }, 300);
   }}
   className="text-pink-600 text-sm mt-1 inline-block hover:underline"
 >

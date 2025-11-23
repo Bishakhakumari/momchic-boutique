@@ -311,27 +311,29 @@ const handleCategoryClick = (cat) => {
        {/* 🏬 Boutique Note */}
 <p className="text-center text-sm text-gray-500 mt-8">
   <a
-    href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-    target="_blank"
-    rel="noopener noreferrer"
-    onClick={(e) => {
-      e.preventDefault();
+  href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+  onClick={(e) => {
+    e.preventDefault();
+    const url = "https://maps.app.goo.gl/izfeBfpvB65rtzjy7";
 
-      if (typeof window !== "undefined" && window.gtag) {
+    // Fire Google Ads Conversion
+    try {
+      if (window.gtag) {
         window.gtag("event", "conversion", {
           send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
-          event_callback: () => {
-            window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
-          },
         });
-      } else {
-        window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
       }
-    }}
-    className="text-pink-600 hover:underline font-medium transition-colors"
-  >
-    📍 Visit our boutique in Daltonganj
-  </a>{" "}
+    } catch (err) {}
+
+    // Delay redirect (Google requirement)
+    setTimeout(() => {
+      window.location.href = url; // SAME TAB redirect for proper GCLID tracking
+    }, 300);
+  }}
+  className="text-pink-600 hover:underline font-medium transition-colors"
+>
+  📍 Visit our boutique in Daltonganj
+</a>{" "}
   for bridal rentals and exclusive in-store collections.
 </p>
 
