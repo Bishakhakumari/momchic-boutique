@@ -180,14 +180,29 @@ function ProductCard({ product }) {
               {inStock ? "✅ Available in-store" : "❌ Currently out of stock"}
             </p>
 
-            <a
-              href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 block text-center text-sm font-medium text-pink-600 border border-pink-500 rounded-full py-2 hover:bg-pink-50 transition"
-            >
-              📍 Get In-Store Directions
-            </a>
+          <a
+  href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
+  target="_blank"
+  rel="noopener noreferrer"
+  onClick={(e) => {
+    e.preventDefault();
+
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+        event_callback: () => {
+          window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+        },
+      });
+    } else {
+      window.open("https://maps.app.goo.gl/izfeBfpvB65rtzjy7", "_blank");
+    }
+  }}
+  className="mt-4 block text-center text-sm font-medium text-pink-600 border border-pink-500 rounded-full py-2 hover:bg-pink-50 transition"
+>
+  📍 Get In-Store Directions
+</a>
+
           </div>
         </div>
       )}
