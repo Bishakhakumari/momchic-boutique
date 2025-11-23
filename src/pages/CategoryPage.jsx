@@ -313,23 +313,25 @@ const handleCategoryClick = (cat) => {
   <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
   onClick={(e) => {
-    e.preventDefault();
-    const url = "https://maps.app.goo.gl/izfeBfpvB65rtzjy7";
+  e.preventDefault();
 
-    // Fire Google Ads Conversion
-    try {
-      if (window.gtag) {
-        window.gtag("event", "conversion", {
-          send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
-        });
-      }
-    } catch (err) {}
+  const url = "https://maps.app.goo.gl/izfeBfpvB65rtzjy7";
 
-    // Delay redirect (Google requirement)
-    setTimeout(() => {
-      window.location.href = url; // SAME TAB redirect for proper GCLID tracking
-    }, 300);
-  }}
+  // Fire Google Ads conversion
+  try {
+    if (window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+      });
+    }
+  } catch (err) {}
+
+  // Open map in NEW TAB after delay
+  setTimeout(() => {
+    window.open(url, "_blank");
+  }, 300);
+}}
+
   className="text-pink-600 hover:underline font-medium transition-colors"
 >
   📍 Visit our boutique in Daltonganj

@@ -90,23 +90,25 @@ export default function HeroBanner() {
     <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"
   onClick={(e) => {
-    e.preventDefault();
-    const url = "https://maps.app.goo.gl/izfeBfpvB65rtzjy7";
+  e.preventDefault();
 
-    // Fire Google Ads Conversion
-    try {
-      if (window.gtag) {
-        window.gtag("event", "conversion", {
-          send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
-        });
-      }
-    } catch (err) {}
+  const url = "https://maps.app.goo.gl/izfeBfpvB65rtzjy7";
 
-    // Safe redirect after delay
-    setTimeout(() => {
-      window.location.href = url;  // SAME TAB redirect
-    }, 300);
-  }}
+  // Fire Google Ads conversion
+  try {
+    if (window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+      });
+    }
+  } catch (err) {}
+
+  // Open map in NEW TAB after delay
+  setTimeout(() => {
+    window.open(url, "_blank");
+  }, 300);
+}}
+
   className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition-all duration-300 animate-fadeIn delay-300"
 >
   🛍️ Visit Our Store

@@ -6,7 +6,7 @@ export default function FloatingWhatsApp() {
     e.preventDefault();
     const url = whatsappUrl;
 
-    // Fire Google conversion
+    // Fire Google Ads Conversion
     try {
       if (window.gtag) {
         window.gtag("event", "conversion", {
@@ -15,9 +15,9 @@ export default function FloatingWhatsApp() {
       }
     } catch (err) {}
 
-    // Safe delayed redirect
+    // Open WhatsApp in NEW TAB after safe delay
     setTimeout(() => {
-      window.location.href = url; // SAME TAB → required for tracking
+      window.open(url, "_blank");
     }, 300);
   };
 
