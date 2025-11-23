@@ -98,7 +98,7 @@ export default function HeroBanner() {
   try {
     if (window.gtag) {
       window.gtag("event", "conversion", {
-        send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+        send_to: "AW-17695821706/Ev8NCKnpvsUbEIqfg_ZB",
       });
     }
   } catch (err) {}

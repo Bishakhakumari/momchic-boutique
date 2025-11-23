@@ -10,7 +10,7 @@ export default function FloatingWhatsApp() {
     try {
       if (window.gtag) {
         window.gtag("event", "conversion", {
-          send_to: "AW-17695821706/Acj4CNi_5MQbEIQfg_ZB",
+          send_to: "AW-17695821706/DGiTCLz3x8UbEIqfg_ZB",
         });
       }
     } catch (err) {}
@@ -35,3 +35,4 @@ export default function FloatingWhatsApp() {
     </a>
   );
 }
+
