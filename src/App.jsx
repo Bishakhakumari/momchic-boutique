@@ -332,7 +332,7 @@ const handleSubcategoryClick = (subcategory) => {
                   <span className="font-semibold">
                     Up to 20% Off on Bridal Lehengas, Partywear & more
                   </span>{" "}
-                  — Hurry Up
+                  — Hurry Up!
                 </div>
               </div>
             )}
