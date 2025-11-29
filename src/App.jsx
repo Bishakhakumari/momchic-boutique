@@ -141,7 +141,7 @@ const handleSubcategoryClick = (subcategory) => {
       ]);
 
       const sheetURL =
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ7ZAmIk7wbGaqjix0PiStR8SiUWD7iTPglZtIcsbM1PIXno0Ry_KTPZI-0Bzvb-8L-yxzHVJ91auA6/pub?output=csv";
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vS7IG6buXMwo8VbGRHanhl7QocDXakRPpkBXoD72k4p4wbyYPrCTh8HiIbNmtOUaz1rvraPVZbmob5u/pub?gid=1779491107&single=true&output=csv";
 
       const response = await axios.get(sheetURL);
 
