@@ -12,14 +12,14 @@ export default function CategoryPage() {
   const navigate = useNavigate();
     const location = useLocation();
 
-  // ⭐ Professional history cleanup
+  /*// ⭐ Professional history cleanup
   useEffect(() => {
     return () => {
       if (location.pathname.startsWith("/category")) {
         navigate("/", { replace: true });
       }
     };
-  }, []);
+  }, []);*/
 
 
   const [products, setProducts] = useState([]);
@@ -85,19 +85,19 @@ export default function CategoryPage() {
                 if (!imgArr || imgArr.length === 0) return null;
 
                 return {
-                  id: item["Item Name"],
-                  name: item["Item Name"],
-                  category: item["Category"]?.trim(),
-                  price: parseInt(item.Price?.replace(/\D/g, ""), 10),
-                  originalPrice: parseInt(
-                    item["Original Price"]?.replace(/\D/g, ""),
-                    10
-                  ),
-                  image: imgArr,
-                  tag: item["Tag"]?.toLowerCase().trim() || "",
-                  inStock:
-                    item["Stock Status"]?.toLowerCase().includes("in") ?? true,
-                };
+  id: item["Item Name"],
+  name: item["Item Name"],
+  category: item["Category"]?.trim(),
+  // ⭐ new: sortOrder pulled from sheet (default very large so unsorted items go last)
+  sortOrder: Number(item["Sort Order"]) || 9999,
+  price: parseInt(item.Price?.replace(/\D/g, ""), 10),
+  originalPrice: parseInt(item["Original Price"]?.replace(/\D/g, ""), 10),
+  image: imgArr,
+  tag: item["Tag"]?.toLowerCase().trim() || "",
+  inStock:
+    item["Stock Status"]?.toLowerCase().includes("in") ?? true,
+};
+
               })
               .filter(Boolean);
 
@@ -177,7 +177,9 @@ else {
 }
 
 
-            
+            // ensure products display in the order defined in the sheet
+filtered.sort((a, b) => (a.sortOrder || 9999) - (b.sortOrder || 9999));
+
 
             setProducts(filtered);
             setLoading(false);

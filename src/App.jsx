@@ -149,27 +149,37 @@ const handleSubcategoryClick = (subcategory) => {
         header: true,
         complete: (results) => {
           const cleanedData = results.data
-            .filter((item) => item["Item Name"] && item.Price)
-            .map((item) => {
-              const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
-              const originalPrice = parseInt(item["Original Price"]?.replace(/\D/g, ""), 10);
-              return {
-                id: item["Item Name"] + Math.random(),
-                name: item["Item Name"],
-                category: item["Category"],
-                price: isNaN(price) ? 0 : price,
-                originalPrice: isNaN(originalPrice) ? null : originalPrice,
-                image: item["Image URL"]
-                  ? item["Image URL"]
-                    .split(",")
-                    .map((url) => url.trim())
-                    .filter((url) => url && url !== "undefined")
-                  : [],
+  .filter((item) => item["Item Name"] && item.Price)
+  .map((item) => {
+    const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
+    const originalPrice = parseInt(item["Original Price"]?.replace(/\D/g, ""), 10);
 
-                tag: item["Tag"]?.trim()?.toLowerCase() || "",
-                inStock: item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
-              };
-            });
+    return {
+      id: item["Item Name"] + Math.random(),
+      name: item["Item Name"],
+      category: item["Category"],
+
+      // ⭐ NEW: Sort Order column from Google Sheet
+      sortOrder: Number(item["Sort Order"]) || 9999,
+
+      price: isNaN(price) ? 0 : price,
+      originalPrice: isNaN(originalPrice) ? null : originalPrice,
+
+      image: item["Image URL"]
+        ? item["Image URL"]
+            .split(",")
+            .map((url) => url.trim())
+            .filter((url) => url && url !== "undefined")
+        : [],
+
+      tag: item["Tag"]?.trim()?.toLowerCase() || "",
+      inStock: item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
+    };
+  })
+
+  // ⭐ NEW: Sort products by Sort Order
+  .sort((a, b) => a.sortOrder - b.sortOrder);
+
           setProducts(cleanedData);
           setFilteredProducts(cleanedData);
           localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
@@ -244,16 +254,20 @@ const handleSubcategoryClick = (subcategory) => {
 
               {/* Navigation Menu */}
               {/* Navigation Menu */}
-              <nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700 pointer-events-none">
+              <nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700">
+
                 <Suspense fallback={null}>
-                  <LazyDropdown
-                    menuItems={menuItems}
-                    activeCategory={activeCategory}
-                    setActiveCategory={setActiveCategory}
-                    hoverTimeout={hoverTimeout}
-                    handleSubcategoryClick={handleSubcategoryClick}
-                  />
-                </Suspense>
+  <div className="pointer-events-auto">
+    <LazyDropdown
+      menuItems={menuItems}
+      activeCategory={activeCategory}
+      setActiveCategory={setActiveCategory}
+      hoverTimeout={hoverTimeout}
+      handleSubcategoryClick={handleSubcategoryClick}
+    />
+  </div>
+</Suspense>
+
               </nav>
 
             </div>
@@ -337,72 +351,76 @@ const handleSubcategoryClick = (subcategory) => {
               </div>
             )}
 
-            {/* 🆕 New Arrivals Section */}
-            <section className="p-6 max-w-7xl mx-auto">
-              <div className="flex flex-col items-center mb-2">
-                <div className="flex items-center justify-center gap-2 mb-1">
-                  <Gift className="text-pink-500 w-6 h-6" />
-                  <h2 className="text-2xl font-semibold text-gray-800">
-                    New Arrivals
-                  </h2>
-                </div>
-                <p className="text-gray-600 text-sm md:text-base">
-                  Discover our latest additions — fresh, elegant, and handpicked for every occasion.
-                </p>
-              </div>
+{/* 🆕 New Arrivals Section */}
+<section className="p-6 max-w-7xl mx-auto">
+  <div className="flex flex-col items-center mb-2">
+    <div className="flex items-center justify-center gap-2 mb-1">
+      <Gift className="text-pink-500 w-6 h-6" />
+      <h2 className="text-2xl font-semibold text-gray-800">
+        New Arrivals
+      </h2>
+    </div>
+    <p className="text-gray-600 text-sm md:text-base">
+      Discover our latest additions — fresh, elegant, and handpicked for every occasion.
+    </p>
+  </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {products.filter(p => p.tag === "new").length === 0 ? (
-                  <div className="col-span-full text-center py-12 text-gray-500">
-                    <img
-                      src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-                      alt="No new arrivals"
-                      className="w-40 mx-auto mb-4"
-                    />
-                    <p className="text-sm">No new arrivals available right now.</p>
-                  </div>
-                ) : (
-                  products
-                    .filter(p => p.tag === "new")
-                    .slice(0, 10)
-                    .map((product, i) => <ProductCard key={i} product={product} />)
-                )}
-              </div>
-            </section>
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {products.filter(p => p.tag === "new").length === 0 ? (
+      <div className="col-span-full text-center py-12 text-gray-500">
+        <img
+          src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+          alt="No new arrivals"
+          className="w-40 mx-auto mb-4"
+        />
+        <p className="text-sm">No new arrivals available right now.</p>
+      </div>
+    ) : (
+      products
+        .filter(p => p.tag === "new")
+        .sort((a, b) => a.sortOrder - b.sortOrder)   // ⭐ ADDED SORTING
+        .slice(0, 10)
+        .map((product, i) => <ProductCard key={i} product={product} />)
+    )}
+  </div>
+</section>
 
-            {/* 💖 Customer Favourites Section */}
-            <section className="p-6 max-w-7xl mx-auto mt-8 border-t border-pink-100">
-              <div className="text-center mb-6">
-                <h2 className="text-2xl md:text-3xl font-bold text-pink-600">
-                  💖 Customer Favourites
-                </h2>
-                <p className="text-gray-600 text-sm md:text-base mt-1">
-                  Timeless picks loved by our customers — elegant, affordable, and always in style.
-                </p>
-              </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                {products.filter(p =>
-                  ["bestseller", "favourite", "customer favourite"].includes(p.tag)
-                ).length === 0 ? (
-                  <div className="col-span-full text-center py-12 text-gray-500">
-                    <img
-                      src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-                      alt="No favourites"
-                      className="w-40 mx-auto mb-4"
-                    />
-                    <p className="text-sm">No customer favourites yet — check back soon!</p>
-                  </div>
-                ) : (
-                  products
-                    .filter(p =>
-                      ["bestseller", "favourite", "customer favourite"].includes(p.tag)
-                    )
-                    .slice(0, 10)
-                    .map((product, i) => <ProductCard key={i} product={product} />)
-                )}
-              </div>
-            </section>
+           {/* 💖 Customer Favourites Section */}
+<section className="p-6 max-w-7xl mx-auto mt-8 border-t border-pink-100">
+  <div className="text-center mb-6">
+    <h2 className="text-2xl md:text-3xl font-bold text-pink-600">
+      💖 Customer Favourites
+    </h2>
+    <p className="text-gray-600 text-sm md:text-base mt-1">
+      Timeless picks loved by our customers — elegant, affordable, and always in style.
+    </p>
+  </div>
+
+  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+    {products.filter(p =>
+      ["bestseller", "favourite", "customer favourite"].includes(p.tag)
+    ).length === 0 ? (
+      <div className="col-span-full text-center py-12 text-gray-500">
+        <img
+          src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+          alt="No favourites"
+          className="w-40 mx-auto mb-4"
+        />
+        <p className="text-sm">No customer favourites yet — check back soon!</p>
+      </div>
+    ) : (
+      products
+        .filter(p =>
+          ["bestseller", "favourite", "customer favourite"].includes(p.tag)
+        )
+        .sort((a, b) => a.sortOrder - b.sortOrder)   // ⭐ ADDED SORTING
+        .slice(0, 10)
+        .map((product, i) => <ProductCard key={i} product={product} />)
+    )}
+  </div>
+</section>
+
           </div>
         </>
       }
