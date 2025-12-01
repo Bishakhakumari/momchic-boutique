@@ -254,10 +254,9 @@ const handleSubcategoryClick = (subcategory) => {
 
               {/* Navigation Menu */}
               {/* Navigation Menu */}
-              <nav className="relative hidden md:flex gap-6 text-sm font-medium text-gray-700">
+              <nav className="relative hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
 
-                <Suspense fallback={null}>
-  <div className="pointer-events-auto">
+  <Suspense fallback={null}>
     <LazyDropdown
       menuItems={menuItems}
       activeCategory={activeCategory}
@@ -265,10 +264,10 @@ const handleSubcategoryClick = (subcategory) => {
       hoverTimeout={hoverTimeout}
       handleSubcategoryClick={handleSubcategoryClick}
     />
-  </div>
-</Suspense>
+  </Suspense>
 
-              </nav>
+</nav>
+
 
             </div>
           </div>
