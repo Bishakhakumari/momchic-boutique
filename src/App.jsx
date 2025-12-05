@@ -161,6 +161,13 @@ const handleSubcategoryClick = (subcategory) => {
 
       // ⭐ NEW: Sort Order column from Google Sheet
       sortOrder: Number(item["Sort Order"]) || 9999,
+      // ⭐ New Arrivals & Favourites — Coming from Google Sheet
+showInNewArrivals: (item["Show in New Arrivals"] || "").trim(),
+newArrivalsSort: Number(item["New Arrivals Sort"]) || null,
+
+showInFavourites: (item["Show in Favourites"] || "").trim(),
+favouritesSort: Number(item["Favourites Sort"]) || null,
+
 
       price: isNaN(price) ? 0 : price,
       originalPrice: isNaN(originalPrice) ? null : originalPrice,
@@ -199,6 +206,17 @@ const handleSubcategoryClick = (subcategory) => {
     setShowBanner(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+    // ⭐ Home sections controlled by Google Sheet columns
+const newArrivals = products
+  .filter(p => (p.showInNewArrivals || "").toLowerCase() === "yes")
+  .sort((a, b) => (a.newArrivalsSort || 999) - (b.newArrivalsSort || 999));
+
+const favourites = products
+  .filter(p => (p.showInFavourites || "").toLowerCase() === "yes")
+  .sort((a, b) => (a.favouritesSort || 999) - (b.favouritesSort || 999));
+
+
 
   return (
     <>
@@ -365,23 +383,24 @@ const handleSubcategoryClick = (subcategory) => {
   </div>
 
   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-    {products.filter(p => p.tag === "new").length === 0 ? (
-      <div className="col-span-full text-center py-12 text-gray-500">
-        <img
-          src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-          alt="No new arrivals"
-          className="w-40 mx-auto mb-4"
-        />
-        <p className="text-sm">No new arrivals available right now.</p>
-      </div>
-    ) : (
-      products
-        .filter(p => p.tag === "new")
-        .sort((a, b) => a.sortOrder - b.sortOrder)   // ⭐ ADDED SORTING
-        .slice(0, 10)
-        .map((product, i) => <ProductCard key={i} product={product} />)
-    )}
-  </div>
+
+  {newArrivals.length === 0 ? (
+    <div className="col-span-full text-center py-12 text-gray-500">
+      <img
+        src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+        alt="No new arrivals"
+        className="w-40 mx-auto mb-4"
+      />
+      <p className="text-sm">No new arrivals available right now.</p>
+    </div>
+  ) : (
+    newArrivals.slice(0, 10).map((product, i) => (
+      <ProductCard key={i} product={product} />
+    ))
+  )}
+
+</div>
+
 </section>
 
 
@@ -396,28 +415,25 @@ const handleSubcategoryClick = (subcategory) => {
     </p>
   </div>
 
-  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-    {products.filter(p =>
-      ["bestseller", "favourite", "customer favourite"].includes(p.tag)
-    ).length === 0 ? (
-      <div className="col-span-full text-center py-12 text-gray-500">
-        <img
-          src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
-          alt="No favourites"
-          className="w-40 mx-auto mb-4"
-        />
-        <p className="text-sm">No customer favourites yet — check back soon!</p>
-      </div>
-    ) : (
-      products
-        .filter(p =>
-          ["bestseller", "favourite", "customer favourite"].includes(p.tag)
-        )
-        .sort((a, b) => a.sortOrder - b.sortOrder)   // ⭐ ADDED SORTING
-        .slice(0, 10)
-        .map((product, i) => <ProductCard key={i} product={product} />)
-    )}
-  </div>
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+
+  {favourites.length === 0 ? (
+    <div className="col-span-full text-center py-12 text-gray-500">
+      <img
+        src="https://cdn.dribbble.com/users/2046015/screenshots/15640474/media/883a2553b27ea3394a0db6f1c3acfe6a.png"
+        alt="No favourites"
+        className="w-40 mx-auto mb-4"
+      />
+      <p className="text-sm">No customer favourites yet — check back soon!</p>
+    </div>
+  ) : (
+    favourites.slice(0, 10).map((product, i) => (
+      <ProductCard key={i} product={product} />
+    ))
+  )}
+
+</div>
+
 </section>
 
           </div>
