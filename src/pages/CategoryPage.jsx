@@ -37,6 +37,7 @@ export default function CategoryPage() {
       "Footwear",
       "Beauty & Skincare",
       "Rental Wear",
+      "Winter Wear",
     ],
     []
   );
@@ -254,9 +255,11 @@ const handleCategoryClick = (cat) => {
         <div className="bg-pink-50 border border-pink-200 text-pink-700 
           text-sm md:text-base py-2 px-4 rounded-lg shadow-sm 
           text-center max-w-3xl w-full">
-          🎀 Wedding Season Offer: <span className="font-semibold">
-            Up to 20% Off on Bridal Lehengas, Partywear & more
-          </span> — Hurry Up!
+                 ❄️ Winter Style Offers:{" "}
+                  <span className="font-semibold">
+                    Special in-store discounts on winter wear, lehengas & more
+                  </span>{" "}
+                  — Hurry Up!
         </div>
       </div>
 

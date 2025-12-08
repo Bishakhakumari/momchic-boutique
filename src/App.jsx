@@ -45,6 +45,9 @@ export default function App() {
       { title: "Western Wear", items: ["Tops & Dresses", "Palazzos", "Gowns"] },
       { title: "Accessories", items: ["Handbags", "Footwear"] },
     ],
+    "WINTER WEAR": [
+      { title: "", items: ["Cardigans & Sweaters", "Winter Tops", "Jackets & Outerwear", "Shawls & Stoles"] },
+    ],
     BEAUTY: [
       { title: "Makeup", items: ["Lipsticks", "Eyeliner & Mascara", "Nail Paints"] },
       { title: "Fragrance & Care", items: ["Perfumes", "Body Mist", "Skincare Essentials"] },
@@ -103,9 +106,13 @@ const handleSubcategoryClick = (subcategory) => {
     "Skincare": "Beauty & Skincare",
     "Body Mist": "Beauty & Skincare",
     "Skincare Essentials": "Beauty & Skincare",
-    "Bridal Lehengas": "Bridal Lehengas",
-    "Dandiya Dresses": "Dandiya Dresses",
-    
+    "Bridal Lehengas": "Rental wear",
+    "Dandiya Dresses": "Rental Wear",
+    "Cardigans & Sweaters": "Winter Wear",
+    "Winter Tops": "Winter Wear",
+    "Jackets & Outerwear": "Winter Wear",
+    "Shawls & Stoles": "Winter Wear",
+
   };
 
   const finalCategory = redirectMap[subcategory] || subcategory;
@@ -359,9 +366,9 @@ const favourites = products
                   text-center max-w-3xl w-full
                   transition-all duration-500 ease-out
                 ">
-                  🎀 Wedding Season Offer:{" "}
+                  ❄️ Winter Style Offers:{" "}
                   <span className="font-semibold">
-                    Up to 20% Off on Bridal Lehengas, Partywear & more
+                    Special in-store discounts on winter wear, lehengas & more
                   </span>{" "}
                   — Hurry Up!
                 </div>
