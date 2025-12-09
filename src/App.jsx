@@ -646,7 +646,7 @@ const favourites = products
 
   {/* YouTube (Red Square Logo — perfectly matching size) */}
   <a
-    href="https://www.youtube.com/@momchic_bridal"
+    href="https://www.youtube.com/@momchic_fashion"
     target="_blank"
     rel="noopener noreferrer"
     className="hover:scale-110 transition-transform duration-200"
