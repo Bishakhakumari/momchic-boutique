@@ -1,7 +1,7 @@
 import React, { useState, memo, useCallback } from "react";
 
 function ProductCard({ product }) {
-  const { name, category, image, price, originalPrice, inStock } = product;
+const { name, category, image, price, originalPrice, inStock, trending } = product;
   const [showModal, setShowModal] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -96,16 +96,25 @@ function ProductCard({ product }) {
       {/* PRODUCT CARD */}
       <div
         onClick={handleModalToggle}
-        className="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
+        className="bg-white border rounded-lg overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer relative"
       >
-        <div className="overflow-hidden">
-          <img
-            loading="lazy"
-            src={`${images[0]}?auto=format&fit=crop&w=600&q=60`}
-            alt={name}
-            className="w-full h-60 object-cover transition-transform duration-300 hover:scale-105"
-          />
-        </div>
+<div className="overflow-hidden relative isolate">
+  
+  {/* ✅ TRENDING BADGE */}
+  {trending && (
+    <div className="trending-badge">
+      Trending
+    </div>
+  )}
+
+  <img
+    loading="lazy"
+    src={`${images[0]}?auto=format&fit=crop&w=600&q=60`}
+    alt={name}
+    className="w-full h-60 object-cover transition-transform duration-300 hover:scale-105"
+  />
+</div>
+
 
         <div className="p-3">
           <h3 className="text-sm font-semibold text-gray-800 truncate">{name}</h3>
@@ -141,6 +150,13 @@ function ProductCard({ product }) {
 
             {/* IMAGE (CROPPED LOOK + DRAG ENABLED) */}
             <div className="relative cursor-pointer" onClick={handleImageClick}>
+              
+  {/* ✅ TRENDING BADGE IN MODAL */}
+  {trending && (
+    <div className="trending-badge">
+      Trending
+    </div>
+  )}
               <img
                 id="modalImage"
                 loading="lazy"

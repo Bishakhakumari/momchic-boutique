@@ -153,52 +153,58 @@ const handleSubcategoryClick = (subcategory) => {
       const response = await axios.get(sheetURL);
 
       Papa.parse(response.data, {
-        header: true,
-        complete: (results) => {
-          const cleanedData = results.data
-  .filter((item) => item["Item Name"] && item.Price)
-  .map((item) => {
-    const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
-    const originalPrice = parseInt(item["Original Price"]?.replace(/\D/g, ""), 10);
+  header: true,
+  complete: (results) => {
+    const cleanedData = results.data
+      .filter((item) => item["Item Name"] && item.Price)
+      .map((item) => {
+        const price = parseInt(item.Price?.replace(/\D/g, ""), 10);
+        const originalPrice = parseInt(item["Original Price"]?.replace(/\D/g, ""), 10);
 
-    return {
-      id: item["Item Name"] + Math.random(),
-      name: item["Item Name"],
-      category: item["Category"],
+        return {
+          id: item["Item Name"] + Math.random(),
+          name: item["Item Name"],
+          category: item["Category"],
 
-      // ⭐ NEW: Sort Order column from Google Sheet
-      sortOrder: Number(item["Sort Order"]) || 9999,
-      // ⭐ New Arrivals & Favourites — Coming from Google Sheet
-showInNewArrivals: (item["Show in New Arrivals"] || "").trim(),
-newArrivalsSort: Number(item["New Arrivals Sort"]) || null,
+          // ✅ SORT
+          sortOrder: Number(item["Sort Order"]) || 9999,
 
-showInFavourites: (item["Show in Favourites"] || "").trim(),
-favouritesSort: Number(item["Favourites Sort"]) || null,
+          // ✅ HOME CONTROLS
+          showInNewArrivals: String(item["Show in New Arrivals"] || "").trim(),
+          newArrivalsSort: Number(item["New Arrivals Sort"]) || null,
 
+          showInFavourites: String(item["Show in Favourites"] || "").trim(),
+          favouritesSort: Number(item["Favourites Sort"]) || null,
 
-      price: isNaN(price) ? 0 : price,
-      originalPrice: isNaN(originalPrice) ? null : originalPrice,
+          price: isNaN(price) ? 0 : price,
+          originalPrice: isNaN(originalPrice) ? null : originalPrice,
 
-      image: item["Image URL"]
-        ? item["Image URL"]
-            .split(",")
-            .map((url) => url.trim())
-            .filter((url) => url && url !== "undefined")
-        : [],
+          image: item["Image URL"]
+            ? item["Image URL"]
+                .split(",")
+                .map((url) => url.trim())
+                .filter((url) => url && url !== "undefined")
+            : [],
 
-      tag: item["Tag"]?.trim()?.toLowerCase() || "",
-      inStock: item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
-    };
-  })
+          tag: item["Tag"]?.trim()?.toLowerCase() || "",
+          inStock: item["Stock Status"]?.trim()?.toLowerCase() === "in stock",
 
-  // ⭐ NEW: Sort products by Sort Order
-  .sort((a, b) => a.sortOrder - b.sortOrder);
+          // ✅✅✅ FINAL TRENDING FIX
+          trending: String(item["Trending"] || "")
+            .trim()
+            .toLowerCase() === "yes",
+        };
+      })
+      .sort((a, b) => a.sortOrder - b.sortOrder);
 
-          setProducts(cleanedData);
-          setFilteredProducts(cleanedData);
-          localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
-        },
-      });
+    // ✅✅✅ NEVER remap trending again after this
+    setProducts(cleanedData);
+    setFilteredProducts(cleanedData);
+
+    localStorage.setItem("momchic-products", JSON.stringify(cleanedData));
+  },
+});
+
     };
 
     fetchData();

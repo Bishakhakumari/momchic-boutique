@@ -85,19 +85,30 @@ export default function CategoryPage() {
 
                 if (!imgArr || imgArr.length === 0) return null;
 
-                return {
+  return {
   id: item["Item Name"],
   name: item["Item Name"],
+
   category: item["Category"]?.trim(),
-  // ⭐ new: sortOrder pulled from sheet (default very large so unsorted items go last)
+
   sortOrder: Number(item["Sort Order"]) || 9999,
+
   price: parseInt(item.Price?.replace(/\D/g, ""), 10),
+
   originalPrice: parseInt(item["Original Price"]?.replace(/\D/g, ""), 10),
+
   image: imgArr,
+
   tag: item["Tag"]?.toLowerCase().trim() || "",
+
   inStock:
     item["Stock Status"]?.toLowerCase().includes("in") ?? true,
+
+  // ✅ ✅ ✅ THIS LINE IS MISSING AND IS THE CORE FIX
+  trending:
+    (item["Trending"] || "").toString().trim().toLowerCase() === "yes",
 };
+
 
               })
               .filter(Boolean);

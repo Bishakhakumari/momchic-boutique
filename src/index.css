@@ -19,3 +19,39 @@
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+.trending-badge {
+  position: absolute;
+  top: 10px;
+  left: -5px;
+  background: linear-gradient(135deg, #ff2d89, #ff6fae);
+  color: white;
+  padding: 4px 14px 4px 10px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 0 6px 6px 0;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  z-index: 30;
+}
+
+/* Ribbon Tail Effect */
+.trending-badge::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 0;
+  height: 0;
+  border-top: 6px solid #c2185b;
+  border-left: 6px solid transparent;
+}
+
+.product-card img {
+  z-index: 1;
+}
+.trending-badge {
+  z-index: 2;
+}
+
