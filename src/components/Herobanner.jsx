@@ -48,7 +48,7 @@ export default function HeroBanner() {
 
   return (
     <section
-      className="relative w-full h-[60vh] md:h-[50vh] overflow-hidden"
+      className="relative w-full h-[40vh] md:h-[50vh] overflow-hidden"
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
