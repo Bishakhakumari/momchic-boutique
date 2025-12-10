@@ -195,6 +195,9 @@ const { name, category, image, price, originalPrice, inStock, trending } = produ
             >
               {inStock ? "✅ Available in-store" : "❌ Currently out of stock"}
             </p>
+<p className="text-sm text-pink-600 font-medium mt-2 mb-3 animate-pulse text-center">
+  ✨ Try this outfit in-store today — limited stock available
+</p>
 
           <a
   href="https://maps.app.goo.gl/izfeBfpvB65rtzjy7"

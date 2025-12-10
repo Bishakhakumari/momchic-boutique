@@ -363,6 +363,15 @@ const favourites = products
           <div>
             {showBanner && <HeroBanner />}
 
+              {/* ✅ GOOGLE ADS TRUST LINE (STEP 5) */}
+  {showBanner && (
+    <p className="text-center text-xs sm:text-sm text-gray-600 mt-3 mb-2 px-4">
+      📍 Trusted Boutique in Daltonganj • 200+ Happy Customers • Trial & Rental Available
+    </p>
+  )}
+
+  {/* 🩷 Wedding Season Discount Banner (Fade-in) */}
+
             {/* 🩷 Wedding Season Discount Banner (Fade-in) */}
             {showBanner && (
               <div className="w-full flex justify-center mt-4 mb-3 px-4 animate-fadeInUp">
@@ -483,7 +492,7 @@ const favourites = products
             >
               MOMCHIC Boutique is your one-stop destination for elegant{" "}
               <span className="font-semibold">
-                wedding lehengas, designer sarees, party wear, festive outfits, stylish footwear,
+                wedding lehengas, designer sarees, party wear, festive outfits, elegant suits & kurtis, stylish footwear,
                 trendy handbags & beauty products
               </span>
               . Make your wedding truly special with our exclusive <span className="font-semibold text-pink-600">bridal lehenga rental service.</span>
