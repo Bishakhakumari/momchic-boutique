@@ -390,7 +390,7 @@ const favourites = products
         New Arrivals
       </h2>
     </div>
-    <p className="text-gray-600 text-sm md:text-base">
+<p className="text-gray-600 text-sm md:text-base text-center">
       Discover our latest additions — fresh, elegant, and handpicked for every occasion.
     </p>
   </div>
@@ -423,7 +423,7 @@ const favourites = products
     <h2 className="text-2xl md:text-3xl font-bold text-pink-600">
       💖 Customer Favourites
     </h2>
-    <p className="text-gray-600 text-sm md:text-base mt-1">
+<p className="text-gray-600 text-sm md:text-base text-center">
       Timeless picks loved by our customers — elegant, affordable, and always in style.
     </p>
   </div>
