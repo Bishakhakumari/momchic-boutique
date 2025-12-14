@@ -246,7 +246,7 @@ const favourites = products
               className="flex items-center gap-2 hover:opacity-80 transition cursor-pointer"
             >
               <img
-                src="https://res.cloudinary.com/dm5ksdp5o/image/upload/v1762553569/mohan-cinema-momchic-boutiuqe-daltonganj-logo-opening-new-shop-mayor-aruna-shankar.png"
+                src="https://ik.imagekit.io/momchicboutique/Banner/momchic-boutique-mohan-cinema-heritage-square-logo-bridal-ladies-shop-daltonganj-palamu?updatedAt=1765736335453"
                 alt="MOMCHIC Boutique Logo"
                 className="h-10 w-10 rounded-full border border-pink-100 object-contain"
               />
