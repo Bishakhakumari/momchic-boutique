@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 export default function HeroBanner() {
   const bannerImages = [
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-bus-stand.jpg?updatedAt=1765733210488",
-    "https://ik.imagekit.io/momchicboutique/Banner/https:__ik.imamohan-cinema-momchic-boutiuqe-daltonganj-bus-stand-1.jpg?updatedAt=1765733312639",
+    "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-bus-stand-1.jpg?updatedAt=1765733312639",
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-bus-stand-2.jpg?updatedAt=1765733391917",
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening.jpg?updatedAt=1765733452887",
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening-1.jpg?updatedAt=1765733503595",
