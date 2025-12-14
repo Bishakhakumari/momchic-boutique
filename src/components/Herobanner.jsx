@@ -5,10 +5,13 @@ export default function HeroBanner() {
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-bus-stand.jpg?updatedAt=1765733210488",
     "https://ik.imagekit.io/momchicboutique/Banner/https:__ik.imamohan-cinema-momchic-boutiuqe-daltonganj-bus-stand-1.jpg?updatedAt=1765733312639",
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-bus-stand-2.jpg?updatedAt=1765733391917",
-    
+    "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening.jpg?updatedAt=1765733452887",
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening-1.jpg?updatedAt=1765733503595",
+    "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening-6.jpg?updatedAt=1765734354684",
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening-3.jpg?updatedAt=1765733590889",
     "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening-4.jpg?updatedAt=1765733641834",
+    "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening-7.jpg?updatedAt=1765734419407",
+    "https://ik.imagekit.io/momchicboutique/Banner/mohan-cinema-momchic-boutiuqe-daltonganj-latest-news-mayor-aruna-shankar-opening-8.jpg?updatedAt=1765734503117",
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
