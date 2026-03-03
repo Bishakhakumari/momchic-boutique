@@ -381,9 +381,9 @@ const favourites = products
                   text-center max-w-3xl w-full
                   transition-all duration-500 ease-out
                 ">
-                  ❄️ Winter Style Offers:{" "}
+                  💍 Wedding Special Offers:{" "}
                   <span className="font-semibold">
-                    Special in-store discounts on winter wear, lehengas & more
+                    Exclusive discounts on Lehengas, Sarees, Gowns & more
                   </span>{" "}
                   — Hurry Up!
                 </div>
