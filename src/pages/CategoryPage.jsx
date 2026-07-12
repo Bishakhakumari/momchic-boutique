@@ -12,8 +12,6 @@ export default function CategoryPage() {
   const navigate = useNavigate();
     const location = useLocation();
 
-
-
   /*// ⭐ Professional history cleanup
   useEffect(() => {
     return () => {
@@ -211,10 +209,8 @@ filtered.sort((a, b) => (a.sortOrder || 9999) - (b.sortOrder || 9999));
   }, [selectedCategory, tag]);
 
 const handleCategoryClick = (cat) => {
-    setProducts([]);
-    navigate(`/category/${encodeURIComponent(cat)}`, {
-      replace: true,
-    });
+    setProducts([]);   // ⭐ CLEAR previous category products here
+    navigate(`/category/${encodeURIComponent(cat)}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
@@ -366,12 +362,7 @@ const handleCategoryClick = (cat) => {
         className="text-center mt-6 pb-10"
       >
         <button
-  onClick={() =>
-    navigate("/", {
-      replace: true,
-      state: { cleanHome: true },
-    })
-  }
+  onClick={() => navigate("/", { replace: true })}
 
           className="px-6 py-2 border border-pink-500 text-pink-600 rounded-full text-sm font-medium hover:bg-pink-50 transition"
         >

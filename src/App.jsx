@@ -82,18 +82,16 @@ const handleSubcategoryClick = (subcategory) => {
     /combo|combos|festive/.test(lower) || compact.includes("combo") || compact.includes("festivecombos");
 
   if (isFlat50) {
-navigate(`/category/tag/flat50`);
-
-setActiveCategory(null);
+    navigate(`/category/tag/flat50`);
+    setActiveCategory(null);
     setShowBanner(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
     return;
   }
 
   if (isCombo) {
-navigate(`/category/tag/combo`);
-
-setActiveCategory(null);
+    navigate(`/category/tag/combo`);
+    setActiveCategory(null);
     setShowBanner(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
     return;
@@ -120,9 +118,8 @@ setActiveCategory(null);
 
   const finalCategory = redirectMap[subcategory] || subcategory;
 
-navigate(`/category/${encodeURIComponent(finalCategory)}`);
-
-setActiveCategory(null);
+  navigate(`/category/${encodeURIComponent(finalCategory)}`);
+  setActiveCategory(null);
   setShowBanner(false);
   window.scrollTo({ top: 0, behavior: "smooth" });
 };
