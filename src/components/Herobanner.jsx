@@ -107,9 +107,7 @@ export default function HeroBanner() {
   } catch (err) {}
 
   // Open map in NEW TAB after delay
-  setTimeout(() => {
-    window.open(url, "_blank");
-  }, 300);
+  window.location.href = url;
 }}
 
   className="mt-5 inline-block px-6 py-2 text-sm font-semibold bg-white text-pink-600 rounded-full hover:bg-pink-50 transition-all duration-300 animate-fadeIn delay-300"
