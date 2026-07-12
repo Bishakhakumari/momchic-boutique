@@ -11,6 +11,7 @@ import ProductCard from "./components/ProductCard";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import { Gift } from "lucide-react";
 import HeroBanner from "./components/Herobanner";
+import InstallButton from "./components/InstallButton";
 import CategoryPage from "./pages/CategoryPage";
 
 // Google Ads Conversion Tracking for Visit Our Store buttons
@@ -381,14 +382,15 @@ const favourites = products
                   text-center max-w-3xl w-full
                   transition-all duration-500 ease-out
                 ">
-                  💍 Wedding Special Offers:{" "}
-                  <span className="font-semibold">
-                    Exclusive discounts on Lehengas, Sarees, Gowns & more
-                  </span>{" "}
-                  — Hurry Up!
+                  🎉 1st Anniversary Celebration (18–19 July):{" "}
+<span className="font-semibold">
+Buy 3 & Get 40% OFF
+</span>{" "}
+— 2 Days Only!
                 </div>
               </div>
             )}
+            <InstallButton />
 
 {/* 🆕 New Arrivals Section */}
 <section className="p-6 max-w-7xl mx-auto">
