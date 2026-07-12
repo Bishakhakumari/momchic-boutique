@@ -216,9 +216,7 @@ const { name, category, image, price, originalPrice, inStock, trending } = produ
   } catch (err) {}
 
   // Open map in NEW TAB after delay
-  setTimeout(() => {
-    window.open(url, "_blank");
-  }, 300);
+  window.location.href = url;
 }}
 
   className="mt-4 block text-center text-sm font-medium text-pink-600 border border-pink-500 rounded-full py-2 hover:bg-pink-50 transition"

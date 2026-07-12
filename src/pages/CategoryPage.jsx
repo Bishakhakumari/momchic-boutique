@@ -343,9 +343,7 @@ const handleCategoryClick = (cat) => {
   } catch (err) {}
 
   // Open map in NEW TAB after delay
-  setTimeout(() => {
-    window.open(url, "_blank");
-  }, 300);
+  window.location.href = url;
 }}
 
   className="text-pink-600 hover:underline font-medium transition-colors"

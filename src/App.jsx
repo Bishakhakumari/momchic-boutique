@@ -530,9 +530,7 @@ Buy 3 & Get 40% OFF
   } catch (err) {}
 
   // Open map in NEW TAB after delay
-  setTimeout(() => {
-    window.open(url, "_blank");
-  }, 300);
+  window.location.href = url;
 }}
 
   className="mt-5 inline-block px-6 py-2 text-sm md:text-base font-semibold border-2 border-pink-500 text-pink-600 rounded-full hover:bg-pink-50 hover:text-pink-700 transition-all duration-300 shadow-sm"
@@ -615,9 +613,7 @@ Buy 3 & Get 40% OFF
   } catch (err) {}
 
   // Open map in NEW TAB after delay
-  setTimeout(() => {
-    window.open(url, "_blank");
-  }, 300);
+  window.location.href = url;
 }}
 
   className="text-pink-600 text-sm mt-1 inline-block hover:underline"
