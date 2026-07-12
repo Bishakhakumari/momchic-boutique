@@ -12,15 +12,7 @@ export default function CategoryPage() {
   const navigate = useNavigate();
     const location = useLocation();
 
-    useEffect(() => {
-  if (location.state?.cleanHome) {
-    window.history.pushState(
-      null,
-      "",
-      window.location.href
-    );
-  }
-}, [location]);
+
 
   /*// ⭐ Professional history cleanup
   useEffect(() => {

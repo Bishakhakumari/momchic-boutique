@@ -82,9 +82,7 @@ const handleSubcategoryClick = (subcategory) => {
     /combo|combos|festive/.test(lower) || compact.includes("combo") || compact.includes("festivecombos");
 
   if (isFlat50) {
-navigate(`/category/tag/flat50`, {
-  replace: true,
-});
+navigate(`/category/tag/flat50`);
 
 setActiveCategory(null);
     setShowBanner(false);
@@ -93,9 +91,7 @@ setActiveCategory(null);
   }
 
   if (isCombo) {
-navigate(`/category/tag/combo`, {
-  replace: true,
-});
+navigate(`/category/tag/combo`);
 
 setActiveCategory(null);
     setShowBanner(false);
@@ -124,9 +120,7 @@ setActiveCategory(null);
 
   const finalCategory = redirectMap[subcategory] || subcategory;
 
-navigate(`/category/${encodeURIComponent(finalCategory)}`, {
-  replace: true,
-});
+navigate(`/category/${encodeURIComponent(finalCategory)}`);
 
 setActiveCategory(null);
   setShowBanner(false);
