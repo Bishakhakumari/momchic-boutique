@@ -12,6 +12,16 @@ export default function CategoryPage() {
   const navigate = useNavigate();
     const location = useLocation();
 
+    useEffect(() => {
+  if (location.state?.cleanHome) {
+    window.history.pushState(
+      null,
+      "",
+      window.location.href
+    );
+  }
+}, [location]);
+
   /*// ⭐ Professional history cleanup
   useEffect(() => {
     return () => {
@@ -362,7 +372,12 @@ const handleCategoryClick = (cat) => {
         className="text-center mt-6 pb-10"
       >
         <button
-  onClick={() => navigate("/", { replace: true })}
+  onClick={() =>
+    navigate("/", {
+      replace: true,
+      state: { cleanHome: true },
+    })
+  }
 
           className="px-6 py-2 border border-pink-500 text-pink-600 rounded-full text-sm font-medium hover:bg-pink-50 transition"
         >
