@@ -219,8 +219,10 @@ filtered.sort((a, b) => (a.sortOrder || 9999) - (b.sortOrder || 9999));
   }, [selectedCategory, tag]);
 
 const handleCategoryClick = (cat) => {
-    setProducts([]);   // ⭐ CLEAR previous category products here
-    navigate(`/category/${encodeURIComponent(cat)}`);
+    setProducts([]);
+    navigate(`/category/${encodeURIComponent(cat)}`, {
+      replace: true,
+    });
     window.scrollTo({ top: 0, behavior: "smooth" });
 };
 
