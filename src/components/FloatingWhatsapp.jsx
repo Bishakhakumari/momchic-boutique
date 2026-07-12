@@ -3,23 +3,20 @@ export default function FloatingWhatsApp() {
     "https://wa.me/919204613635?text=Hi%20MOMCHIC!%20I%20saw%20your%20collection%20and%20want%20to%20know%20more.";
 
   const handleWhatsAppClick = (e) => {
-    e.preventDefault();
-    const url = whatsappUrl;
+  e.preventDefault();
 
-    // Fire Google Ads Conversion
-    try {
-      if (window.gtag) {
-        window.gtag("event", "conversion", {
-          send_to: "AW-17695821706/DGiTCLz3x8UbEIqfg_ZB",
-        });
-      }
-    } catch (err) {}
+  // Fire Google Ads Conversion
+  try {
+    if (window.gtag) {
+      window.gtag("event", "conversion", {
+        send_to: "AW-17695821706/DGiTCLz3x8UbEIqfg_ZB",
+      });
+    }
+  } catch (err) {}
 
-    // Open WhatsApp in NEW TAB after safe delay
-    setTimeout(() => {
-      window.open(url, "_blank");
-    }, 300);
-  };
+  // Open WhatsApp immediately
+  window.location.href = whatsappUrl;
+};
 
   return (
     <a
