@@ -266,11 +266,10 @@ const handleCategoryClick = (cat) => {
         <div className="bg-pink-50 border border-pink-200 text-pink-700 
           text-sm md:text-base py-2 px-4 rounded-lg shadow-sm 
           text-center max-w-3xl w-full">
-                 ❄️ Winter Style Offers:{" "}
-                  <span className="font-semibold">
-                    Special in-store discounts on winter wear, lehengas & more
-                  </span>{" "}
-                  — Hurry Up!
+                 <span className="font-semibold text-pink-600">
+  Independence Day Special:
+</span>{" "}
+Exclusive Discounts on Our Finest Collections! ✨
         </div>
       </div>
 

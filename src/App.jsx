@@ -382,11 +382,10 @@ const favourites = products
                   text-center max-w-3xl w-full
                   transition-all duration-500 ease-out
                 ">
-                  🎉 1st Anniversary Celebration (18–19 July):{" "}
-<span className="font-semibold">
-Buy 3 & Get 40% OFF
+                <span className="font-semibold text-pink-600">
+  Independence Day Special:
 </span>{" "}
-— 2 Days Only!
+Exclusive Discounts on Our Finest Collections! ✨
                 </div>
               </div>
             )}
