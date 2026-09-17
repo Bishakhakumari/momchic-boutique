@@ -383,9 +383,9 @@ const favourites = products
                   transition-all duration-500 ease-out
                 ">
                 <span className="font-semibold text-pink-600">
-  Independence Day Special:
+  🎀 Festive Season Collection ✨
 </span>{" "}
-Exclusive Discounts on Our Finest Collections! ✨
+Elegant Styles for Every Celebration
                 </div>
               </div>
             )}
