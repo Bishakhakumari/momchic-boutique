@@ -267,9 +267,9 @@ const handleCategoryClick = (cat) => {
           text-sm md:text-base py-2 px-4 rounded-lg shadow-sm 
           text-center max-w-3xl w-full">
                  <span className="font-semibold text-pink-600">
-  Independence Day Special:
+  🎀 Festive Season Collection ✨
 </span>{" "}
-Exclusive Discounts on Our Finest Collections! ✨
+Elegant Styles for Every Celebration
         </div>
       </div>
 
